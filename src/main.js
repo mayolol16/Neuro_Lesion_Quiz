@@ -1,6 +1,5 @@
 import { CLINICAL_CASES } from './cases.js';
 import { DIAGRAM_LEVELS, renderDiagramSVG } from './diagrams.js';
-import { sound } from './audio.js';
 import { DR_COHAN_SLIDES } from './atlas.js';
 
 // Application State
@@ -83,10 +82,6 @@ function renderApp() {
 
         <button id="btn-open-atlas" class="btn-icon" title="View Dr. Cohan's 14-Slide Drawing Atlas">
           <span>🎨 Dr. Cohan's Drawing Guide</span>
-        </button>
-
-        <button id="btn-toggle-mute" class="btn-icon" title="Mute/Unmute Sounds">
-          <span>${sound.muted ? '🔇' : '🔊'}</span>
         </button>
       </div>
     </header>
@@ -435,7 +430,6 @@ function attachEventHandlers() {
   // Filter pills
   document.querySelectorAll('.filter-pill[data-filter]').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      sound.playClick();
       state.activeFilter = e.target.dataset.filter;
       state.currentCaseIndex = 0;
       resetCaseInputs();
@@ -447,7 +441,6 @@ function attachEventHandlers() {
   const dropdown = document.getElementById('case-select-dropdown');
   if (dropdown) {
     dropdown.addEventListener('change', (e) => {
-      sound.playClick();
       state.currentCaseIndex = parseInt(e.target.value, 10);
       resetCaseInputs();
       renderApp();
@@ -459,7 +452,6 @@ function attachEventHandlers() {
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {
       if (state.currentCaseIndex > 0) {
-        sound.playClick();
         state.currentCaseIndex--;
         resetCaseInputs();
         renderApp();
@@ -472,7 +464,6 @@ function attachEventHandlers() {
     nextNavBtn.addEventListener('click', () => {
       const filtered = getFilteredCases();
       if (state.currentCaseIndex < filtered.length - 1) {
-        sound.playClick();
         state.currentCaseIndex++;
         resetCaseInputs();
         renderApp();
@@ -485,7 +476,6 @@ function attachEventHandlers() {
   if (nextFeedbackBtn) {
     nextFeedbackBtn.addEventListener('click', () => {
       const filtered = getFilteredCases();
-      sound.playClick();
       if (state.currentCaseIndex < filtered.length - 1) {
         state.currentCaseIndex++;
       } else {
@@ -499,7 +489,6 @@ function attachEventHandlers() {
   // Why Radios
   document.querySelectorAll('.why-option-card').forEach(card => {
     card.addEventListener('click', (e) => {
-      sound.playClick();
       const radio = card.querySelector('input[type="radio"]');
       if (radio) {
         radio.checked = true;
@@ -513,7 +502,6 @@ function attachEventHandlers() {
   // Level Tabs
   document.querySelectorAll('.level-tab').forEach(tab => {
     tab.addEventListener('click', (e) => {
-      sound.playClick();
       const levelId = tab.closest('.level-tab').dataset.level;
       state.selectedLevel = levelId;
       renderApp();
@@ -527,7 +515,6 @@ function attachEventHandlers() {
       const struct = e.target.closest('.interactive-struct');
       if (struct) {
         const structId = struct.dataset.id;
-        sound.playClick();
         if (state.selectedStructures.includes(structId)) {
           state.selectedStructures = state.selectedStructures.filter(id => id !== structId);
         } else {
@@ -560,7 +547,6 @@ function attachEventHandlers() {
   document.querySelectorAll('.struct-pill-remove').forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      sound.playClick();
       const sId = btn.dataset.remove;
       state.selectedStructures = state.selectedStructures.filter(id => id !== sId);
       renderApp();
@@ -571,7 +557,6 @@ function attachEventHandlers() {
   const resetBtn = document.getElementById('btn-reset-selection');
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
-      sound.playClick();
       state.selectedStructures = [];
       state.selectedWhyIndex = null;
       state.feedback = null;
@@ -591,7 +576,6 @@ function attachEventHandlers() {
   const openAtlasBtn = document.getElementById('btn-open-atlas');
   if (openAtlasBtn) {
     openAtlasBtn.addEventListener('click', () => {
-      sound.playClick();
       state.showAtlasModal = true;
       renderApp();
     });
@@ -618,7 +602,6 @@ function attachEventHandlers() {
   // Slide Selection in Atlas
   document.querySelectorAll('[data-slide]').forEach(elem => {
     elem.addEventListener('click', (e) => {
-      sound.playClick();
       const slideIdx = parseInt(elem.closest('[data-slide]').dataset.slide, 10);
       state.activeAtlasSlide = slideIdx;
       renderApp();
@@ -629,7 +612,6 @@ function attachEventHandlers() {
   const viewDrawTipBtn = document.getElementById('btn-view-drawing-tip');
   if (viewDrawTipBtn) {
     viewDrawTipBtn.addEventListener('click', () => {
-      sound.playClick();
       state.showDrawingTipModal = true;
       renderApp();
     });
@@ -653,20 +635,10 @@ function attachEventHandlers() {
     });
   }
 
-  // Toggle Mute
-  const muteBtn = document.getElementById('btn-toggle-mute');
-  if (muteBtn) {
-    muteBtn.addEventListener('click', () => {
-      sound.toggleMute();
-      renderApp();
-    });
-  }
-
   // Toggle Exam Mode
   const examToggleBtn = document.getElementById('btn-toggle-exam');
   if (examToggleBtn) {
     examToggleBtn.addEventListener('click', () => {
-      sound.playClick();
       state.examMode = !state.examMode;
       resetCaseInputs();
       renderApp();
@@ -679,7 +651,6 @@ function resetCaseInputs() {
   state.selectedStructures = [];
   state.selectedWhyIndex = null;
   state.feedback = null;
-  // In practice mode, we can pre-switch to the case's level to help students visualize
   if (!state.examMode) {
     state.selectedLevel = currentCase.correctLevel;
   }
@@ -701,9 +672,7 @@ function evaluateDiagnosis() {
   const selectedSet = new Set(state.selectedStructures);
   const correctSet = new Set(currentCase.correctStructures);
 
-  // Partial or full match
   let matchesAll = selectedSet.size === correctSet.size && [...selectedSet].every(s => correctSet.has(s));
-  const hasAtLeastOne = [...selectedSet].some(s => correctSet.has(s));
 
   // Determine side correctness
   let sideCorrect = false;
@@ -727,14 +696,12 @@ function evaluateDiagnosis() {
   // Update Stats
   state.stats.attempted++;
   if (isOverallCorrect) {
-    sound.playCorrect();
     state.stats.correct++;
     state.stats.streak++;
     if (state.stats.streak > state.stats.bestStreak) {
       state.stats.bestStreak = state.stats.streak;
     }
   } else {
-    sound.playIncorrect();
     state.stats.streak = 0;
   }
 

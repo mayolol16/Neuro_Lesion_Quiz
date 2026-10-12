@@ -17,8 +17,8 @@ Interactive clinical neuroanatomy lesion localization simulator and exam trainer
   - Formulate the pathophysiological justification (decussation timing, somatotopic fiber arrangement, vascular territories, modality dissociations).
 - **Dr. Cohan's Drawing Guide & Atlas**:
   - Integrated 14-slide step-by-step drawing atlas teaching how to draw every brainstem outline and pathway neatly for full exam credit.
-- **Synthesized Audio & Gamification**:
-  - Web Audio API real-time sound chimes, streak tracking, accuracy scoring, and practice vs. exam modes.
+- **Streak Tracking & Gamification**:
+  - Streak tracking, accuracy scoring, and practice vs. exam modes.
 
 ---
 
@@ -58,7 +58,6 @@ neuro-lesion-trainer/
 │   ├── cases.js        # 40 detailed clinical neuroanatomy cases & rationales
 │   ├── diagrams.js     # Interactive SVG generators for all 8 CNS levels
 │   ├── atlas.js        # Dr. Cohan's 14-slide drawing atlas & mnemonics
-│   ├── audio.js        # Web Audio API sound synthesizer
 │   └── style.css       # Obsidian dark theme, glowing SVG tracts & responsive layout
 └── README.md
 ```

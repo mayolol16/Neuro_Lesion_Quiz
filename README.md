@@ -65,6 +65,3 @@ neuro-lesion-trainer/
 
 ---
 
-## 🎓 Educational Credit
-
-Cross-sectional drawing templates and somatotopic rules based on the teachings of **Dr. Chris Cohan, PhD**, Jacobs School of Medicine and Biomedical Sciences, University at Buffalo.

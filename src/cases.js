@@ -27,10 +27,10 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Ventral White Commissure of Spinal Cord (C6-C8)",
     clinicalSyndrome: "Syringomyelia",
     whyOptions: [
-      "Second-order spinothalamic axons decussate across the ventral white commissure at their segment of entry; a central expanding syrinx interrupts these crossing fibers bilaterally while sparing ascending tracts in the periphery.",
-      "The dorsal column fibers cross at the cervical cord level, causing bilateral loss of discriminative pain and temperature.",
-      "Primary nociceptors enter through Lissauer's tract and cross immediately into the contralateral dorsal funiculus.",
-      "A lesion of the lateral corticospinal tract prevents motor reflex response to painful steam burns."
+      "Second-order spinothalamic axons decussate across the ventral white commissure near entry; an expanding central syrinx selectively interrupts these crossing fibers bilaterally while sparing peripheral tracts.",
+      "First-order nociceptive afferents enter Lissauer tract and cross immediately through the dorsal funiculus; a focal lesion here eliminates bilateral pain transmission while sparing ascending dorsal column pathways.",
+      "Ascending dorsal column fibers decussate at the cervical cord level; an ischemic lesion in the anterior spinal artery territory eliminates bilateral discriminative pain sensations while preserving conscious touch.",
+      "Lateral corticospinal axons descending through the cervical tegmentum synapse on reflex interneurons; their focal transection abolishes cutaneous nociceptive withdrawal reflexes without affecting conscious touch."
     ],
     correctWhyIndex: 0,
     drCohanRule: "Recognize bilateral loss of pain and temperature producing a 'suspended' sensory loss as the hallmark of SYRINGOMYELIA. A central canal lesion interrupts crossing fibers in the ventral white commissure.",
@@ -57,12 +57,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Left Medial Lemniscus & Left Ventral Trigeminothalamic Tract (VTT)",
     clinicalSyndrome: "Pontine/Midbrain Tegmental Infarct (ML + VTT)",
     whyOptions: [
-      "In the rostral pons and midbrain, the VTT contains crossed trigeminal fibers for both touch and pain/temp and lies immediately adjacent to the Medial Lemniscus; the ALS (body pain/temp) lies more laterally and is spared.",
-      "The medial lemniscus carries all sensation from both the body and face, while the spinothalamic tract is purely motor.",
-      "The lesion is in the right medulla because second-order fibers have not yet crossed at this level.",
-      "The chief sensory nucleus of V decussates in the midbrain and travels within the corticospinal tract."
+      "Medial lemniscus fibers carry all sensory modalities from both face and body; a lesion in the dorsal pons tegmentum destroys contralateral tactile sensations while the spinothalamic tract remains strictly motor.",
+      "In rostral pons tegmentum, crossed VTT fibers carrying all face modalities run directly adjacent to Medial Lemniscus, whereas body pain fibers in ALS diverge laterally and remain spared outside the lesion zone.",
+      "Primary trigeminal sensory axons decussate in the midbrain tegmentum before entering the thalamus; a focal infarct here selectively destroys facial touch and body proprioception while sparing facial pain fibers.",
+      "Descending corticobulbar projections to the spinal trigeminal nucleus decussate in the rostral pons; their transection interrupts contralateral facial pain processing while preserving bilateral peripheral sensation."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 1,
     drCohanRule: "In mid/rostral pons or midbrain, VTT is 'Hi neighbor!' to the medial lemniscus. VTT carries all sensory modalities from the contralateral face. ALS moves laterally to separate from ML, explaining why body pinprick is spared.",
     drawingInstruction: "Draw the Rostral Pons 'Snowman' (Slide 6/13) or Midbrain 'Pig' (Slide 7/14). In the upper oval tegmentum on the LEFT side, shade the horizontal Medial Lemniscus and adjacent VTT. Leave the lateral ALS unshaded.",
     explanation: "The medial lemniscus contains crossed fibers from the contralateral body (right body) for touch, vibration, and proprioception. In the rostral pons and midbrain tegmentum, the Ventral Trigeminothalamic Tract (VTT) carries crossed secondary trigeminal fibers (touch from principal sensory nucleus and pain/temp from spinal V) and sits immediately adjacent to the medial lemniscus. A focal lesion here damages Left ML + Left VTT, knocking out right body touch/proprioception and ALL right face modalities. The ALS (body pain/temp) diverges laterally at rostral levels and is completely spared!"
@@ -86,12 +86,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Left Spinal Trigeminal Tract/Nucleus & Left Spinothalamic Tract (ALS)",
     clinicalSyndrome: "Lateral Medullary Syndrome (Wallenberg Syndrome)",
     whyOptions: [
-      "In the lateral medulla, primary trigeminal pain fibers descend uncrossed in the spinal trigeminal tract (ipsilateral face loss), while body pain fibers in the ALS have already crossed in the spinal cord (contralateral body loss).",
-      "Medial lemniscus fibers carry pain and temperature from the face, whereas the spinothalamic tract carries touch from the opposite body.",
-      "Both face and body pain pathways cross at the junction of the midbrain and diencephalon.",
-      "The spinal trigeminal nucleus decussates in the rostral pons, causing ipsilateral face and body deficits."
+      "Secondary trigeminal afferents decussate in the rostral medulla to form the medial lemniscus, whereas the spinothalamic tract carries uncrossed pain and temperature fibers ascending from the ipsilateral body.",
+      "Both facial and somatic pain pathways decussate at the ponto-mesencephalic junction; a focal lesion here interrupts ipsilateral body pain sensations and contralateral facial sensation while sparing touch.",
+      "In lateral medulla, primary trigeminal pain fibers descend uncrossed in spinal V tract (ipsilateral face deficit), while body pain fibers in ALS have already decussated in cord (contralateral body deficit).",
+      "Ascending gracilis and cuneatus fibers decussate in the caudal medulla tegmentum; an ischemic infarct in PICA territory selectively destroys crossed facial pain fibers while preserving body proprioception."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 2,
     drCohanRule: "The classic 'crossed' or 'alternating' sensory deficit (ipsilateral face + contralateral body pain/temp) localizes strictly to the LATERAL MEDULLA (PICA territory). ML is medial and spared.",
     drawingInstruction: "Draw the Rostral Medulla (Slide 4/11: big circle with 2 olives, 2 pyramids, 2 ICPs). In the LEFT dorsolateral tegmentum, shade the Spinal Trigeminal Tract/Nucleus and the adjacent ALS. Medial structures (ML, pyramids) are normal.",
     explanation: "This is the classic Wallenberg (lateral medullary) syndrome, typically caused by occlusion of PICA or the vertebral artery. The primary sensory neurons of CN V enter the brainstem and descend uncrossed in the spinal trigeminal tract to synapse in the spinal trigeminal nucleus. Thus, a left lesion causes loss of pain/temp on the IPSILATERAL (left) face. In contrast, body pain and temperature fibers crossed in the spinal cord and ascend in the lateral medulla via the ALS. A left ALS lesion produces CONTRALATERAL (right) body pain/temp loss. The medial lemniscus lies medially along the midline, so touch/vibration/proprioception is completely spared."
@@ -115,12 +115,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Paracentral Lobule (Primary Somatosensory Cortex, Foot Area)",
     clinicalSyndrome: "Cortical Somatosensory Deficit (ACA Territory)",
     whyOptions: [
-      "The primary somatosensory cortex (postcentral gyrus / paracentral lobule) is required for discriminative touch, proprioception, and precise localization of noxious stimuli; the lower extremity is mapped medially in the paracentral lobule.",
-      "The dorsal column decussates in the lumbar cord, so a lesion in the right internal capsule affects only the left arm.",
-      "Crude sensation is processed in the precentral gyrus, while vibration is exclusively processed in the cerebellar cortex.",
-      "The left fasciculus gracilis was compressed at the level of the sacral plexus."
+      "Primary afferent fibers ascending in the fasciculus gracilis decussate in the lumbar enlargement; a focal infarct in the internal capsule posterior limb selectively impairs contralateral foot proprioception.",
+      "Crude tactile sensation is integrated in the precentral gyrus, whereas conscious joint position sense and vibratory localization require the cerebellar hemispheres, explaining the clumsy gait and missed goals.",
+      "The posterior thalamic peduncle separates foot nociception from tactile afferents; an ischemic lesion in the middle cerebral artery territory selectively spares crude touch while eliminating vibration.",
+      "Primary somatosensory cortex in the paracentral lobule mediates discriminative touch and precise pinprick localization for the foot; crude pain reaches subcortical thalamus and is preserved but poorly mapped."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 3,
     drCohanRule: "Cortical lesions do not completely abolish pain awareness (crude pain reaches thalamus), but impair DISCRIMINATIVE functions: joint position, vibration, and exact localization of noxious stimuli. Lower extremity is in the paracentral lobule.",
     drawingInstruction: "Draw a coronal slice or medial hemispheric view of the cerebral cortex. In the RIGHT hemisphere, shade the MEDIAL surface of the postcentral gyrus inside the longitudinal fissure (Posterior Paracentral Lobule).",
     explanation: "Cortical lesions in primary somatosensory cortex (areas 3, 1, 2) selectively impair discriminative sensory modalities (joint position sense, 2-point discrimination, stereognosis, and high-fidelity spatial localization of pain). Crude pain sensation is perceived subcortically at the thalamic level, which explains why pinprick was still felt but was dull and poorly localized. The sensory homunculus maps the lower extremity and foot onto the medial bank of the hemisphere within the paracentral lobule (supplied by the anterior cerebral artery, ACA)."
@@ -143,10 +143,10 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Left Anterolateral System (ALS) at T2",
     clinicalSyndrome: "Isolated Unilateral Cordotomy / ALS Transection",
     whyOptions: [
-      "Spinothalamic fibers ascend 1-2 segments in Lissauer's tract before synapsing and decussating across the ventral white commissure; thus a spinal ALS lesion produces contralateral loss beginning 1-2 segments BELOW the anatomical lesion.",
-      "The spinothalamic tract decussates in the medulla, so a lesion at T4 affects sensation at the identical dermatome on the same side.",
-      "Dorsal column fibers cross immediately at entry, causing contralateral loss of pain and temperature.",
-      "The lesion must be on the right side at T6 because fibers descend before crossing."
+      "Primary pain afferents ascend 1 to 2 segments in Lissauer tract before crossing via the ventral white commissure; an ALS lesion therefore causes contralateral loss starting 2 dermatomes below the spinal lesion.",
+      "Second-order spinothalamic axons ascend uncrossed in the lateral funiculus and decussate in the medulla; a cord lesion at T2 therefore abolishes ipsilateral pain sensations starting 2 segments below injury.",
+      "Dorsal column fibers cross immediately upon entry into the spinal gray matter; a focal transection of the lateral cord at T2 eliminates contralateral discriminative pain while sparing proprioceptive pathways.",
+      "Primary nociceptors descend 2 segments in the fasciculus cuneatus before synapsing in dorsal horn; an ALS lesion at T2 therefore produces bilateral sensory loss beginning at the exact anatomical lesion level."
     ],
     correctWhyIndex: 0,
     drCohanRule: "A lesion of the spinal cord ALS produces a CONTRALATERAL loss of pain and temperature starting at a dermatome 2 levels BELOW the lesion (T4 deficit $\rightarrow$ T2 lesion on the contralateral side).",
@@ -172,12 +172,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Left Hemicord (Left Fasciculus Gracilis + Left ALS at T8)",
     clinicalSyndrome: "Brown-Séquard Syndrome (Spinal Cord Hemisection)",
     whyOptions: [
-      "A spinal cord hemisection destroys uncrossed ascending dorsal columns (ipsilateral touch/proprioception loss) and crossed ascending spinothalamic fibers (contralateral pain/temp loss starting 2 segments below the lesion: T10 deficit = T8 lesion).",
-      "The medial lemniscus decussates in the lumbar cord, giving contralateral vibratory loss and ipsilateral pain loss.",
-      "The anterior white commissure was destroyed across 10 spinal segments.",
-      "Fasciculus cuneatus was severed on the right side at T10."
+      "Medial lemniscus fibers decussate in the thoracic spinal cord; a hemisection destroys crossed vibratory pathways for the opposite leg and uncrossed spinothalamic fibers carrying pain from the ipsilateral leg.",
+      "A spinal cord hemisection destroys uncrossed dorsal columns (ipsilateral touch and proprioception loss) and crossed spinothalamic tract (contralateral pain and temperature loss starting 2 segments below).",
+      "Ventral white commissure fibers are severed across several segments; this produces bilateral loss of conscious proprioception below the lesion and contralateral spastic paralysis of the lower extremity.",
+      "Descending lateral corticospinal axons cross in the lumbar cord; a thoracic hemisection destroys contralateral voluntary motor power while sparing ipsilateral pain and temperature sensation below the lesion."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 1,
     drCohanRule: "Recognize loss of tactile/proprioception on ONE side and loss of pain/temp on the OPPOSITE side as Brown-Séquard syndrome localizing to the SPINAL CORD. Side = side of tactile loss (Left). Level = 2 segments above pinprick loss (T10 - 2 = T8).",
     drawingInstruction: "Draw the Spinal Cord oval (Slide 2/9) at T8. Shade the entire LEFT hemicord: Left Fasciculus Gracilis in the dorsal column and Left ALS in the anterolateral quadrant.",
     explanation: "This is classic Brown-Séquard syndrome resulting from spinal cord hemisection. The dorsal columns ascend uncrossed in the cord, so a left-sided lesion causes IPSILATERAL (left) loss of touch, vibration, and proprioception below the lesion level. The ALS carries crossed pain and temperature fibers that decussated 1-2 segments below; thus, a left ALS lesion causes CONTRALATERAL (right) pain/temperature loss beginning 2 dermatomes below the lesion level. Since the sensory level is at the umbilicus (T10), the anatomical lesion is on the LEFT at level T8."
@@ -205,12 +205,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Bilateral Fasciculus Gracilis (Dorsal Columns $\\le$ T6)",
     clinicalSyndrome: "Subacute Combined Degeneration (B12 Deficiency)",
     whyOptions: [
-      "Dorsal column degeneration produces bilateral loss of vibration/position and sensory ataxia (Romberg); normal arms indicate fasciculus cuneatus is spared, isolating the lesion to bilateral fasciculus gracilis below T6.",
-      "The spinocerebellar tracts carry vibratory sense from the legs and decussate in the pons.",
-      "Ventral white commissure fibers are selectively depleted by vitamin B12 deficiency.",
-      "The medial lemniscus was bilaterally infarcted in the midbrain."
+      "The spinocerebellar tracts carry vibratory sense from the lower limbs and decussate in the caudal pons tegmentum; their selective demyelination causes severe sensory ataxia and impaired Romberg testing.",
+      "Second-order spinothalamic neurons in the dorsal horn depend on vitamin B12 for myelin maintenance; their selective degeneration eliminates bilateral lower extremity pain perception while sparing arms.",
+      "Dorsal column degeneration produces bilateral loss of vibration and position with sensory ataxia (Romberg); normal arms indicate fasciculus cuneatus is spared, isolating the lesion to gracilis below T6.",
+      "Ventral white commissure fibers are selectively depleted by metabolic cobalamin deficiency; this causes bilateral lower extremity position loss while sparing ascending gracilis fibers in the dorsal cord."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 2,
     drCohanRule: "Bilateral loss of vibration and position in legs with normal pain/temp is a dorsal column pattern. Positive Romberg confirms loss of proprioception. Sparing of arms means fasciculus cuneatus is intact; below T6 dorsal columns contain only gracilis.",
     drawingInstruction: "Draw the Spinal Cord oval (Slide 2/9) at T6 or below. In the posterior funiculus, shade BOTH the left and right Fasciculus Gracilis along the dorsal midline. Leave lateral white matter and gray matter intact.",
     explanation: "Vitamin B12 deficiency in strict vegetarians causes subacute combined degeneration, predominantly affecting the dorsal columns and lateral corticospinal tracts. Loss of conscious proprioception causes sensory ataxia, dramatically worsened in the absence of visual compensation (positive Romberg test). Fasciculus gracilis carries fibers from the lower body (T7 and below). Fasciculus cuneatus (arms/upper body) only enters at T6 and above. Because upper extremity sensation is completely normal, the pathology is restricted to the bilateral fasciculus gracilis below T6."
@@ -234,12 +234,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Thalamus (VPL for body + VPM for face)",
     clinicalSyndrome: "Pure Sensory Stroke (Thalamic Lacunar Infarct)",
     whyOptions: [
-      "In the thalamus, all crossed second-order somatosensory pathways converge into a compact relay: VPL for the contralateral body and VPM for the contralateral face; a single vascular lesion abolishes all modalities split sharply at midline.",
-      "The primary somatosensory cortex processes all modalities together in a single column without spatial division.",
-      "The medial lemniscus merges with the spinal trigeminal tract in the caudal medulla to form a single tract.",
-      "The right posterior limb of the internal capsule only carries motor fibers, so the thalamus is excluded."
+      "The primary somatosensory cortex processes all somatic and cranial modalities in an undifferentiated central column; an ischemic infarct here eliminates all contralateral sensation without midline split.",
+      "The medial lemniscus merges with the descending spinal trigeminal tract within the caudal medulla; an ischemic stroke at this medullary level eliminates all sensory modalities across the contralateral body.",
+      "The posterior limb of the internal capsule carries purely somatic sensory projections, whereas facial sensations travel through the anterior limb, explaining the preservation of cranial nerve functions.",
+      "In the thalamus, all crossed second-order somatosensory pathways converge into a compact relay: VPL for contralateral body and VPM for contralateral face; a single vascular lesion abolishes all modalities."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 3,
     drCohanRule: "All second-order fibers (medial lemniscus, spinothalamic tract, and trigeminothalamic tracts) have already crossed and converge in the thalamus (VPL for body, VPM for face). A lesion produces complete contralateral loss splitting at midline.",
     drawingInstruction: "Draw a diencephalon / thalamus cross-section. On the RIGHT side, shade the Ventral Posterolateral (VPL) nucleus and the adjacent Ventral Posteromedial (VPM) nucleus.",
     explanation: "This is a classic 'pure sensory stroke' usually caused by a lacunar infarct in the territory of the thalamoperforating or thalamogeniculate arteries. The thalamus is the obligatory sensory relay for all conscious body and head sensations before projection to cortex: the Ventral Posterolateral (VPL) nucleus receives medial lemniscus and spinothalamic fibers from the contralateral body, while the Ventral Posteromedial (VPM) nucleus receives trigeminothalamic fibers from the contralateral face. A lesion of right VPL + VPM destroys all sensation on the left body and face, splitting cleanly at the midline."
@@ -263,10 +263,10 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Medial Lemniscus (Rostral Medulla)",
     clinicalSyndrome: "Medial Medullary Syndrome Variant (Selective ML Lesion)",
     whyOptions: [
-      "Second-order dorsal column fibers cross in the internal arcuate fibers of the caudal medulla; in the rostral medulla, the Medial Lemniscus carries crossed touch/vibration/proprioception from the contralateral body, while face fibers and ALS lie elsewhere.",
-      "The spinothalamic tract decussates in the rostral medulla, carrying tactile sensation from the body.",
-      "Face tactile fibers travel inside the medial lemniscus, while body fibers travel in the VTT.",
-      "Because the deficit is on the left body, the lesion must be on the left side of the rostral medulla."
+      "Internal arcuate fibers cross in caudal medulla to form the Medial Lemniscus; in rostral medulla it carries crossed body touch/proprioception, while face fibers travel separately and ALS lies far laterally.",
+      "The spinothalamic tract decussates in the rostral medulla tegmentum; an ischemic lesion here selectively eliminates tactile sensations from the contralateral body while sparing primary nociceptive afferents.",
+      "Trigeminal sensory axons ascend inside the medial lemniscus alongside somatic fibers; an isolated medial medullary lesion therefore abolishes both facial and bodily discriminative touch on the opposite side.",
+      "Dorsal column fibers ascend uncrossed until reaching the thalamic VPL nucleus; a lesion in the left rostral medulla therefore produces an ipsilateral loss of touch, vibration, and conscious proprioception."
     ],
     correctWhyIndex: 0,
     drCohanRule: "Rule of thumb: The lesion is on the side OPPOSITE the body deficit! Since left body touch/proprioception is lost, the lesion is in the RIGHT medial lemniscus. Rostral medulla ML is a vertical ribbon between the olives.",
@@ -293,12 +293,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Left Postcentral Gyrus (Primary Somatosensory Cortex, Hand & Lower Face Area)",
     clinicalSyndrome: "Cortical Somatosensory Syndrome (MCA Territory)",
     whyOptions: [
-      "Cortical lesions impair discriminative functions (stereognosis, 2-point, joint position, localization of pain) rather than crude sensation; the hand and lower face are adjacent on the lateral convexity of the postcentral gyrus.",
-      "The medial lemniscus projects directly to the parietal lobule without synapsing in the thalamus.",
-      "Damage to the right paracentral lobule selectively denervates the hand and lower face.",
-      "A lesion of the fasciculus cuneatus at C2 selectively abolishes stereognosis while preserving touch."
+      "Medial lemniscus fibers project directly to the superior parietal lobule without relaying in the thalamus; a cortical stroke selectively abolishes crude temperature awareness while preserving stereognosis.",
+      "Cortical lesions impair discriminative functions (stereognosis, 2-point, joint position, pain localization) rather than crude feeling; hand and face lie adjacent on the lateral convexity of postcentral gyrus.",
+      "Damage to the paracentral lobule along the medial hemisphere convexity selectively denervates the contralateral hand and lower face, while completely sparing the trunk and lower extremity representations.",
+      "Fasciculus cuneatus fibers synapse in the postcentral gyrus without crossing; a cortical infarct selectively abolishes stereognosis and two-point discrimination while leaving nociception completely intact."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 1,
     drCohanRule: "Cortical lesions impair discriminative sensation (stereognosis, two-point, localization) rather than abolishing crude feeling. Hand and face are neighbors on the sensory homunculus in the lateral postcentral gyrus (areas 3, 1, 2).",
     drawingInstruction: "Draw the cerebral cortex (lateral convexity or coronal view). In the LEFT hemisphere, shade the inferior/lateral portion of the Postcentral Gyrus corresponding to the hand and lower face representations.",
     explanation: "Complex somatosensory processing including stereognosis, two-point discrimination, graphesthesia, and pinpoint localization of pain requires the primary somatosensory cortex (Brodmann areas 3, 1, 2). Lesions here spare crude subcortical pain perception at the thalamus but destroy discriminative capacity. On the homunculus along the lateral convexity of the postcentral gyrus (supplied by the MCA), the hand and lower face lie directly adjacent to each other and separate from the trunk and leg."
@@ -322,12 +322,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right ALS + Right Ventral Trigeminothalamic Tract (VTT)",
     clinicalSyndrome: "Rostral Brainstem Tegmental Lesion (ALS + VTT)",
     whyOptions: [
-      "Above the trigeminal decussation in the pons, both face pain fibers (VTT) and body pain fibers (ALS) have crossed and ascend adjacent to each other laterally; a single lesion causes contralateral loss on both face and body (unlike the crossed pattern in lateral medulla).",
-      "In the medulla, face pain fibers cross before entering the spinal trigeminal nucleus.",
-      "The medial lemniscus merges with the spinal trigeminal tract in the rostral pons.",
-      "The lesion is located in the left thalamus because all pain fibers are ipsilateral."
+      "In the rostral medulla, primary facial pain fibers cross before entering the spinal trigeminal nucleus, producing a bilateral sensory deficit on both the face and body when the lateral tegmentum is damaged.",
+      "The medial lemniscus merges directly with the anterolateral system in the rostral pons; an ischemic lesion therefore abolishes contralateral pain and temperature on both the face and body while sparing touch.",
+      "Above the trigeminal decussation in the pons, both face pain fibers (VTT) and body pain fibers (ALS) have crossed and ascend together laterally; a single lesion causes contralateral loss on both face and body.",
+      "Primary trigeminal nociceptors descend through the medial longitudinal fasciculus before synapsing; their destruction in the rostral pons produces contralateral face and body pain loss with normal touch."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 2,
     drCohanRule: "Difference from lateral medulla: In the lateral medulla, spinal V is uncrossed (ipsilateral face) and ALS is crossed (contralateral body) $\rightarrow$ crossed deficit. In rostral pons/midbrain, BOTH VTT and ALS have crossed $\rightarrow$ contralateral face AND body!",
     drawingInstruction: "Draw the Rostral Pons 'Snowman' (Slide 6/13) or Midbrain 'Pig' (Slide 7/14). On the RIGHT side, in the lateral tegmentum, shade the ALS and adjacent VTT ('Hi neighbor!'). Medial Lemniscus remains unshaded.",
     explanation: "This vignette contrasts directly with Lateral Medullary Syndrome (Wallenberg). In the medulla, facial pain fibers are primary uncrossed afferents in the spinal V tract, yielding an ipsilateral face and contralateral body deficit. But once secondary trigeminal axons cross in the pons/medulla and ascend in the VTT, they travel right alongside the crossed ALS in the lateral tegmentum of the rostral pons and midbrain. Thus, a lesion in the right rostral tegmentum destroys both crossed tracts, producing CONTRALATERAL (left) face and body pain/temperature loss."
@@ -351,12 +351,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Spinal Trigeminal Nucleus (Pars Caudalis) & Tract (Caudal Portion)",
     clinicalSyndrome: "Onion-Skin Somatotopy of Spinal Trigeminal Nucleus",
     whyOptions: [
-      "The spinal trigeminal nucleus has an 'onion-skin' somatotopic organization along its rostrocaudal length: the central perioral region is represented rostrally (near obex), while the peripheral outer face is represented caudally (caudal medulla to C2).",
-      "V1 and V2 divisions of the trigeminal nerve terminate exclusively in the chief sensory nucleus in the midbrain.",
-      "Perioral sensation is carried exclusively by the facial nerve (CN VII) through the tractus solitarius.",
-      "The dorsal column nuclei in the caudal medulla suppress pain sensation from the central mouth."
+      "The ophthalmic and maxillary divisions of the trigeminal nerve terminate exclusively in the chief sensory nucleus in the mid-pons, explaining why caudal medullary pathology selectively spares the mouth area.",
+      "Perioral pain and temperature sensations are transmitted exclusively by the facial nerve through the solitary nucleus; a lesion of the caudal spinal trigeminal tract therefore selectively spares the lips.",
+      "Dorsal column nuclei in the caudal medulla suppress pain transmission from the perioral zone; their focal ischemia selectively abolishes peripheral facial nociception while sparing the central oral cavity.",
+      "The spinal trigeminal nucleus has an onion-skin somatotopy: the central perioral area is mapped rostrally near the obex, while peripheral outer facial rings are mapped caudally from caudal medulla to C2."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 3,
     drCohanRule: "Face representation in spinal trigeminal nucleus follows an 'onion skin' pattern: perioral is rostral, outer face (cheeks, jaw, ears) is caudal. A lesion at caudal medulla to C2 spares the central face. Touch is spared because chief sensory nuc is in the pons.",
     drawingInstruction: "Draw the Caudal Medulla (Slide 3/10: circle with central canal 1/3 from top). On the RIGHT side, shade the lateral-most circle of the '3 circle neighbors' (Right Spinal Trigeminal Tract and Nucleus).",
     explanation: "The spinal trigeminal nucleus pars caudalis exhibits a unique concentric 'onion-skin' somatotopic organization in its rostrocaudal axis. Fibers innervating the central face (mouth, lips, tip of nose) terminate rostrally near the obex of the medulla. Fibers innervating progressively more lateral rings of the face (cheek, forehead, ear, occiput) terminate progressively more caudally down to C2. Therefore, a caudal medullary/upper cervical lesion damages the outer concentric zones while sparing the rostrally represented perioral center."
@@ -384,10 +384,10 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Medial Lemniscus, Right Pyramid, Right CN XII Nucleus",
     clinicalSyndrome: "Medial Medullary Syndrome (Dejerine Syndrome)",
     whyOptions: [
-      "Anterior spinal artery branch occlusion damages the medial rostral medulla: ipsilateral CN XII nerve/nucleus (tongue deviates to right), crossed pyramid (contralateral left hemiparesis), and crossed medial lemniscus (contralateral left proprioception/touch loss).",
-      "PICA occlusion causes contralateral tongue deviation and ipsilateral proprioceptive loss.",
-      "The corticospinal tract decussates in the midbrain, causing ipsilateral weakness.",
-      "Medial lemniscus fibers carry pain and temperature, while the spinothalamic tract carries tongue motor control."
+      "Anterior spinal artery occlusion infarcts the medial rostral medulla: ipsilateral CN XII (tongue deviates right), uncrossed pyramid (contralateral hemiparesis), and crossed medial lemniscus (proprioception).",
+      "PICA occlusion infarcts the dorsolateral medulla, damaging the exiting hypoglossal rootlets and causing contralateral tongue deviation alongside ipsilateral loss of conscious proprioception and vibration.",
+      "The corticospinal tract decussates in the midbrain tegmentum; an anterior spinal artery infarct in the rostral medulla therefore causes ipsilateral spastic hemiparesis and contralateral tongue atrophy.",
+      "Medial lemniscus fibers carry pain and temperature from the face, whereas the spinothalamic tract carries tongue motor fibers; their infarction produces contralateral hemiparesis and tongue deviation."
     ],
     correctWhyIndex: 0,
     drCohanRule: "Medial Medullary Syndrome triad: Medial Lemniscus (contralateral proprioception loss) + Pyramid (contralateral hemiparesis) + CN XII (ipsilateral tongue deviation). Medial rostral medulla between the olives!",
@@ -412,12 +412,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Left Crus Cerebri & Left Oculomotor (CN III) Fascicles",
     clinicalSyndrome: "Weber Syndrome (Superior Alternating Hemiplegia)",
     whyOptions: [
-      "PCA paramedian branch infarction damages the ventral midbrain, interrupting exiting ipsilateral CN III fibers (left oculomotor palsy) and uncrossed descending corticospinal/corticobulbar fibers in the crus cerebri (contralateral right hemiplegia).",
-      "Basilar artery bifurcation aneurysm compresses the abducens nerve in the rostral pons.",
-      "The medial lemniscus is destroyed in the crus cerebri, causing contralateral weakness.",
-      "A lesion of the red nucleus causes oculomotor nerve regeneration."
+      "Basilar artery bifurcation aneurysm compresses the abducens nerve in the rostral pons, causing an adduction deficit of the ipsilateral eye alongside contralateral spastic hemiparesis of the limbs.",
+      "PCA paramedian branch infarction damages ventral midbrain: exiting ipsilateral CN III rootlets (oculomotor palsy) and uncrossed descending corticospinal/corticobulbar fibers in crus cerebri (hemiplegia).",
+      "The medial lemniscus is destroyed within the crus cerebri, producing dense contralateral spastic hemiplegia and complete loss of conscious proprioception without affecting facial or extraocular muscles.",
+      "A focal ischemic infarct in the red nucleus causes aberrant regeneration of the oculomotor nerve, producing an ipsilateral dilated non-reactive pupil and contralateral lower motor neuron facial droop."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 1,
     drCohanRule: "Midbrain 'The Pig (from the rear)': The two rectangles on the bottom are the Crus Cerebri. Lesion of crus cerebri + CN III produces Weber syndrome (ipsilateral 3rd nerve palsy + contralateral hemiplegia).",
     drawingInstruction: "Draw the Midbrain 'Pig' (Slide 7/14). On the LEFT side, shade the rectangular Crus Cerebri at the bottom and the exiting rootlets/nucleus of CN III in the interpeduncular fossa.",
     explanation: "Weber syndrome (ventral midbrain syndrome) is caused by infarction of paramedian branches of the posterior cerebral artery (PCA). It selectively destroys the corticospinal and corticobulbar fibers descending through the crus cerebri (producing contralateral spastic hemiplegia of the body and lower face) along with the fascicles of the oculomotor nerve (CN III) coursing through the midbrain tegmentum (producing ipsilateral complete 3rd nerve palsy)."
@@ -441,12 +441,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Principal (Chief) Sensory Nucleus & Motor Nucleus of V",
     clinicalSyndrome: "Mid-Pontine Trigeminal Syndrome",
     whyOptions: [
-      "In the mid-pons, the Principal Sensory Nucleus of V (discriminative tactile) and Motor Nucleus of V lie adjacent in the lateral tegmentum; pain/temp fibers descend to the medulla in the spinal V tract and are spared.",
-      "The spinal trigeminal nucleus processes facial motor control, while the principal nucleus processes mastication.",
-      "Tactile sensation from the face crosses before entering the principal nucleus.",
-      "VTT fibers originate from the mesencephalic nucleus and decussate in the mid-pons."
+      "The spinal trigeminal nucleus mediates motor innervation of masticatory muscles, whereas the principal sensory nucleus mediates pain and temperature; an isolated pontine lesion reverses their functions.",
+      "Tactile sensation from the face decussates in the caudal medulla before entering the mid-pons; an ischemic lesion here therefore produces contralateral facial numbness with ipsilateral masticatory palsy.",
+      "In mid-pons, Principal Sensory Nucleus of V (tactile) and Motor Nucleus of V lie adjacent in lateral tegmentum; pain and temperature descend to medulla in spinal V tract and are completely spared here.",
+      "Ventral trigeminothalamic fibers originate exclusively from the mesencephalic nucleus in the midbrain; their focal transection in the mid-pons tegmentum selectively abolishes facial fine touch sensation."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 2,
     drCohanRule: "Mid pons slide note: 'Mid pons looks the same as caudal pons but also includes principal sensory nuc and motor nuc of V'. Selective tactile loss on face with pain spared localizes to principal sensory nuc in mid-pons!",
     drawingInstruction: "Draw the Caudal/Mid Pons (Slide 5/12: square tegmentum atop basilar pons). In the RIGHT lateral tegmentum, shade the Principal Sensory and Motor nuclei of CN V.",
     explanation: "Primary sensory fibers for discriminative fine touch from the face terminate in the Chief (Principal) Sensory Nucleus of V located in the mid-pons tegmentum. In contrast, primary pain and temperature fibers descend through the spinal trigeminal tract to the medulla. Adjacent to the principal sensory nucleus is the Motor Nucleus of V, innervating muscles of mastication. An isolated mid-pontine tegmental lesion destroys facial touch and masticatory motor power (jaw deviates to the weak side, right) while sparing pain/temperature."
@@ -469,12 +469,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Bilateral ALS & Bilateral Lateral Corticospinal Tracts (Dorsal Columns Spared)",
     clinicalSyndrome: "Anterior Spinal Artery Syndrome (Beck's Syndrome)",
     whyOptions: [
-      "The anterior spinal artery supplies the anterior two-thirds of the cord (corticospinal tracts and ALS), while the posterior spinal arteries supply the dorsal columns; infarction causes bilateral motor and pain/temp loss with preserved vibration/proprioception.",
-      "The posterior spinal arteries supply the anterior horn motor neurons, causing flaccid paralysis.",
-      "Dorsal columns are spared because they are supplied by the internal carotid artery.",
-      "The spinocerebellar tracts carry pain and temperature, while the corticospinal tract carries proprioception."
+      "Posterior spinal arteries supply the anterior horn motor neurons and lateral funiculi; their occlusion causes acute flaccid paraplegia and bilateral loss of pain and temperature below the lesion level.",
+      "Dorsal column pathways are spared during thoracic cord ischemia because they receive dual blood supply directly from the internal carotid circulation via the anterior communicating arterial circle.",
+      "Spinocerebellar tract fibers carry pain and temperature from the lower extremities, whereas the lateral corticospinal tracts carry conscious proprioception; their ischemia produces dissociated loss.",
+      "Anterior spinal artery supplies anterior two-thirds of cord (corticospinal tracts and ALS), while posterior spinal arteries supply dorsal columns; infarction causes motor/pain loss with spared vibration."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 3,
     drCohanRule: "Spinal cord vascular anatomy: Anterior spinal artery = anterior 2/3 of cord (ALS + corticospinal + ventral horns). Posterior spinal arteries = dorsal columns (gracilis/cuneatus). Dorsal columns spared = intact vibration/proprioception!",
     drawingInstruction: "Draw the Spinal Cord oval (Slide 2/9). Shade the entire anterior 2/3 of the cord bilaterally (including both ALS and lateral corticospinal tracts). Leave the entire dorsal column (both fasciculi gracilis) completely white and intact.",
     explanation: "Occlusion of the anterior spinal artery (often from hypoperfusion or clamping of the artery of Adamkiewicz during aortic surgery) causes infarction of the anterior two-thirds of the spinal cord. This bilaterally destroys the lateral corticospinal tracts (bilateral paraplegia), ventral horns, and the ALS (bilateral pain and temperature loss below the lesion). The posterior one-third of the cord is supplied independently by dual posterior spinal arteries, sparing the dorsal columns completely (intact vibration and joint position sense)."
@@ -498,10 +498,10 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Left Abducens (VI), Left Facial (VII) Fascicles, & Left Corticospinal Tract",
     clinicalSyndrome: "Millard-Gubler Syndrome (Ventral Pontine Syndrome)",
     whyOptions: [
-      "Circumferential basilar artery branch occlusion in the caudal pons damages exiting CN VI and CN VII fascicles (ipsilateral lateral rectus and facial paralysis) and adjacent uncrossed corticospinal fibers (contralateral hemiplegia).",
-      "Medial longitudinal fasciculus transection produces isolated facial droop and tongue deviation.",
-      "The facial motor nucleus decussates in the midbrain, producing contralateral facial weakness.",
-      "Damage to the superior cerebellar peduncle causes bilateral abducens nerve palsy."
+      "Circumferential basilar branch occlusion in caudal pons damages exiting CN VI and VII fascicles (ipsilateral lateral rectus and facial paralysis) and adjacent uncrossed corticospinal tract (hemiplegia).",
+      "Medial longitudinal fasciculus transection in the caudal pons tegmentum produces isolated peripheral facial paralysis and tongue deviation without affecting conscious sensation or ocular abduction.",
+      "The facial motor nucleus decussates in the rostral midbrain tegmentum; a focal lesion in the caudal pons basilar territory produces contralateral facial weakness and ipsilateral upper extremity palsy.",
+      "Superior cerebellar peduncle ischemia causes bilateral abducens nerve paralysis and contralateral facial droop by interrupting crossing dentatorubrothalamic projections in the ventral pons tegmentum."
     ],
     correctWhyIndex: 0,
     drCohanRule: "Caudal Pons outline (Slide 5): Square tegmentum atop large basilar pons with protruding MCP arms. Exiting CN VI and VII fascicles run adjacent to the descending corticospinal fibers in the basilar pons.",
@@ -527,12 +527,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Bilateral Basilar Pons (Corticospinal & Corticobulbar Tracts)",
     clinicalSyndrome: "Locked-In Syndrome",
     whyOptions: [
-      "Basilar artery thrombosis bilaterally destroys the basilar pons (corticospinal and corticobulbar tracts), causing quadriplegia and anarthria, while sparing the dorsal tegmentum (reticular activating system, sensory tracts) and midbrain vertical gaze center.",
-      "The cerebral cortex is completely infarcted, while the spinal cord generates vertical eye movements.",
-      "Bilateral medial lemniscus destruction prevents all motor responses to stimuli.",
-      "The reticular activating system is destroyed, causing coma with reflex eye movements."
+      "The cerebral cortex is completely infarcted by bilateral carotid occlusion, while the brainstem and spinal cord autonomously generate preserved vertical eye movements and intact auditory comprehension.",
+      "Basilar artery thrombosis bilaterally destroys the basilar pons (corticospinal and corticobulbar tracts), causing quadriplegia and anarthria, while sparing dorsal sensory tracts and midbrain upgaze.",
+      "Bilateral medial lemniscus infarction destroys all ascending afferent sensory feedback, rendering the motor cortex incapable of initiating voluntary somatic movements despite normal corticospinal tracts.",
+      "The ascending reticular activating system is destroyed throughout the brainstem tegmentum, inducing coma with reflex vertical nystagmus and paradoxical preservation of conscious sensory perceptions."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 1,
     drCohanRule: "Caudal/Mid Pons (Slide 5): 'All the sensory structures we are studying will go in the square (tegmentum). The large bottom area (basilar pons) contains motor structures.' Bilateral basilar lesion spares sensory square completely!",
     drawingInstruction: "Draw the Caudal/Mid Pons (Slide 5). Shade the entire lower curved belly (Bilateral Basilar Pons). Keep the upper sensory square (tegmentum) completely clear and intact.",
     explanation: "Locked-in syndrome is most commonly caused by basilar artery occlusion resulting in extensive infarction of the ventral (basilar) pons. This destroys the descending corticospinal tracts (quadriplegia) and corticobulbar tracts (anarthria, dysphagia, bilateral facial paralysis). The tegmentum of the pons is spared, preserving the ascending reticular activating system (patient remains fully conscious) and all sensory pathways (ML, VTT, ALS). Vertical eye movements and blinking are preserved because they are controlled in the midbrain."
@@ -558,12 +558,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Spinal Trigeminal Complex, Right ALS, Right CN VII/VIII",
     clinicalSyndrome: "Lateral Pontine Syndrome (AICA Infarct)",
     whyOptions: [
-      "AICA occlusion damages the lateral caudal pons: ipsilateral CN VII and CN VIII (facial palsy and deafness), spinal V (ipsilateral face pain/temp loss), MCP (ataxia), and ALS (contralateral body pain/temp loss); distinguishes from Wallenberg by CN VII/VIII involvement.",
-      "PICA supplies the lateral pons and innervates the cochlear nuclei directly.",
-      "The medial lemniscus is destroyed in lateral pontine syndrome, producing bilateral deafness.",
-      "AICA supplies the medial medulla and anterior horn motor neurons."
+      "PICA supplies the lateral caudal pons and cochlear nuclei; its occlusion causes ipsilateral facial palsy, sensorineural deafness, and contralateral loss of vibration and conscious joint position sense.",
+      "The medial lemniscus is destroyed in lateral pontine syndrome, producing bilateral sensorineural deafness and ipsilateral limb ataxia by interrupting crossed acoustic striae within the trapezoid body.",
+      "AICA occlusion damages lateral caudal pons: CN VII and VIII (facial palsy and deafness), spinal V (ipsilateral face pain), MCP (ataxia), and ALS (contralateral body pain); distinguishes from Wallenberg.",
+      "Anterior inferior cerebellar artery supplies medial medulla and anterior horns; its occlusion causes lower motor neuron tongue weakness and contralateral loss of pain and temperature on the body."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 2,
     drCohanRule: "AICA = Lateral Pons. PICA = Lateral Medulla. Both produce crossed pain/temp (ipsilateral face, contralateral body), but AICA adds IPSILATERAL FACIAL PARALYSIS (CN VII) and SENSORINEURAL DEAFNESS (CN VIII)!",
     drawingInstruction: "Draw the Caudal Pons (Slide 5). On the RIGHT side, shade the lateral tegmentum including Spinal Trigeminal tract, ALS, CN VII nucleus/fascicles, and middle cerebellar peduncle (MCP).",
     explanation: "Occlusion of the anterior inferior cerebellar artery (AICA) causes Lateral Pontine Syndrome. Like Wallenberg syndrome in the medulla, it causes crossed pain and temperature loss (ipsilateral face via spinal V, contralateral body via ALS) and ipsilateral cerebellar ataxia (MCP). However, it is distinguished clinically by damage to structures specific to the lateral caudal pons: ipsilateral complete facial paralysis (CN VII) and ipsilateral sensorineural deafness/tinnitus (CN VIII / cochlear nuclei)."
@@ -588,12 +588,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Bilateral Dorsal Columns (Fasciculus Gracilis) & Dorsal Roots",
     clinicalSyndrome: "Tabes Dorsalis (Neurosyphilis)",
     whyOptions: [
-      "Treponema pallidum damages dorsal nerve roots and dorsal columns (fasciculus gracilis), selectively abolishing proprioception, vibration, and deep tendon reflexes in the lower extremities while sparing the ALS.",
-      "The spinothalamic tract is selectively calcified in tertiary syphilis.",
-      "The anterior white commissure is transected, preventing pupillary light reflex.",
-      "Bilateral corticospinal tract infarction causes the high-stepping slapping gait."
+      "The spinothalamic tract undergoes selective obliterative endarteritis in tertiary neurosyphilis, abolishing pain and temperature sensations while preserving conscious proprioception and tendon reflexes.",
+      "Ventral white commissure fibers are transected by chronic syphilitic leptomeningitis, interrupting pupillary light reflex arcs and producing bilateral lower extremity spastic paraparesis with clonus.",
+      "Bilateral lateral corticospinal tract sclerosis causes high-stepping slapping gait, whereas posterior horn sensory neurons are completely preserved, explaining intact cutaneous pain and temperature.",
+      "Treponema pallidum damages dorsal nerve roots and dorsal columns (fasciculus gracilis), selectively abolishing proprioception, vibration, and deep tendon reflexes in legs while sparing anterolateral tracts."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 3,
     drCohanRule: "Spinal cord dorsal columns (Slide 2/9): Fasciculus Gracilis is medial and carries lower extremity vibration and proprioception. Selective dorsal root / gracilis degeneration causes sensory ataxia and areflexia.",
     drawingInstruction: "Draw the Spinal Cord oval (Slide 2/9) at lumbar level. In the posterior funiculus, shade BOTH left and right Fasciculus Gracilis and adjacent dorsal horn entry zones.",
     explanation: "Tabes dorsalis is a late manifestation of neurosyphilis resulting from slow degeneration of large-diameter sensory fibers in the dorsal roots and dorsal columns (fasciculus gracilis). This leads to severe sensory ataxia, loss of joint position and vibratory sense, positive Romberg sign, and loss of deep tendon reflexes (interrupted afferent reflex arc). The spinothalamic tract and anterior horn cells are spared. Argyll Robertson pupils localize the concurrent midbrain pretectal involvement."
@@ -617,10 +617,10 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Central Cervical Cord: Ventral White Commissure, Medial Corticospinal & Ventral Horns",
     clinicalSyndrome: "Central Cord Syndrome",
     whyOptions: [
-      "In the cervical cord, central hemorrhage/edema damages decussating spinothalamic fibers in the ventral white commissure and medial (arm) fibers of the corticospinal tract, producing arm > leg weakness and cape-like sensory loss.",
-      "The lumbar cord is compressed by hyperextension, sparing the arms.",
-      "The posterior spinal arteries are occluded, destroying the dorsal columns.",
-      "Fasciculus cuneatus fibers decussate in the central canal to form the lateral horn."
+      "In cervical cord, central edema damages decussating spinothalamic axons in ventral white commissure and medial (arm) corticospinal fibers, producing cape sensory loss and arm-greater-than-leg weakness.",
+      "Lumbar cord compression during hyperextension injury causes retrograde chromatolysis of cervical motor neurons, producing severe arm weakness while sparing corticospinal tracts to the lower limbs.",
+      "Posterior spinal arteries are compressed by osteophytes, destroying cervical dorsal columns while sparing the lateral and anterior funiculi, which accounts for the preserved vibration and position sense.",
+      "Fasciculus cuneatus fibers decussate through the central canal to form the lateral corticospinal tract; their compression produces upper extremity flaccid paresis and bilateral loss of all sensation."
     ],
     correctWhyIndex: 0,
     drCohanRule: "Spinal cord somatotopy: In the lateral corticospinal tract, cervical (arm) fibers are MEDIAL, while sacral/lumbar (leg) fibers are LATERAL. A central lesion destroys medial arm fibers and crossing pain fibers, sparing the peripheral leg fibers!",
@@ -646,12 +646,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Red Nucleus & Right CN III Fascicles",
     clinicalSyndrome: "Claude Syndrome (Midbrain Tegmental Syndrome)",
     whyOptions: [
-      "Infarction of PCA branches to the central midbrain tegmentum damages exiting ipsilateral CN III rootlets (right oculomotor palsy) and the adjacent red nucleus/cerebellothalamic fibers (contralateral left cerebellar ataxia/tremor) while sparing the crus cerebri.",
-      "Damage to the substantia nigra causes resting parkinsonian tremor and contralateral miosis.",
-      "Medial longitudinal fasciculus transection produces isolated intention tremor of the arm.",
-      "The corticospinal tract is damaged in the periaqueductal gray, causing intention tremor."
+      "Substantia nigra compacta destruction causes resting parkinsonian tremor and contralateral miosis, while oculomotor nerve rootlets in the interpeduncular fossa escape injury due to collateral flow.",
+      "Infarction of PCA tegmental branches damages exiting ipsilateral CN III rootlets (oculomotor palsy) and adjacent red nucleus/cerebellothalamic fibers (contralateral ataxia/tremor), sparing crus cerebri.",
+      "Medial longitudinal fasciculus transection produces isolated intention tremor of the contralateral upper extremity by interrupting descending rubrospinal tracts within the ventral midbrain tegmentum.",
+      "Descending corticospinal axons in the periaqueductal gray are compressed by edema, producing severe intention tremor and dysmetria without affecting extraocular motility or pupillary light reflexes."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 1,
     drCohanRule: "Midbrain 'The Pig (from the rear)' (Slide 7): Crus cerebri is at bottom (Weber). Red nucleus is in the central tegmentum (Claude). Weber = CN III + hemiplegia. Claude = CN III + contralateral ataxia/tremor (red nucleus)!",
     drawingInstruction: "Draw the Midbrain 'Pig' (Slide 7/14). On the RIGHT side, shade the circular Red Nucleus in the tegmentum and the passing rootlets of CN III. Keep the ventral crus cerebri clear.",
     explanation: "Claude syndrome results from a focal lesion in the dorsal midbrain tegmentum. It damages the exiting fascicles of the oculomotor nerve (CN III), causing an ipsilateral 3rd nerve palsy, along with the adjacent Red Nucleus and crossing superior cerebellar peduncle (dentatorubrothalamic tract). Because cerebellothalamic fibers have already crossed once from the opposite cerebellum, damaging them prior to thalamic relay causes ataxia and intention tremor on the CONTRALATERAL (left) side."
@@ -675,12 +675,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Crus Cerebri, Red Nucleus, Medial Lemniscus, & CN III",
     clinicalSyndrome: "Benedikt Syndrome (Paramedian Midbrain Syndrome)",
     whyOptions: [
-      "A large paramedian midbrain lesion combines Weber and Claude: damages CN III, crus cerebri (contralateral hemiparesis), red nucleus/substantia nigra (contralateral involuntary chorea/tremor), and medial lemniscus (contralateral proprioception loss).",
-      "Infarction of the anterior inferior cerebellar artery damages the oculomotor nucleus in the medulla.",
-      "The spinothalamic tract is damaged in the crus cerebri, causing choreoathetosis.",
-      "Destruction of the abducens nerve in the midbrain causes oculomotor palsy and hemiparesis."
+      "Anterior inferior cerebellar artery infarction damages the oculomotor nucleus in the medulla, causing ipsilateral ptosis alongside contralateral spastic hemiparesis and choreiform involuntary movements.",
+      "Spinothalamic fibers descending through the crus cerebri are destroyed, producing severe contralateral choreoathetosis and resting tremor while sparing ascending discriminative tactile pathways.",
+      "Paramedian midbrain lesion combines Weber and Claude: damages CN III, crus cerebri (contralateral hemiparesis), red nucleus (contralateral tremor/chorea), and medial lemniscus (proprioception loss).",
+      "Destruction of the abducens nucleus in the midbrain tegmentum causes horizontal gaze palsy and contralateral hemiparesis with violent resting tremors by interrupting crossing nigrostriatal projections."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 2,
     drCohanRule: "Midbrain syndrome continuum: Weber = Crus cerebri + CN III. Claude = Red nucleus + CN III. Benedikt = BOTH crus cerebri AND red nucleus + CN III (+ medial lemniscus)!",
     drawingInstruction: "Draw the Midbrain 'Pig' (Slide 7/14). On the RIGHT side, shade the Crus Cerebri, the circular Red Nucleus, the passing Medial Lemniscus, and exiting CN III rootlets.",
     explanation: "Benedikt syndrome encompasses both the ventral and tegmental structures of the midbrain. The lesion damages: (1) exiting CN III fibers (ipsilateral 3rd nerve palsy), (2) corticospinal tract in crus cerebri (contralateral hemiparesis), (3) red nucleus, cerebellothalamic fibers, and substantia nigra (contralateral tremor, choreoathetosis, and ataxia), and (4) medial lemniscus (contralateral loss of touch and proprioception)."
@@ -704,12 +704,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Dorsal Midbrain Tectum / Pretectal Area & Posterior Commissure",
     clinicalSyndrome: "Parinaud Syndrome (Dorsal Midbrain / Pretectal Syndrome)",
     whyOptions: [
-      "Extrinsic compression of the dorsal midbrain tectum (e.g., pineal tumor) compresses the rostral interstitial nucleus of MLF, posterior commissure, and pretectal nuclei, abolishing vertical upward gaze and pupillary light reflexes while sparing tegmental sensory tracts.",
-      "The medial lemniscus is compressed against the cerebral aqueduct, causing upward gaze palsy.",
-      "The abducens nucleus in the midbrain tectum fails to fire during upward saccades.",
-      "Anterior spinal artery thrombosis damages the superior colliculus."
+      "Medial lemniscus compression against the cerebral aqueduct prevents vertical eye movements by interrupting ascending vestibular afferents projecting to the interstitial nucleus of Cajal in the pons.",
+      "The abducens nucleus located in the midbrain tectum fails to fire during upward saccades, causing bilateral convergence-retraction nystagmus and bilateral pupillary light reflex dissociation.",
+      "Anterior spinal artery thrombosis damages the superior colliculi, interrupting descending tectospinal pathways and causing bilateral paralysis of downward gaze with normal pupillary light reactions.",
+      "Compression of dorsal midbrain tectum (pineal tumor) damages posterior commissure, pretectal area, and riMLF, causing upward gaze palsy, light-near pupillary dissociation, and convergence nystagmus."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 3,
     drCohanRule: "Midbrain 'The Pig (from the rear)' (Slide 7): 'Now put 2 bumps at the top for the colliculi. Draw a small circle near the top for the cerebral aqueduct and outline the periaqueductal gray.' Dorsal compression of these top bumps = Parinaud!",
     drawingInstruction: "Draw the Midbrain 'Pig' (Slide 7). Shade the dorsal midline tectum: the bilateral Superior Colliculi, pretectal area, and dorsal periaqueductal gray surrounding the cerebral aqueduct.",
     explanation: "Parinaud (pretectal/dorsal midbrain) syndrome is classic for pineal gland tumors compressing the posterior commissure and pretectal area. The clinical tetrad includes: (1) upward gaze paralysis due to pressure on the rostral interstitial nucleus of the MLF (riMLF), (2) pseudo-Argyll Robertson pupils (light-near dissociation) from interruption of afferent light reflex fibers traversing the posterior commissure to the Edinger-Westphal nuclei, (3) convergence-retraction nystagmus on attempted upgaze, and (4) bilateral eyelid retraction (Collier sign)."
@@ -733,10 +733,10 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Ventral Posterior Thalamus (VPL & VPM)",
     clinicalSyndrome: "Déjerine-Roussy Syndrome (Central Post-Stroke Pain)",
     whyOptions: [
-      "Infarction of the thalamic VPL/VPM complex causes loss of normal sensory gating and denervation hypersensitivity in surviving spinothalamic-cortical projections, leading to severe burning central neuropathic pain and allodynia on the contralateral side.",
-      "The primary somatosensory cortex regenerates aberrantly into the trigeminal ganglion.",
-      "Damage to the medial lemniscus causes peripheral nociceptors to fire spontaneously.",
-      "The anterolateral system is damaged in the spinal cord, producing contralateral allodynia."
+      "Infarction of thalamic VPL/VPM complex causes loss of sensory gating and denervation hypersensitivity in spinothalamic-cortical projections, producing burning neuropathic pain and allodynia on opposite side.",
+      "Primary somatosensory cortex undergoes aberrant neuroplastic regeneration into the trigeminal ganglion, causing chronic burning dysesthesias and severe hyperpathia across the contralateral body.",
+      "Medial lemniscus destruction causes peripheral nociceptors to fire spontaneously, generating intractable burning sensations and tactile allodynia through retrograde dorsal root ganglion stimulation.",
+      "Anterolateral system axons undergo demyelinating degeneration in the thoracic cord, producing severe contralateral burning allodynia and hyperpathia following an uncomplicated thalamic lacunar stroke."
     ],
     correctWhyIndex: 0,
     drCohanRule: "Thalamic lesion rule: VPL (body) + VPM (face) are adjacent in the ventral posterior thalamus. Initial contralateral hemisensory loss evolving into intractable burning allodynia = Déjerine-Roussy syndrome!",
@@ -762,12 +762,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Left Posterior Limb of Internal Capsule (Corticospinal Tract)",
     clinicalSyndrome: "Pure Motor Hemiparesis (Lacunar Stroke)",
     whyOptions: [
-      "A lacunar infarct in the anterior two-thirds of the posterior limb of the internal capsule selectively severs descending corticospinal/corticobulbar fibers, causing dense contralateral hemiparesis while sparing sensory fibers traveling in the posterior third.",
-      "The thalamic VPL nucleus is infarcted, selectively causing motor weakness.",
-      "The medial lemniscus travels through the genu of the internal capsule and was spared.",
-      "The precentral gyrus is supplied by the posterior cerebral artery."
+      "The thalamic VPL nucleus is infarcted, selectively interrupting ascending motor feedback to the precentral gyrus while completely sparing descending corticospinal motor axons in the internal capsule.",
+      "A lacunar infarct in anterior two-thirds of posterior limb of internal capsule severs descending corticospinal fibers, causing dense contralateral hemiparesis while sparing posterior sensory fibers.",
+      "Medial lemniscus fibers traverse the genu of the internal capsule and escape injury, whereas lateral corticospinal axons course through the anterior limb and undergo dense ischemic infarction.",
+      "The primary motor cortex is selectively infarcted by posterior cerebral artery occlusion, producing contralateral flaccid hemiplegia while thalamocortical sensory projections remain completely intact."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 1,
     drCohanRule: "Internal capsule organization: Anterior limb (frontopontine), Genu (corticobulbar), Posterior limb (anterior 2/3 = corticospinal motor; posterior 1/3 = thalamocortical sensory). Pure motor = anterior 2/3 of posterior limb!",
     drawingInstruction: "Draw the horizontal/coronal internal capsule diagram. On the LEFT side, shade the posterior limb between the thalamus and lentiform nucleus.",
     explanation: "Pure motor hemiparesis is the most common lacunar stroke syndrome, typically caused by lipohyalinosis or microatheroma in the lenticulostriate branches of the MCA. The posterior limb of the internal capsule carries tightly packed descending corticospinal motor fibers in its anterior two-thirds. A small 1-cm lacunar infarct here causes dense, proportional hemiparesis of the contralateral (right) face, arm, and leg without any sensory, visual, or cognitive deficit."
@@ -791,12 +791,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Left Paracentral Lobule (Primary Motor & Sensory Cortex, Leg Representation)",
     clinicalSyndrome: "Anterior Cerebral Artery (ACA) Infarction",
     whyOptions: [
-      "The ACA supplies the medial surface of the frontal and parietal lobes (paracentral lobule), which somatotopically represents the contralateral lower extremity for both motor (anterior paracentral) and sensory (posterior paracentral) functions.",
-      "The MCA exclusively supplies the lower extremity homunculus in the longitudinal fissure.",
-      "Damage to the fasciculus gracilis causes isolated cortical leg hemiparesis.",
-      "The internal capsule posterior limb separates the leg motor fibers into the anterior cerebral artery."
+      "The middle cerebral artery exclusively supplies the lower extremity homunculus in the longitudinal fissure, causing contralateral leg paralysis and sensory loss while completely sparing the face.",
+      "Fasciculus gracilis degeneration in the thoracic cord produces isolated cortical leg hemiparesis by eliminating ascending proprioceptive input to the primary motor cortex in the precentral gyrus.",
+      "The ACA supplies the medial surface of hemisphere (paracentral lobule), representing contralateral lower extremity for motor and sensory functions; lateral convexity (arm/face) is supplied by MCA.",
+      "Posterior limb internal capsule fibers destined for the leg are selectively supplied by the anterior cerebral artery, explaining the sparing of upper extremity and facial sensorimotor function."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 2,
     drCohanRule: "Sensory homunculus rule: The leg and foot are mapped onto the MEDIAL bank of the cerebral hemisphere inside the longitudinal fissure (Paracentral Lobule, ACA territory). Face and hand are on the lateral convexity (MCA territory)!",
     drawingInstruction: "Draw the cerebral cortex coronal section. In the LEFT hemisphere, shade the paracentral lobule along the medial wall of the longitudinal fissure. The lateral cortex (convexity) is spared.",
     explanation: "The anterior cerebral artery (ACA) irrigates the medial aspect of the cerebral hemisphere from the frontal pole to the parieto-occipital sulcus. This includes the paracentral lobule, which contains the motor and sensory representations for the contralateral lower extremity and perineum. An infarction of the left ACA causes contralateral (right) lower-extremity-predominant spastic paralysis and cortical sensory loss (astereognosis, impaired proprioception and vibration), while sparing the arm and face (MCA territory)."
@@ -820,12 +820,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Posterior Parietal Association Cortex",
     clinicalSyndrome: "Hemi-Spatial Neglect & Tactile Extinction",
     whyOptions: [
-      "The right posterior parietal association cortex mediates bilateral spatial attention; lesions preserve primary sensation tested in isolation but impair attentional allocation during bilateral simultaneous stimulation (sensory extinction) and cause left spatial neglect.",
-      "The left medial lemniscus suppresses contralateral touch during simultaneous stimulation.",
-      "A lesion of the optic chiasm produces tactile extinction on the contralateral arm.",
-      "The ventral posterolateral nucleus of the thalamus only activates during unilateral touch."
+      "The left medial lemniscus suppresses contralateral tactile perception during bilateral simultaneous stimulation through descending corticofugal inhibition mediated by the primary sensory cortex.",
+      "An ischemic lesion of the optic chiasm interrupts crossing retinotectal fibers, producing tactile extinction on the contralateral upper extremity and severe left-sided spatial hemi-inattention.",
+      "The ventral posterolateral nucleus of the thalamus activates only during unilateral tactile stimulation, becoming completely silent during bilateral sensory testing due to reticular thalamic gating.",
+      "Right posterior parietal association cortex mediates bilateral spatial attention; lesions preserve primary sensation tested alone but impair attentional allocation during simultaneous double touch."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 3,
     drCohanRule: "Cortical higher-order sensory testing: Primary sensory cortex (postcentral gyrus) loss = astereognosis, loss of 2-point. Posterior parietal association cortex loss = sensory EXTINCTION to double simultaneous stimulation and hemispatial neglect!",
     drawingInstruction: "Draw the lateral cerebral hemisphere. In the RIGHT hemisphere, shade the posterior parietal cortex (inferior parietal lobule: supramarginal and angular gyri) posterior to the postcentral gyrus.",
     explanation: "Tactile sensory extinction (inattention) is a hallmark of non-dominant (usually right) parietal association cortex damage. Primary thalamocortical sensory projections to area 3, 1, 2 are intact, so single stimuli on either side are perceived normally. However, during simultaneous bilateral stimulation, the damaged hemisphere cannot compete for attentional focus, resulting in extinction of the contralateral (left) stimulus."
@@ -850,10 +850,10 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Left Angular Gyrus (Brodmann Area 39)",
     clinicalSyndrome: "Gerstmann Syndrome",
     whyOptions: [
-      "The dominant (left) angular gyrus is essential for spatial-symbolic integration and body schema; a focal lesion produces the classic tetrad of finger agnosia, right-left disorientation, acalculia, and agraphia without primary sensory loss.",
-      "The postcentral gyrus is responsible for mathematical calculations and handwriting.",
-      "The fasciculus cuneatus decussates in the angular gyrus, causing finger agnosia.",
-      "Right thalamic VPM infarction selectively abolishes right-left orientation."
+      "Dominant (left) angular gyrus integrates cross-modal spatial and symbolic representations; focal lesion produces classic tetrad: finger agnosia, right-left confusion, acalculia, and agraphia.",
+      "Primary somatosensory cortex in the postcentral gyrus is responsible for mathematical calculations and handwriting; its ischemic stroke abolishes symbolic processing while sparing simple touch.",
+      "Fasciculus cuneatus fibers decussate within the angular gyrus; their interruption causes isolated finger agnosia and right-left disorientation without affecting primary somatic sensation.",
+      "Right thalamic VPM nucleus infarction selectively impairs mental spatial calculation and handwriting synthesis while sparing all primary cutaneous modalities and cranial nerve motor functions."
     ],
     correctWhyIndex: 0,
     drCohanRule: "Gerstmann Syndrome Tetrad: (1) Finger agnosia, (2) Right-left disorientation, (3) Acalculia, (4) Agraphia. Localizes strictly to the DOMINANT (usually Left) ANGULAR GYRUS (Brodmann area 39)!",
@@ -879,12 +879,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Nucleus Cuneatus (Caudal Medulla)",
     clinicalSyndrome: "Isolated Nucleus Cuneatus Infarction",
     whyOptions: [
-      "In the caudal medulla prior to decussation of internal arcuate fibers, primary fibers from the arm terminate in the ipsilateral Nucleus Cuneatus; a right lesion abolishes ipsilateral right arm proprioception while sparing nucleus gracilis (legs) and ALS.",
-      "The medial lemniscus decussates in the thoracic cord, so a lesion in the medulla affects the same-side arm.",
-      "Nucleus cuneatus carries pain and temperature exclusively from the contralateral leg.",
-      "The spinal trigeminal nucleus decussates into nucleus cuneatus in the caudal medulla."
+      "Medial lemniscus fibers decussate in the thoracic cord; an ischemic lesion in the caudal medulla therefore causes ipsilateral upper extremity proprioception loss while sparing the lower extremity.",
+      "In caudal medulla before arcuate decussation, arm primary afferents synapse in ipsilateral Nucleus Cuneatus; a right lesion abolishes right arm proprioception, sparing medial gracilis and lateral ALS.",
+      "Nucleus cuneatus carries pain and temperature exclusively from the contralateral upper extremity, whereas conscious proprioception ascends through the lateral spinothalamic tract to the cerebellum.",
+      "Spinal trigeminal tract fibers decussate into nucleus cuneatus in the caudal medulla; an ischemic lesion selectively abolishes ipsilateral arm position sense and contralateral facial touch."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 1,
     drCohanRule: "Caudal Medulla Slide 3/10: 'Add 3 circle neighbors on each side: Nucleus gracilis (medial), Nucleus cuneatus (middle), Spinal trigeminal tract/nuc (lateral)'. Nucleus cuneatus = IPSILATERAL ARM touch/proprioception!",
     drawingInstruction: "Draw the Caudal Medulla (Slide 3/10: circle with central canal 1/3 from top). On the RIGHT dorsal surface, shade the MIDDLE circle of the 3 circle neighbors (Right Nucleus Cuneatus).",
     explanation: "Primary sensory axons for touch, vibration, and conscious proprioception from the upper body (T6 and above) ascend in the fasciculus cuneatus and synapse in the Nucleus Cuneatus in the caudal medulla. Because the internal arcuate fibers have NOT yet crossed at this caudal level, a lesion of the right nucleus cuneatus produces an IPSILATERAL (right) loss of touch, vibration, and proprioception restricted strictly to the arm and hand, sparing the more medially placed nucleus gracilis (leg) and the lateral ALS."
@@ -908,12 +908,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Spinothalamic Tract (ALS) & Right VTT",
     clinicalSyndrome: "Rostral Pontine Tegmental Infarct (Snowman Level)",
     whyOptions: [
-      "In the rostral pons 'Snowman', VTT and ALS lie directly adjacent ('Hi neighbor!') in the lateral tegmentum carrying crossed face and body pain/temp; a right lesion causes complete contralateral (left) pain/temp loss on both face and body.",
-      "The medial lemniscus merges with the ALS in the rostral pons to carry pain from the face.",
-      "The lesion is in the left medulla because facial pain fibers decussate in the midbrain.",
-      "The spinothalamic tract supplies the ipsilateral face and contralateral body in the rostral pons."
+      "Medial lemniscus merges with the anterolateral system in the rostral pons to carry pain from the face; an ischemic stroke abolishes contralateral pain sensations while preserving body touch.",
+      "Primary facial pain fibers decussate in the midbrain tegmentum; an ischemic lesion in the right rostral pons therefore eliminates ipsilateral facial pain and contralateral somatic pain sensations.",
+      "In rostral pons 'Snowman', VTT and ALS lie adjacent ('Hi neighbor!') in lateral tegmentum carrying crossed face and body pain/temp; right lesion causes contralateral left face and body pain loss.",
+      "The spinothalamic tract supplies ipsilateral face and contralateral body in the rostral pons; an ischemic lesion in the lateral tegmentum selectively abolishes facial and somatic touch sensations."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 2,
     drCohanRule: "Rostral Pons 'The Snowman!' (Slide 6/13): Upper oval tegmentum has Medial Lemniscus, VTT ('Hi neighbor!'), and ALS ('Hi neighbor!'). Right lateral lesion knocks out Right VTT + Right ALS = Left Face + Left Body pain/temp loss!",
     drawingInstruction: "Draw the Rostral Pons 'Snowman' (Slide 6/13). On the RIGHT side of the upper oval tegmentum, shade the adjacent lateral pair: Right VTT and Right ALS. Leave the medial lemniscus untouched.",
     explanation: "At the rostral pons level ('The Snowman'), both pain pathways have decussated: the ALS (carrying crossed body pain and temperature) and the Ventral Trigeminothalamic Tract (VTT, carrying crossed face pain and temperature from the contralateral spinal V nucleus). They ascend together in the lateral tegmentum. A lesion in the right lateral tegmentum wipes out both tracts, producing contralateral loss of pain and temperature on both the left face and left body, while sparing the more medially placed medial lemniscus."
@@ -937,12 +937,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Sensory Crescent (Medial Lemniscus, VTT, and ALS)",
     clinicalSyndrome: "Lateral Midbrain Tegmental Syndrome",
     whyOptions: [
-      "In the midbrain tegmentum, the Medial Lemniscus, VTT, and ALS form a compact continuous curved sensory ribbon laterally; a focal lesion destroys all three crossed tracts, causing complete contralateral hemi-sensory loss while sparing medial crus cerebri and CN III.",
-      "The crus cerebri carries all somatosensory fibers from the contralateral body and face.",
-      "The thalamic reticular nucleus decussates in the midbrain tegmentum.",
-      "The red nucleus is the primary relay for facial touch and temperature."
+      "The crus cerebri carries all somatosensory fibers from the contralateral body and face; a focal tegmental lesion destroys these descending tracts while sparing the medial lemniscus and red nucleus.",
+      "Thalamic reticular nucleus fibers decussate in the midbrain tegmentum; their transection produces complete contralateral hemisensory loss across all modalities while sparing voluntary motor power.",
+      "The red nucleus serves as the primary relay for facial fine touch and temperature; its focal ischemic necrosis eliminates contralateral facial sensation while sparing the medial lemniscus and ALS.",
+      "In midbrain tegmentum, Medial Lemniscus, VTT, and ALS form a compact continuous sensory ribbon laterally; focal lesion destroys all three crossed tracts, causing complete contralateral sensory loss."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 3,
     drCohanRule: "Midbrain 'The Pig (from the rear)' (Slide 7/14): Sensory pathways form a ribbon in the lateral tegmentum curving around the red nucleus. From medial to lateral: ML $\\rightarrow$ VTT $\\rightarrow$ ALS. Knocking out all 3 destroys all sensation on contralateral side!",
     drawingInstruction: "Draw the Midbrain 'Pig' (Slide 7/14). In the RIGHT lateral tegmentum, shade the entire continuous crescent of Medial Lemniscus, VTT, and ALS. Crus cerebri and red nucleus are spared.",
     explanation: "In the midbrain, the three principal ascending sensory tracts—Medial Lemniscus (body touch/proprioception), Ventral Trigeminothalamic Tract (face touch and pain/temp), and Anterolateral System (body pain/temp)—are grouped tightly together into a single lateral sensory ribbon in the tegmentum. A focal lesion in this right lateral sensory ribbon knocks out all three pathways simultaneously, producing a complete hemisensory loss across all modalities on the contralateral (left) face and body."
@@ -966,10 +966,10 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Hemicord at C4 (Gracilis, Cuneatus, ALS, Corticospinal)",
     clinicalSyndrome: "Cervical Brown-Séquard Syndrome",
     whyOptions: [
-      "A right hemicord lesion at C4 severs uncrossed dorsal columns (ipsilateral arm/leg touch/proprioception loss), uncrossed lateral corticospinal tract (ipsilateral hemiplegia), and crossed ALS (contralateral pain/temp loss starting 2 segments below: C6 deficit = C4 lesion).",
-      "The spinothalamic tract decussates in the midbrain, producing contralateral arm weakness.",
-      "The ventral white commissure is damaged on the left side at C6.",
-      "Fasciculus gracilis carries touch from the ipsilateral arm, while cuneatus carries touch from the leg."
+      "Right hemicord lesion at C4 severs uncrossed dorsal columns (right arm/leg proprioception loss), uncrossed corticospinal tract (right hemiplegia), and crossed ALS (left pain loss from C6 down).",
+      "Spinothalamic fibers decussate in the midbrain; a cervical cord hemisection therefore causes contralateral upper extremity weakness and ipsilateral loss of pain and temperature below the lesion.",
+      "Ventral white commissure fibers are transected on the left side at C6; this produces bilateral loss of pinprick sensation across the upper extremities with spastic paralysis of the contralateral leg.",
+      "Fasciculus gracilis carries touch from the ipsilateral arm, whereas fasciculus cuneatus carries touch from the leg; a hemicord lesion at C4 therefore spares the lower extremity while paralyzing the arm."
     ],
     correctWhyIndex: 0,
     drCohanRule: "Cervical cord level includes BOTH Fasciculus Gracilis (medial, leg) AND Fasciculus Cuneatus (lateral, arm). Hemicord lesion knocks out both dorsal columns + corticospinal + ALS on that side!",
@@ -995,12 +995,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Bilateral Pyramids & Hypoglossal (CN XII) Nuclei",
     clinicalSyndrome: "Bilateral Medial Medullary Syndrome / Cruciate Paralysis",
     whyOptions: [
-      "Anterior spinal artery occlusion at the medullary junction bilaterally infarcts the ventral pyramids (corticospinal tracts) and hypoglossal nerve roots, causing quadriparesis and bilateral tongue paralysis while sparing dorsal sensory tracts.",
-      "The medial lemniscus carries all motor fibers to the four limbs.",
-      "Bilateral ALS infarction causes quadriparesis and hypoglossal atrophy.",
-      "The basilar pons was infarcted, selectively causing tongue deviation."
+      "Medial lemniscus fibers carry all voluntary motor commands to the four extremities; their bilateral infarction in the rostral medulla produces acute flaccid quadriplegia and bilateral tongue palsy.",
+      "Anterior spinal artery occlusion at medullary midline infarcts bilateral pyramids (corticospinal tracts) and hypoglossal roots, causing quadriparesis and tongue paralysis with normal sensation.",
+      "Bilateral anterolateral system infarction in the rostral medulla causes acute quadriplegia and tongue fasciculations by interrupting descending reticulospinal autonomic motor pathways.",
+      "Basilar pons infarction selectively destroys descending hypoglossal upper motor neurons, causing bilateral flaccid tongue paralysis while sparing corticospinal tracts destined for the limbs."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 1,
     drCohanRule: "Rostral Medulla shape (Slide 4): 'Draw 2 triangles down at the bottom (pyramids)'. The pyramids sit on either side of the ventral median fissure. Bilateral infarction knocks out motor power to all 4 limbs while sparing tegmental sensory tracts!",
     drawingInstruction: "Draw the Rostral Medulla (Slide 4). Shade BOTH pyramids (the two basal triangles) and the dorsomedial hypoglossal nuclei. The medial lemnisci and olives are spared.",
     explanation: "The anterior spinal artery originates from the convergence of both vertebral arteries and supplies the ventromedial territory of the medulla. Occlusion of the anterior spinal artery at the midline causes bilateral medial medullary infarction, destroying both pyramids (bilateral descending corticospinal tracts) and hypoglossal nerves. This causes acute quadriplegia and bilateral flaccid tongue paralysis without sensory loss."
@@ -1024,12 +1024,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Conus Medullaris (Sacral Segments S1-S5 & Coccygeal Cord)",
     clinicalSyndrome: "Conus Medullaris Syndrome",
     whyOptions: [
-      "The conus medullaris represents the terminal tapered end of the spinal cord (S1-S5); injury causes sudden, symmetrical saddle anesthesia, early severe sphincter paralysis, and mixed UMN/LMN signs (Babinski present), distinguishing it from cauda equina.",
-      "Cauda equina syndrome is an upper motor neuron lesion with hyperreflexia.",
-      "The conus medullaris is located at the L5-S1 vertebral junction in adults.",
-      "Dorsal column fibers terminate in the conus medullaris before entering the cauda equina."
+      "Cauda equina compression produces purely upper motor neuron signs with bilateral hyperreflexia, extensor plantar responses, and preserved voluntary urinary and fecal sphincter continence.",
+      "Dorsal column fibers terminate in the conus medullaris before forming the cauda equina, explaining why sacral cord trauma selectively impairs conscious vibratory and joint position sensations.",
+      "Conus medullaris is terminal spinal cord (S1-S5); injury causes sudden symmetrical saddle anesthesia, early severe sphincter paralysis, and mixed UMN/LMN signs, distinguishing from cauda equina.",
+      "The conus medullaris is located at the L5-S1 vertebral level in adults; its injury causes asymmetric leg pain, absent knee jerks, and late mild urinary symptoms without saddle anesthesia."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 2,
     drCohanRule: "Conus Medullaris vs Cauda Equina: Conus = true spinal cord (sacral segments S1-S5) $\rightarrow$ sudden, bilateral, symmetrical saddle anesthesia, early sphincter loss, positive Babinski (cord sign). Cauda equina = nerve roots $\rightarrow$ asymmetrical, severe radicular pain, absent Babinski.",
     drawingInstruction: "Draw the terminal spinal cord cross-section. Shade the central sacral gray matter and bilateral sacral perimeter tracts.",
     explanation: "Conus medullaris syndrome is an injury to the sacral spinal cord segments (S1-S5) located at the T12-L1 vertebral level. It is characterized by: (1) symmetrical bilateral saddle anesthesia (S3-S5 dermatomes), (2) early and severe autonomic sphincter dysfunction (loss of anal sphincter tone, urinary retention/incontinence), and (3) a mix of upper motor neuron signs (bilateral Babinski signs) and lower motor neuron signs (absent ankle jerks), contrasting with pure LMN cauda equina compression."
@@ -1053,12 +1053,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Spinal Trigeminal Tract & Nucleus (V1 Subnucleus)",
     clinicalSyndrome: "Herpes Zoster Ophthalmicus / Post-Herpetic Neuralgia",
     whyOptions: [
-      "Herpes zoster reactivation in the trigeminal ganglion selectively destroys primary afferents in the V1 division, abolishing all sensation in the forehead and interrupting the afferent limb of the corneal reflex while sparing V2 and V3.",
-      "The spinal trigeminal nucleus carries corneal reflex motor output through the facial nerve.",
-      "The principal sensory nucleus only receives fibers from the mandibular (V3) division.",
-      "The lesion must be in the contralateral rostral pons because trigeminal fibers decussate in the orbit."
+      "The spinal trigeminal nucleus provides motor innervation to the orbicularis oculi muscle through the facial nerve, explaining the loss of the efferent blink response during corneal testing.",
+      "The principal sensory nucleus of V receives afferents exclusively from the mandibular division, whereas ophthalmic sensation is processed exclusively in the mesencephalic trigeminal nucleus.",
+      "The lesion must be located in the contralateral rostral pons because primary trigeminal afferents decussate immediately upon exiting the orbital apex through the superior orbital fissure.",
+      "Zoster reactivation in trigeminal ganglion damages primary V1 afferents, abolishing forehead sensation and interrupting the corneal reflex afferent limb while sparing maxillary and mandibular zones."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 3,
     drCohanRule: "Trigeminal pathway organization: V1 afferents travel in the ophthalmic nerve $\rightarrow$ trigeminal ganglion $\rightarrow$ enter pons $\rightarrow$ descend in spinal trigeminal tract. Corneal reflex afferent = V1, efferent = CN VII bilateral blinks!",
     drawingInstruction: "Draw the Caudal Medulla (Slide 3/10). On the RIGHT side, shade the lateral-most circle of the 3 circle neighbors (Right Spinal Trigeminal Tract and Nucleus).",
     explanation: "Reactivation of varicella-zoster virus in the ophthalmic branch (V1) of the trigeminal ganglion produces herpes zoster ophthalmicus. The primary afferents carrying touch and pain from the cornea and forehead descend into the spinal trigeminal tract in the medulla and enter the chief sensory nucleus in the pons. Damage to V1 selectively abolishes sensation across the forehead and destroys the afferent limb of the corneal reflex on that side."
@@ -1082,10 +1082,10 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Posterior Limb of Internal Capsule, Thalamus, & Optic Tract",
     clinicalSyndrome: "Anterior Choroidal Artery (AChA) Syndrome",
     whyOptions: [
-      "The anterior choroidal artery supplies the posterior limb of the internal capsule, retrolenticular optic radiations, and lateral thalamus; occlusion produces the classic clinical triad of contralateral hemiplegia, hemisensory loss, and homonymous hemianopia.",
-      "The posterior cerebral artery exclusively supplies the internal capsule and motor cortex.",
-      "The medial lemniscus decussates in the optic tract, causing hemianopia and sensory loss.",
-      "Damage to the basilar pons causes homonymous hemianopia."
+      "Anterior choroidal artery supplies posterior limb of internal capsule, optic tract/radiations, and thalamus; occlusion causes triad of contralateral hemiplegia, sensory loss, and hemianopia.",
+      "Posterior cerebral artery exclusively supplies the internal capsule and motor cortex, causing contralateral hemiplegia and homonymous hemianopia while completely sparing thalamic sensory relays.",
+      "Medial lemniscus fibers decussate within the optic tract; their ischemic transection causes contralateral homonymous hemianopia and complete loss of conscious proprioception across the body.",
+      "Basilar artery thrombosis damages the posterior limb of the internal capsule, producing dense contralateral hemiparesis and homonymous hemianopia with preserved speech and cognitive functions."
     ],
     correctWhyIndex: 0,
     drCohanRule: "Anterior Choroidal Artery Triad: (1) Contralateral hemiplegia (posterior limb motor), (2) Contralateral hemisensory loss (thalamocortical projections), (3) Contralateral homonymous hemianopia (optic tract / retrolenticular radiations)!",
@@ -1112,12 +1112,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Bilateral Fasciculus Gracilis (Thoracic Cord T8)",
     clinicalSyndrome: "Posterior Cord Syndrome",
     whyOptions: [
-      "A midline posterior spinal cord lesion at T8 selectively compresses the bilateral fasciculus gracilis, abolishing lower extremity proprioception and vibration (sensory ataxia) while sparing fasciculus cuneatus (arms enter at T6 and above) and anterolateral tracts.",
-      "The spinocerebellar tract decussates in the posterior columns at T8.",
-      "Fasciculus gracilis carries motor commands to the gastrocnemius muscles.",
-      "The ventral white commissure is located in the posterior columns of the thoracic cord."
+      "Spinocerebellar tract fibers decussate in the posterior columns at T8; their compression produces sensory ataxia and positive Romberg testing while sparing conscious joint position sensations.",
+      "Posterior cord lesion at T8 selectively compresses bilateral fasciculus gracilis, abolishing leg proprioception and vibration (sensory ataxia) while sparing cuneatus (arms enter $\ge$ T6) and ALS.",
+      "Fasciculus gracilis carries voluntary motor commands to the lower extremities; its compression produces bilateral leg spasticity and sensory ataxia with complete loss of pain and temperature.",
+      "The ventral white commissure is located in the posterior funiculus of the thoracic cord; its compression produces bilateral lower extremity proprioception loss and preserved arm sensation."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 1,
     drCohanRule: "Posterior Cord Syndrome: Fasciculus Gracilis is medial (carries legs T7-S5). Fasciculus Cuneatus is lateral (carries arms C1-T6). At T8, only gracilis is present in the dorsal column. Bilateral compression = bilateral leg proprioception loss with normal arms!",
     drawingInstruction: "Draw the Spinal Cord oval (Slide 2/9) at T8. In the posterior funiculus, shade BOTH the left and right Fasciculus Gracilis along the dorsal midline. Lateral white matter and anterior horns remain intact.",
     explanation: "Posterior cord syndrome involves selective damage to the posterior funiculus (dorsal columns). Because this lesion is at T8 (below the T6 entry level of upper extremity fibers in the fasciculus cuneatus), the dorsal columns contain exclusively the fasciculus gracilis representing the lower extremities. The patient presents with bilateral loss of vibratory and position sense in the legs, sensory ataxia (positive Romberg test), and intact pain, temperature, and motor power."
@@ -1142,12 +1142,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Abducens Nucleus / PPRF, Right Facial Nucleus, Right ML, & Corticospinal Tract",
     clinicalSyndrome: "Foville Syndrome (Inferior Medial Pontine Syndrome)",
     whyOptions: [
-      "Infarction of paramedian branches of the basilar artery in the caudal pons damages the CN VI nucleus/PPRF (ipsilateral conjugate horizontal gaze palsy), CN VII nucleus (ipsilateral facial droop), corticospinal tract (contralateral hemiparesis), and medial lemniscus (contralateral proprioception loss).",
-      "Medial longitudinal fasciculus lesion causes conjugate gaze palsy to the contralateral side.",
-      "Damage to the superior cerebellar peduncle causes peripheral facial paralysis.",
-      "The spinothalamic tract is damaged in the basilar pons, causing conjugate gaze palsy."
+      "Medial longitudinal fasciculus transection causes conjugate horizontal gaze palsy toward the opposite side, whereas the facial colliculus mediates contralateral lower motor neuron facial droop.",
+      "Superior cerebellar peduncle ischemia causes peripheral facial paralysis and conjugate gaze palsy by interrupting crossing dentatorubrothalamic fibers in the ventral caudal pons tegmentum.",
+      "Paramedian basilar branch infarct in caudal pons damages CN VI nucleus/PPRF (gaze palsy to lesion side), CN VII (facial palsy), corticospinal (hemiparesis), and slanting medial lemniscus (touch).",
+      "The spinothalamic tract is damaged within the basilar pons, producing conjugate horizontal gaze palsy and contralateral loss of conscious touch and vibration while sparing motor power."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 2,
     drCohanRule: "Caudal Pons Slide 5/12: 'Medial lemniscus is slanting now!' Foville syndrome damages the abducens nucleus/PPRF (horizontal gaze palsy towards the lesion) + facial nucleus + slanting medial lemniscus + basilar corticospinal tract!",
     drawingInstruction: "Draw the Caudal Pons (Slide 5: square tegmentum with basilar belly). On the RIGHT side, shade the dorsomedial tegmentum (Abducens nucleus and facial colliculus), the slanting Medial Lemniscus, and adjacent basilar corticospinal tract.",
     explanation: "Foville syndrome (inferior medial pontine syndrome) is caused by occlusion of paramedian branches of the basilar artery. The lesion affects: (1) the abducens nucleus or paramedian pontine reticular formation (PPRF), producing a conjugate horizontal gaze palsy towards the side of the lesion (right); (2) the facial motor nucleus/fibers (ipsilateral LMN facial palsy); (3) the corticospinal tract (contralateral left hemiparesis); and (4) the slanting medial lemniscus (contralateral left loss of touch/vibration/proprioception)."
@@ -1172,12 +1172,12 @@ export const CLINICAL_CASES = [
     correctStructureNames: "Right Postcentral Gyrus (Primary Somatosensory Cortex, Hand Area)",
     clinicalSyndrome: "Isolated Cortical Astereognosis & Agraphesthesia",
     whyOptions: [
-      "A focal infarct in the contralateral postcentral gyrus hand area selectively destroys primary somatosensory cortex (areas 3b, 1, 2), eliminating discriminative tactile processing (stereognosis, graphesthesia, 2-point) while crude touch and pain reach conscious perception subcortically in the thalamus.",
-      "The thalamic VPM nucleus processes stereognosis, while the postcentral gyrus processes crude touch.",
-      "Damage to the fasciculus cuneatus produces isolated astereognosis with normal 2-point discrimination.",
-      "The motor cortex (precentral gyrus) is the primary site of tactile object recognition."
+      "Thalamic VPM nucleus processes stereognosis and two-point discrimination, whereas the postcentral gyrus processes crude touch; a thalamic lacunar stroke selectively abolishes tactile recognition.",
+      "Fasciculus cuneatus transection in the cervical cord produces isolated astereognosis with normal two-point discrimination by interrupting non-conscious proprioceptive projections to cerebellum.",
+      "Primary motor cortex in the precentral gyrus is the essential cortical substrate for tactile object identification, explaining why muscle strength must be normal for stereognosis to be intact.",
+      "Focal infarct in postcentral gyrus hand area (3b, 1, 2) destroys discriminative tactile cortex (astereognosis, agraphesthesia, 2-point), while crude touch reaches conscious perception in thalamus."
     ],
-    correctWhyIndex: 0,
+    correctWhyIndex: 3,
     drCohanRule: "Cortical sensory dissociation: Crude touch and pain are perceived subcortically at the thalamus. Discriminative touch—STEREOGNOSIS, GRAPHAPESTHESIA, 2-POINT DISCRIMINATION, and exact pinprick localization—requires the PRIMARY SOMATOSENSORY CORTEX!",
     drawingInstruction: "Draw the lateral cerebral hemisphere. In the RIGHT hemisphere, shade the middle third of the Postcentral Gyrus along the lateral convexity (the hand representation between the shoulder and face).",
     explanation: "This case exemplifies isolated cortical sensory loss (cortical astereognosis and agraphesthesia). Higher-order tactile recognition requires the complex receptive fields and spatial integration of Brodmann areas 3b, 1, and 2 in the primary somatosensory cortex. Crude sensations of temperature, pain, and light touch reach conscious perception in the thalamus, which explains why they remain intact. The deficit is strictly contralateral (right postcentral gyrus $\rightarrow$ left hand)."

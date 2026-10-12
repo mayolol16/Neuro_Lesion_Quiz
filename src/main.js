@@ -7,7 +7,7 @@ const state = {
   cases: [...CLINICAL_CASES],
   currentCaseIndex: 0,
   activeFilter: 'all',
-  selectedLevel: CLINICAL_CASES[0].correctLevel,
+  selectedLevel: null, // DO NOT pick the slide for the user! Step 1 must be chosen by user.
   selectedStructures: [],
   selectedWhyIndex: null,
   feedback: null,
@@ -20,8 +20,7 @@ const state = {
   showAtlasModal: false,
   activeAtlasSlide: 0,
   showDrawingTipModal: false,
-  hoveredStructInfo: null,
-  examMode: false
+  hoveredStructInfo: null
 };
 
 // Filtered Cases Helper
@@ -60,7 +59,7 @@ function renderApp() {
         <div class="brand-logo-icon">🧠</div>
         <div class="brand-text">
           <h1>Neuroanatomy Lesion Studio</h1>
-          <p>40 Clinical Cases • Dr. Chris Cohan's Brainstem Drawing System</p>
+          <p>40 Clinical Cases • Interactive 3-Step Guided Lesion Localization</p>
         </div>
       </div>
 
@@ -76,10 +75,6 @@ function renderApp() {
           </div>
         </div>
 
-        <button id="btn-toggle-exam" class="btn-icon ${state.examMode ? 'active' : ''}" title="Toggle Exam / Practice Mode">
-          <span>${state.examMode ? '📝 Exam Mode' : '💡 Practice Mode'}</span>
-        </button>
-
         <button id="btn-open-atlas" class="btn-icon" title="View Dr. Cohan's 14-Slide Drawing Atlas">
           <span>🎨 Dr. Cohan's Drawing Guide</span>
         </button>
@@ -88,7 +83,7 @@ function renderApp() {
 
     <!-- Main Workspace Grid -->
     <main class="app-container">
-      <!-- LEFT PANEL: Case Presentation & Why Selector -->
+      <!-- LEFT PANEL: Case Presentation & Step 1 + Step 3 -->
       <section class="left-panel">
         <div class="case-control-bar">
           <!-- Filter Pills -->
@@ -122,7 +117,7 @@ function renderApp() {
           </div>
         </div>
 
-        <!-- Case Card -->
+        <!-- Case Presentation Card -->
         <article class="card">
           <div class="case-header-row">
             <div>
@@ -130,7 +125,6 @@ function renderApp() {
                 ${currentCase.source}
               </span>
               <h2 class="case-title" style="margin-top:6px;">${currentCase.title}</h2>
-              <div class="case-category">Target: ${currentCase.category}</div>
             </div>
             <button id="btn-view-drawing-tip" class="btn-icon" style="font-size:11px;" title="See how to draw this lesion">
               ✏️ Draw Tip
@@ -151,14 +145,33 @@ function renderApp() {
           </div>
         </article>
 
-        <!-- "Why?" Pathophysiological Mechanism Selector -->
-        <div class="card why-section">
-          <div class="section-label">
-            <span>2. Why is the lesion located here?</span>
-            <span class="hint-badge">Select Mechanism</span>
+        <!-- STEP 1: Select CNS Level -->
+        <div class="card step-container" id="step-1-card">
+          <div class="step-card-header">
+            <span class="step-badge">Step 1</span>
+            <span class="step-title">What CNS level is the lesion located at?</span>
           </div>
+          <p class="step-subtitle">Select the level to load and view its corresponding brainstem cross-section:</p>
 
-          <div class="why-options-list">
+          <div class="level-picker-grid">
+            ${DIAGRAM_LEVELS.map(lvl => `
+              <button class="level-pick-btn ${state.selectedLevel === lvl.id ? 'selected' : ''}" data-pick-level="${lvl.id}">
+                <span class="level-pick-name">${lvl.name}</span>
+                <span class="level-pick-mnemonic">${lvl.mnemonic}</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+
+        <!-- STEP 3: Pathophysiological Mechanism (Why?) -->
+        <div class="card step-container" id="step-3-card">
+          <div class="step-card-header">
+            <span class="step-badge step-3">Step 3</span>
+            <span class="step-title">Why is the lesion located here?</span>
+          </div>
+          <p class="step-subtitle">Select the pathophysiological mechanism explaining the patient's symptoms:</p>
+
+          <div class="why-options-list" style="margin-top:8px;">
             ${currentCase.whyOptions.map((opt, idx) => `
               <label class="why-option-card ${state.selectedWhyIndex === idx ? 'selected' : ''}">
                 <input type="radio" name="why-rationale" class="why-radio" value="${idx}" ${state.selectedWhyIndex === idx ? 'checked' : ''} />
@@ -173,40 +186,39 @@ function renderApp() {
           <button id="btn-check-diagnosis" class="btn-primary">
             <span>⚡ Check Diagnosis</span>
           </button>
-          <button id="btn-reset-selection" class="btn-secondary" title="Clear currently clicked structures">
+          <button id="btn-reset-selection" class="btn-secondary" title="Clear your selections">
             <span>Reset</span>
           </button>
         </div>
 
-        <!-- Feedback Overlay Card (if checked) -->
+        <!-- Feedback Overlay Card (if submitted) -->
         ${state.feedback ? renderFeedbackCard(currentCase) : ''}
       </section>
 
-      <!-- RIGHT PANEL: Interactive SVG & Level Switcher -->
+      <!-- RIGHT PANEL: STEP 2 (Interactive SVG Cross-Section Stage) -->
       <section class="right-panel">
-        <!-- Level Tabs -->
-        <div class="level-tabs-container">
-          ${DIAGRAM_LEVELS.map(lvl => `
-            <button class="level-tab ${state.selectedLevel === lvl.id ? 'active' : ''}" data-level="${lvl.id}">
-              <span class="level-tab-name">${lvl.name}</span>
-              <span class="level-tab-mnemonic">${lvl.mnemonic}</span>
-            </button>
-          `).join('')}
-        </div>
-
-        <!-- Cross-Section SVG Stage -->
         <div class="diagram-stage-card">
           <div class="diagram-header-info">
-            <span class="diagram-level-title">
-              Level: ${getCurrentLevelName(state.selectedLevel)}
-            </span>
-            <span class="diagram-instructions-badge">
-              👆 Click directly on damaged tract(s) or nuclei
-            </span>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="step-badge step-2">Step 2</span>
+              <span class="diagram-level-title">
+                ${state.selectedLevel 
+                  ? `Pinpoint Lesion: ${getCurrentLevelName(state.selectedLevel)}` 
+                  : 'Awaiting Step 1 Level Selection'}
+              </span>
+            </div>
+            ${state.selectedLevel ? `
+              <span class="diagram-instructions-badge">
+                👆 Click where you expect the lesion to be
+              </span>
+            ` : ''}
           </div>
 
           <div class="diagram-svg-container" id="svg-container">
-            ${renderDiagramSVG(state.selectedLevel, state.selectedStructures, state.feedback)}
+            ${state.selectedLevel ? 
+              renderDiagramSVG(state.selectedLevel, state.selectedStructures, state.feedback) :
+              renderEmptyLevelPrompt()
+            }
           </div>
 
           <!-- Bottom HUD with Selection Pills & Hover info -->
@@ -214,7 +226,9 @@ function renderApp() {
             <div class="selected-pills-wrap">
               <span style="font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase;">Selected:</span>
               ${state.selectedStructures.length === 0 ? `
-                <span class="selection-empty-text">No structures selected yet. Click structures on the diagram above.</span>
+                <span class="selection-empty-text">
+                  ${state.selectedLevel ? 'No structures selected yet. Click on the diagram above.' : 'Select a CNS level in Step 1 first.'}
+                </span>
               ` : state.selectedStructures.map(sId => `
                 <div class="struct-pill">
                   <span>${formatStructName(sId)}</span>
@@ -239,6 +253,16 @@ function renderApp() {
   `;
 
   attachEventHandlers();
+}
+
+function renderEmptyLevelPrompt() {
+  return `
+    <div class="empty-level-prompt">
+      <span style="font-size:44px; filter:drop-shadow(0 0 16px rgba(99,102,241,0.5));">🎯</span>
+      <h3>Complete Step 1 on the Left</h3>
+      <p>Select what CNS level you think the lesion is at (e.g., Spinal Cord, Rostral Medulla, Pons, Midbrain). That brainstem cross-section diagram will appear here for you to pinpoint the lesion!</p>
+    </div>
+  `;
 }
 
 function getBadgeClass(source) {
@@ -273,25 +297,37 @@ function renderFeedbackCard(c) {
       <!-- Checklist of 4 evaluation criteria -->
       <div class="feedback-checklist">
         <div class="check-item ${fb.levelCorrect ? 'passed' : 'failed'}">
-          <span class="check-item-label">1. CNS Level</span>
-          <span class="check-item-val">${c.correctLevelDetail}</span>
+          <span class="check-item-label">Step 1: CNS Level</span>
+          <span class="check-item-val">${fb.levelCorrect ? c.correctLevelDetail : `Chosen: ${getCurrentLevelName(state.selectedLevel)} (Target: ${c.correctLevelDetail})`}</span>
         </div>
 
         <div class="check-item ${fb.sideCorrect ? 'passed' : 'failed'}">
-          <span class="check-item-label">2. Side of Lesion</span>
+          <span class="check-item-label">Side of Lesion</span>
           <span class="check-item-val">${c.correctSide.toUpperCase()}</span>
         </div>
 
         <div class="check-item ${fb.structCorrect ? 'passed' : 'failed'}">
-          <span class="check-item-label">3. Target Structures</span>
+          <span class="check-item-label">Step 2: Target Structures</span>
           <span class="check-item-val">${c.correctStructureNames}</span>
         </div>
 
         <div class="check-item ${fb.whyCorrect ? 'passed' : 'failed'}">
-          <span class="check-item-label">4. Why / Mechanism</span>
-          <span class="check-item-val">${fb.whyCorrect ? 'Correct Rationale Selected' : 'Review Pathophysiology'}</span>
+          <span class="check-item-label">Step 3: Mechanism (Why)</span>
+          <span class="check-item-val">${fb.whyCorrect ? 'Correct Pathophysiology Selected' : 'Incorrect Mechanism Selected'}</span>
         </div>
       </div>
+
+      ${!fb.levelCorrect ? `
+        <div style="background:rgba(244,63,94,0.1); border:1px solid rgba(244,63,94,0.3); border-radius:10px; padding:12px; margin-bottom:12px;">
+          <span style="font-size:11px; font-weight:700; color:var(--accent-rose); text-transform:uppercase;">Level Correction:</span>
+          <p style="font-size:12.5px; color:#fecdd3; margin-top:2px;">
+            The deficits indicate a lesion at <strong>${c.correctLevelDetail}</strong>.
+            <button id="btn-switch-correct-level" style="background:var(--accent-rose); border:none; color:#fff; font-size:11px; font-weight:700; padding:3px 8px; border-radius:4px; margin-left:8px; cursor:pointer;">
+              Switch to ${c.correctLevelDetail}
+            </button>
+          </p>
+        </div>
+      ` : ''}
 
       <!-- Dr. Cohan's Slide Rule Callout -->
       <div class="dr-cohan-tip-box">
@@ -486,7 +522,18 @@ function attachEventHandlers() {
     });
   }
 
-  // Why Radios
+  // Step 1: Level Picker Buttons
+  document.querySelectorAll('[data-pick-level]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const levelId = btn.dataset.pickLevel;
+      state.selectedLevel = levelId;
+      state.selectedStructures = []; // clear structures when level changes
+      state.feedback = null;
+      renderApp();
+    });
+  });
+
+  // Step 3: Why Radios
   document.querySelectorAll('.why-option-card').forEach(card => {
     card.addEventListener('click', (e) => {
       const radio = card.querySelector('input[type="radio"]');
@@ -499,16 +546,7 @@ function attachEventHandlers() {
     });
   });
 
-  // Level Tabs
-  document.querySelectorAll('.level-tab').forEach(tab => {
-    tab.addEventListener('click', (e) => {
-      const levelId = tab.closest('.level-tab').dataset.level;
-      state.selectedLevel = levelId;
-      renderApp();
-    });
-  });
-
-  // SVG Click on Interactive Structures
+  // SVG Click on Interactive Structures (Step 2)
   const svgContainer = document.getElementById('svg-container');
   if (svgContainer) {
     svgContainer.addEventListener('click', (e) => {
@@ -557,9 +595,20 @@ function attachEventHandlers() {
   const resetBtn = document.getElementById('btn-reset-selection');
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
+      state.selectedLevel = null;
       state.selectedStructures = [];
       state.selectedWhyIndex = null;
       state.feedback = null;
+      renderApp();
+    });
+  }
+
+  // Switch to correct level button (from feedback card if level was wrong)
+  const switchLevelBtn = document.getElementById('btn-switch-correct-level');
+  if (switchLevelBtn) {
+    switchLevelBtn.addEventListener('click', () => {
+      const currentCase = getCurrentCase();
+      state.selectedLevel = currentCase.correctLevel;
       renderApp();
     });
   }
@@ -634,34 +683,35 @@ function attachEventHandlers() {
       }
     });
   }
-
-  // Toggle Exam Mode
-  const examToggleBtn = document.getElementById('btn-toggle-exam');
-  if (examToggleBtn) {
-    examToggleBtn.addEventListener('click', () => {
-      state.examMode = !state.examMode;
-      resetCaseInputs();
-      renderApp();
-    });
-  }
 }
 
 function resetCaseInputs() {
-  const currentCase = getCurrentCase();
+  state.selectedLevel = null; // Do NOT pick slide for user!
   state.selectedStructures = [];
   state.selectedWhyIndex = null;
   state.feedback = null;
-  if (!state.examMode) {
-    state.selectedLevel = currentCase.correctLevel;
-  }
 }
 
 // Evaluate Diagnosis
 function evaluateDiagnosis() {
   const currentCase = getCurrentCase();
 
-  if (state.selectedStructures.length === 0 && state.selectedWhyIndex === null) {
-    alert("Please select at least one damaged structure on the cross-section diagram and choose a 'Why?' diagnostic rationale.");
+  if (!state.selectedLevel) {
+    alert("Please complete Step 1: Select what CNS level you think the lesion is located at.");
+    const step1 = document.getElementById('step-1-card');
+    if (step1) step1.scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+
+  if (state.selectedStructures.length === 0) {
+    alert("Please complete Step 2: Click on the cross-section diagram where you expect the lesion to be.");
+    return;
+  }
+
+  if (state.selectedWhyIndex === null) {
+    alert("Please complete Step 3: Select a pathophysiological mechanism ('Why').");
+    const step3 = document.getElementById('step-3-card');
+    if (step3) step3.scrollIntoView({ behavior: 'smooth' });
     return;
   }
 

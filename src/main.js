@@ -7,10 +7,13 @@ const state = {
   cases: [...CLINICAL_CASES],
   currentCaseIndex: 0,
   activeFilter: 'all',
-  selectedLevel: null, // DO NOT pick the slide for the user! Step 1 must be chosen by user.
-  selectedStructures: [],
-  selectedWhyIndex: null,
-  feedback: null,
+  selectedLevel: null,       // Step 1: CNS level (null by default; user must select)
+  selectedStructures: [],    // Step 2: structures clicked on cross-section
+  step2Checked: false,       // Has the user checked Step 2 (Location)?
+  step2Feedback: null,       // Step 2 evaluation result
+  selectedWhyIndex: null,    // Step 3: selected mechanism index
+  step3Checked: false,       // Has the user checked Step 3 (Mechanism)?
+  feedback: null,            // Full case evaluation result (after Step 3)
   stats: {
     attempted: parseInt(localStorage.getItem('neuro_attempted') || '0', 10),
     correct: parseInt(localStorage.getItem('neuro_correct') || '0', 10),
@@ -23,7 +26,7 @@ const state = {
   hoveredStructInfo: null
 };
 
-// Filtered Cases Helper
+// Filtered Cases Helper (Cohort-based, NO anatomical level spoilers)
 function getFilteredCases() {
   if (state.activeFilter === 'all') return state.cases;
   if (state.activeFilter === 'exam1') {
@@ -32,7 +35,13 @@ function getFilteredCases() {
   if (state.activeFilter === 'exam1_cont') {
     return state.cases.filter(c => c.source.includes('Exam 1 Cases Continued -'));
   }
-  return state.cases.filter(c => c.category.toLowerCase().includes(state.activeFilter.toLowerCase()));
+  if (state.activeFilter === 'part3') {
+    return state.cases.filter(c => c.id >= 13 && c.id <= 26);
+  }
+  if (state.activeFilter === 'part4') {
+    return state.cases.filter(c => c.id >= 27 && c.id <= 40);
+  }
+  return state.cases;
 }
 
 function getCurrentCase() {
@@ -83,20 +92,16 @@ function renderApp() {
 
     <!-- Main Workspace Grid -->
     <main class="app-container">
-      <!-- LEFT PANEL: Case Presentation & Step 1 + Step 3 -->
+      <!-- LEFT PANEL: Case Presentation, Step 1 (Level) & Step 3 (Why) -->
       <section class="left-panel">
         <div class="case-control-bar">
-          <!-- Filter Pills -->
+          <!-- Filter Cohorts (No level spoilers) -->
           <div class="filter-pills-row">
             <button class="filter-pill ${state.activeFilter === 'all' ? 'active' : ''}" data-filter="all">All 40 Cases</button>
             <button class="filter-pill ${state.activeFilter === 'exam1' ? 'active' : ''}" data-filter="exam1">Exam 1 (Cases 1-6)</button>
             <button class="filter-pill ${state.activeFilter === 'exam1_cont' ? 'active' : ''}" data-filter="exam1_cont">Exam 1 Cont. (7-12)</button>
-            <button class="filter-pill ${state.activeFilter === 'spinal cord' ? 'active' : ''}" data-filter="spinal cord">Spinal Cord</button>
-            <button class="filter-pill ${state.activeFilter === 'medulla' ? 'active' : ''}" data-filter="medulla">Medulla</button>
-            <button class="filter-pill ${state.activeFilter === 'pons' ? 'active' : ''}" data-filter="pons">Pons</button>
-            <button class="filter-pill ${state.activeFilter === 'midbrain' ? 'active' : ''}" data-filter="midbrain">Midbrain</button>
-            <button class="filter-pill ${state.activeFilter === 'thalamus' ? 'active' : ''}" data-filter="thalamus">Thalamus</button>
-            <button class="filter-pill ${state.activeFilter === 'cortex' ? 'active' : ''}" data-filter="cortex">Cortex</button>
+            <button class="filter-pill ${state.activeFilter === 'part3' ? 'active' : ''}" data-filter="part3">Practice (13-26)</button>
+            <button class="filter-pill ${state.activeFilter === 'part4' ? 'active' : ''}" data-filter="part4">Mastery (27-40)</button>
           </div>
 
           <!-- Case Pagination Dropdown -->
@@ -151,7 +156,7 @@ function renderApp() {
             <span class="step-badge">Step 1</span>
             <span class="step-title">What CNS level is the lesion located at?</span>
           </div>
-          <p class="step-subtitle">Select the level to load and view its corresponding brainstem cross-section:</p>
+          <p class="step-subtitle">Select the level to load and view its corresponding brainstem cross-section in Step 2:</p>
 
           <div class="level-picker-grid">
             ${DIAGRAM_LEVELS.map(lvl => `
@@ -164,38 +169,56 @@ function renderApp() {
         </div>
 
         <!-- STEP 3: Pathophysiological Mechanism (Why?) -->
-        <div class="card step-container" id="step-3-card">
+        <!-- Locked until Step 2 is checked, then unlocked to follow up -->
+        <div class="card step-container ${state.step2Checked ? 'step-unlocked glow-focus' : 'step-locked'}" id="step-3-card">
           <div class="step-card-header">
-            <span class="step-badge step-3">Step 3</span>
-            <span class="step-title">Why is the lesion located here?</span>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="step-badge step-3" style="${!state.step2Checked ? 'opacity:0.6;' : ''}">Step 3</span>
+              <span class="step-title" style="${!state.step2Checked ? 'color:var(--text-muted);' : ''}">
+                Why is the lesion located here? (Mechanism)
+              </span>
+            </div>
+            ${state.step2Checked ? `
+              <span class="status-indicator-tag unlocked">🔓 Unlocked</span>
+            ` : `
+              <span class="status-indicator-tag locked">🔒 Complete Step 2 First</span>
+            `}
           </div>
-          <p class="step-subtitle">Select the pathophysiological mechanism explaining the patient's symptoms:</p>
 
-          <div class="why-options-list" style="margin-top:8px;">
-            ${currentCase.whyOptions.map((opt, idx) => `
-              <label class="why-option-card ${state.selectedWhyIndex === idx ? 'selected' : ''}">
-                <input type="radio" name="why-rationale" class="why-radio" value="${idx}" ${state.selectedWhyIndex === idx ? 'checked' : ''} />
-                <span class="why-text">${opt}</span>
-              </label>
-            `).join('')}
-          </div>
+          ${!state.step2Checked ? `
+            <p class="step-subtitle" style="color:var(--text-dim); margin-top:4px;">
+              First complete Step 1 (CNS level), pinpoint the lesion on the cross-section in Step 2, and click <strong>"Check Lesion Location"</strong> to unlock this mechanism question!
+            </p>
+          ` : `
+            <p class="step-subtitle">Select the pathophysiological mechanism explaining the patient's symptoms:</p>
+
+            <div class="why-options-list" style="margin-top:10px;">
+              ${currentCase.whyOptions.map((opt, idx) => `
+                <label class="why-option-card ${state.selectedWhyIndex === idx ? 'selected' : ''} ${state.step3Checked ? (idx === currentCase.correctWhyIndex ? 'correct-choice' : (state.selectedWhyIndex === idx ? 'wrong-choice' : '')) : ''}">
+                  <input type="radio" name="why-rationale" class="why-radio" value="${idx}" ${state.selectedWhyIndex === idx ? 'checked' : ''} ${state.step3Checked ? 'disabled' : ''} />
+                  <span class="why-text">${opt}</span>
+                </label>
+              `).join('')}
+            </div>
+
+            ${!state.step3Checked ? `
+              <div class="actions-bar" style="margin-top:12px;">
+                <button id="btn-check-step3" class="btn-primary" ${state.selectedWhyIndex === null ? 'disabled style="opacity:0.5; cursor:not-allowed;"' : ''}>
+                  <span>⚡ Check Mechanism & Complete Case</span>
+                </button>
+                <button id="btn-reset-selection" class="btn-secondary" title="Clear your selections">
+                  <span>Reset Case</span>
+                </button>
+              </div>
+            ` : ''}
+          `}
         </div>
 
-        <!-- Action Buttons -->
-        <div class="actions-bar">
-          <button id="btn-check-diagnosis" class="btn-primary">
-            <span>⚡ Check Diagnosis</span>
-          </button>
-          <button id="btn-reset-selection" class="btn-secondary" title="Clear your selections">
-            <span>Reset</span>
-          </button>
-        </div>
-
-        <!-- Feedback Overlay Card (if submitted) -->
+        <!-- Full Feedback & Synthesis Card (Revealed after Step 3 is checked) -->
         ${state.feedback ? renderFeedbackCard(currentCase) : ''}
       </section>
 
-      <!-- RIGHT PANEL: STEP 2 (Interactive SVG Cross-Section Stage) -->
+      <!-- RIGHT PANEL: STEP 2 (Interactive SVG Cross-Section Stage & Location Verification) -->
       <section class="right-panel">
         <div class="diagram-stage-card">
           <div class="diagram-header-info">
@@ -216,7 +239,7 @@ function renderApp() {
 
           <div class="diagram-svg-container" id="svg-container">
             ${state.selectedLevel ? 
-              renderDiagramSVG(state.selectedLevel, state.selectedStructures, state.feedback) :
+              renderDiagramSVG(state.selectedLevel, state.selectedStructures, state.step2Checked ? state.step2Feedback : null) :
               renderEmptyLevelPrompt()
             }
           </div>
@@ -232,7 +255,7 @@ function renderApp() {
               ` : state.selectedStructures.map(sId => `
                 <div class="struct-pill">
                   <span>${formatStructName(sId)}</span>
-                  <span class="struct-pill-remove" data-remove="${sId}">×</span>
+                  ${!state.step2Checked ? `<span class="struct-pill-remove" data-remove="${sId}">×</span>` : ''}
                 </div>
               `).join('')}
             </div>
@@ -240,6 +263,70 @@ function renderApp() {
             <div class="hover-info-badge" id="hover-info-badge">
               ${state.hoveredStructInfo || 'Hover over any tract or nucleus to view details'}
             </div>
+          </div>
+
+          <!-- Dedicated Step 2 Verification & Feedback HUD -->
+          <div class="step2-verification-hud">
+            ${!state.step2Checked ? `
+              <div class="step2-action-row">
+                <button id="btn-check-step2" class="btn-step2-check ${!state.selectedLevel || state.selectedStructures.length === 0 ? 'btn-disabled' : ''}">
+                  <span>⚡ Check Lesion Location (Step 2)</span>
+                </button>
+                <span class="step2-action-guide">
+                  ${!state.selectedLevel 
+                    ? '👈 Complete Step 1 on the left first' 
+                    : state.selectedStructures.length === 0 
+                      ? '👆 Click tracts/nuclei on the diagram to pinpoint lesion' 
+                      : '🎯 Click to verify your selected level & structures'}
+                </span>
+              </div>
+            ` : `
+              <!-- Step 2 Checked: Location Feedback Banner -->
+              <div class="step2-feedback-banner ${state.step2Feedback.isLocationCorrect ? 'success' : state.step2Feedback.levelCorrect ? 'partial' : 'error'}">
+                <div class="step2-feedback-top">
+                  <span class="step2-feedback-icon">${state.step2Feedback.isLocationCorrect ? '🎯' : state.step2Feedback.levelCorrect ? '⚠️' : '❌'}</span>
+                  <div class="step2-feedback-heading">
+                    <strong>
+                      ${state.step2Feedback.isLocationCorrect 
+                        ? 'Spot-on Localization!' 
+                        : state.step2Feedback.levelCorrect 
+                          ? 'Level is Correct, But Re-Check Target Structures' 
+                          : 'CNS Level Needs Adjustment'}
+                    </strong>
+                    <span class="step2-subtext">
+                      ${state.step2Feedback.isLocationCorrect
+                        ? `Level: ${currentCase.correctLevelDetail} • Structures: ${currentCase.correctStructureNames}`
+                        : state.step2Feedback.levelCorrect
+                          ? `Level verified (${currentCase.correctLevelDetail}). See dashed green outlines on diagram for target.`
+                          : `Selected: ${getCurrentLevelName(state.selectedLevel)} | Expected: ${currentCase.correctLevelDetail}`}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="step2-feedback-bottom">
+                  ${state.step2Feedback.isLocationCorrect ? `
+                    <div class="step2-next-prompt">
+                      <span>👇 <strong>Step 3 (Why)</strong> is now unlocked on the left panel! Follow up on the mechanism to finish the case.</span>
+                    </div>
+                  ` : state.step2Feedback.levelCorrect ? `
+                    <div class="step2-next-prompt">
+                      <span>Target: <strong>${currentCase.correctStructureNames}</strong>. You may adjust or proceed to <strong>Step 3 (Why)</strong> on the left.</span>
+                    </div>
+                  ` : `
+                    <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+                      <span style="font-size:12px; color:#fecdd3;">Would you like to inspect the correct cross-section?</span>
+                      <button id="btn-switch-to-target-level" class="btn-inline-fix">
+                        Switch to ${currentCase.correctLevelDetail}
+                      </button>
+                    </div>
+                  `}
+
+                  <button id="btn-recheck-step2" class="btn-recheck-inline" title="Make changes to location">
+                    ✏️ Re-edit Location
+                  </button>
+                </div>
+              </div>
+            `}
           </div>
         </div>
       </section>
@@ -260,7 +347,7 @@ function renderEmptyLevelPrompt() {
     <div class="empty-level-prompt">
       <span style="font-size:44px; filter:drop-shadow(0 0 16px rgba(99,102,241,0.5));">🎯</span>
       <h3>Complete Step 1 on the Left</h3>
-      <p>Select what CNS level you think the lesion is at (e.g., Spinal Cord, Rostral Medulla, Pons, Midbrain). That brainstem cross-section diagram will appear here for you to pinpoint the lesion!</p>
+      <p>Select what CNS level you think the lesion is located at (e.g., Spinal Cord, Rostral Medulla, Pons, Midbrain). That brainstem cross-section diagram will appear here for you to pinpoint the lesion!</p>
     </div>
   `;
 }
@@ -280,7 +367,7 @@ function formatStructName(sId) {
   return sId.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 }
 
-// Render Feedback Card
+// Render Feedback Card (Full Case Debrief after Step 3)
 function renderFeedbackCard(c) {
   const fb = state.feedback;
   const isAllCorrect = fb.isCorrect;
@@ -289,8 +376,9 @@ function renderFeedbackCard(c) {
     <div class="feedback-modal-card ${isAllCorrect ? 'correct' : 'incorrect'}">
       <div class="feedback-header-row">
         <div class="feedback-title-badge ${isAllCorrect ? 'correct' : 'incorrect'}">
-          <span>${isAllCorrect ? '✅ Brilliant Diagnosis!' : '⚠️ Review Diagnosis'}</span>
+          <span>${isAllCorrect ? '✅ Brilliant Diagnosis!' : '⚠️ Case Review & Synthesis'}</span>
         </div>
+        <!-- Syndrome Name Revealed! -->
         <span class="syndrome-tag">${c.clinicalSyndrome}</span>
       </div>
 
@@ -316,18 +404,6 @@ function renderFeedbackCard(c) {
           <span class="check-item-val">${fb.whyCorrect ? 'Correct Pathophysiology Selected' : 'Incorrect Mechanism Selected'}</span>
         </div>
       </div>
-
-      ${!fb.levelCorrect ? `
-        <div style="background:rgba(244,63,94,0.1); border:1px solid rgba(244,63,94,0.3); border-radius:10px; padding:12px; margin-bottom:12px;">
-          <span style="font-size:11px; font-weight:700; color:var(--accent-rose); text-transform:uppercase;">Level Correction:</span>
-          <p style="font-size:12.5px; color:#fecdd3; margin-top:2px;">
-            The deficits indicate a lesion at <strong>${c.correctLevelDetail}</strong>.
-            <button id="btn-switch-correct-level" style="background:var(--accent-rose); border:none; color:#fff; font-size:11px; font-weight:700; padding:3px 8px; border-radius:4px; margin-left:8px; cursor:pointer;">
-              Switch to ${c.correctLevelDetail}
-            </button>
-          </p>
-        </div>
-      ` : ''}
 
       <!-- Dr. Cohan's Slide Rule Callout -->
       <div class="dr-cohan-tip-box">
@@ -524,25 +600,15 @@ function attachEventHandlers() {
 
   // Step 1: Level Picker Buttons
   document.querySelectorAll('[data-pick-level]').forEach(btn => {
-    btn.addEventListener('click', (e) => {
+    btn.addEventListener('click', () => {
       const levelId = btn.dataset.pickLevel;
       state.selectedLevel = levelId;
       state.selectedStructures = []; // clear structures when level changes
+      state.step2Checked = false;
+      state.step2Feedback = null;
+      state.step3Checked = false;
       state.feedback = null;
       renderApp();
-    });
-  });
-
-  // Step 3: Why Radios
-  document.querySelectorAll('.why-option-card').forEach(card => {
-    card.addEventListener('click', (e) => {
-      const radio = card.querySelector('input[type="radio"]');
-      if (radio) {
-        radio.checked = true;
-        state.selectedWhyIndex = parseInt(radio.value, 10);
-        document.querySelectorAll('.why-option-card').forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-      }
     });
   });
 
@@ -550,6 +616,7 @@ function attachEventHandlers() {
   const svgContainer = document.getElementById('svg-container');
   if (svgContainer) {
     svgContainer.addEventListener('click', (e) => {
+      if (state.step2Checked) return; // Do not edit while checked; click Re-edit first
       const struct = e.target.closest('.interactive-struct');
       if (struct) {
         const structId = struct.dataset.id;
@@ -591,33 +658,82 @@ function attachEventHandlers() {
     });
   });
 
+  // Check Step 2 (Location) Button
+  const checkStep2Btn = document.getElementById('btn-check-step2');
+  if (checkStep2Btn) {
+    checkStep2Btn.addEventListener('click', () => {
+      evaluateStep2Location();
+    });
+  }
+
+  // Re-edit Step 2 Button
+  const recheckStep2Btn = document.getElementById('btn-recheck-step2');
+  if (recheckStep2Btn) {
+    recheckStep2Btn.addEventListener('click', () => {
+      state.step2Checked = false;
+      state.step2Feedback = null;
+      renderApp();
+    });
+  }
+
+  // Switch to target level button (from Step 2 feedback error banner)
+  const switchToTargetBtn = document.getElementById('btn-switch-to-target-level');
+  if (switchToTargetBtn) {
+    switchToTargetBtn.addEventListener('click', () => {
+      const currentCase = getCurrentCase();
+      state.selectedLevel = currentCase.correctLevel;
+      state.selectedStructures = [...currentCase.correctStructures];
+      state.step2Checked = true;
+      state.step2Feedback = {
+        isLocationCorrect: true,
+        levelCorrect: true,
+        structCorrect: true,
+        correctStructures: currentCase.correctStructures
+      };
+      renderApp();
+      // Scroll to Step 3
+      setTimeout(() => {
+        const step3 = document.getElementById('step-3-card');
+        if (step3) step3.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    });
+  }
+
+  // Step 3: Why Radios
+  document.querySelectorAll('.why-option-card').forEach(card => {
+    card.addEventListener('click', () => {
+      if (state.step3Checked) return;
+      const radio = card.querySelector('input[type="radio"]');
+      if (radio) {
+        radio.checked = true;
+        state.selectedWhyIndex = parseInt(radio.value, 10);
+        document.querySelectorAll('.why-option-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        // Enable check button if disabled
+        const checkStep3Btn = document.getElementById('btn-check-step3');
+        if (checkStep3Btn) {
+          checkStep3Btn.removeAttribute('disabled');
+          checkStep3Btn.style.opacity = '1';
+          checkStep3Btn.style.cursor = 'pointer';
+        }
+      }
+    });
+  });
+
+  // Check Step 3 (Mechanism) Button
+  const checkStep3Btn = document.getElementById('btn-check-step3');
+  if (checkStep3Btn) {
+    checkStep3Btn.addEventListener('click', () => {
+      evaluateStep3Mechanism();
+    });
+  }
+
   // Reset Selection
   const resetBtn = document.getElementById('btn-reset-selection');
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
-      state.selectedLevel = null;
-      state.selectedStructures = [];
-      state.selectedWhyIndex = null;
-      state.feedback = null;
+      resetCaseInputs();
       renderApp();
-    });
-  }
-
-  // Switch to correct level button (from feedback card if level was wrong)
-  const switchLevelBtn = document.getElementById('btn-switch-correct-level');
-  if (switchLevelBtn) {
-    switchLevelBtn.addEventListener('click', () => {
-      const currentCase = getCurrentCase();
-      state.selectedLevel = currentCase.correctLevel;
-      renderApp();
-    });
-  }
-
-  // Check Diagnosis
-  const checkBtn = document.getElementById('btn-check-diagnosis');
-  if (checkBtn) {
-    checkBtn.addEventListener('click', () => {
-      evaluateDiagnosis();
     });
   }
 
@@ -650,7 +766,7 @@ function attachEventHandlers() {
 
   // Slide Selection in Atlas
   document.querySelectorAll('[data-slide]').forEach(elem => {
-    elem.addEventListener('click', (e) => {
+    elem.addEventListener('click', () => {
       const slideIdx = parseInt(elem.closest('[data-slide]').dataset.slide, 10);
       state.activeAtlasSlide = slideIdx;
       renderApp();
@@ -686,43 +802,37 @@ function attachEventHandlers() {
 }
 
 function resetCaseInputs() {
-  state.selectedLevel = null; // Do NOT pick slide for user!
+  state.selectedLevel = null;
   state.selectedStructures = [];
+  state.step2Checked = false;
+  state.step2Feedback = null;
   state.selectedWhyIndex = null;
+  state.step3Checked = false;
   state.feedback = null;
 }
 
-// Evaluate Diagnosis
-function evaluateDiagnosis() {
+// Evaluate Step 2: Location (CNS Level + Cross-Section Structures)
+function evaluateStep2Location() {
   const currentCase = getCurrentCase();
 
   if (!state.selectedLevel) {
-    alert("Please complete Step 1: Select what CNS level you think the lesion is located at.");
+    alert("Please complete Step 1 first: Select what CNS level you think the lesion is located at.");
     const step1 = document.getElementById('step-1-card');
     if (step1) step1.scrollIntoView({ behavior: 'smooth' });
     return;
   }
 
   if (state.selectedStructures.length === 0) {
-    alert("Please complete Step 2: Click on the cross-section diagram where you expect the lesion to be.");
-    return;
-  }
-
-  if (state.selectedWhyIndex === null) {
-    alert("Please complete Step 3: Select a pathophysiological mechanism ('Why').");
-    const step3 = document.getElementById('step-3-card');
-    if (step3) step3.scrollIntoView({ behavior: 'smooth' });
+    alert("Please pinpoint the lesion: Click on the cross-section diagram where you expect the lesion to be.");
     return;
   }
 
   const levelCorrect = state.selectedLevel === currentCase.correctLevel;
-  const whyCorrect = state.selectedWhyIndex === currentCase.correctWhyIndex;
 
-  // Check structure match
+  // Check structures match
   const selectedSet = new Set(state.selectedStructures);
   const correctSet = new Set(currentCase.correctStructures);
-
-  let matchesAll = selectedSet.size === correctSet.size && [...selectedSet].every(s => correctSet.has(s));
+  const structCorrect = selectedSet.size === correctSet.size && [...selectedSet].every(s => correctSet.has(s));
 
   // Determine side correctness
   let sideCorrect = false;
@@ -732,13 +842,46 @@ function evaluateDiagnosis() {
     sideCorrect = state.selectedStructures.some(s => s.includes(currentCase.correctSide));
   }
 
-  const isOverallCorrect = levelCorrect && matchesAll && whyCorrect;
+  const isLocationCorrect = levelCorrect && structCorrect;
 
+  state.step2Checked = true;
+  state.step2Feedback = {
+    isLocationCorrect,
+    levelCorrect,
+    structCorrect,
+    sideCorrect,
+    correctStructures: currentCase.correctStructures
+  };
+
+  renderApp();
+
+  // Smoothly scroll or bring attention to Step 3
+  setTimeout(() => {
+    const step3 = document.getElementById('step-3-card');
+    if (step3) {
+      step3.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 100);
+}
+
+// Evaluate Step 3: Pathophysiological Mechanism (Why) & Complete Case
+function evaluateStep3Mechanism() {
+  const currentCase = getCurrentCase();
+
+  if (state.selectedWhyIndex === null) {
+    alert("Please select a pathophysiological mechanism ('Why') in Step 3.");
+    return;
+  }
+
+  const whyCorrect = state.selectedWhyIndex === currentCase.correctWhyIndex;
+  const isOverallCorrect = state.step2Feedback && state.step2Feedback.isLocationCorrect && whyCorrect;
+
+  state.step3Checked = true;
   state.feedback = {
     isCorrect: isOverallCorrect,
-    levelCorrect,
-    sideCorrect,
-    structCorrect: matchesAll,
+    levelCorrect: state.step2Feedback ? state.step2Feedback.levelCorrect : false,
+    sideCorrect: state.step2Feedback ? state.step2Feedback.sideCorrect : false,
+    structCorrect: state.step2Feedback ? state.step2Feedback.structCorrect : false,
     whyCorrect,
     correctStructures: currentCase.correctStructures
   };
@@ -761,6 +904,14 @@ function evaluateDiagnosis() {
   localStorage.setItem('neuro_best_streak', state.stats.bestStreak.toString());
 
   renderApp();
+
+  // Scroll to feedback
+  setTimeout(() => {
+    const fbCard = document.querySelector('.feedback-modal-card');
+    if (fbCard) {
+      fbCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 100);
 }
 
 // Global Keyboard Navigation

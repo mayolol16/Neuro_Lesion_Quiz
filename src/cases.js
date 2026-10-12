@@ -70,7 +70,7 @@ export const CLINICAL_CASES = [
   {
     id: 3,
     source: "Exam 1 Cases - Case 3",
-    title: "Alternating Hemisensory Loss (Left Face, Right Body Pinprick)",
+    title: "Left Facial Numbness with Contralateral Body Pinprick Loss",
     category: "Medulla",
     vignette: "A 60-year-old man is examined in the emergency department with the following findings:\n1. Touch, vibratory, and proprioceptive sensation is NORMAL over entire right and left sides of face and body.\n2. Pinprick sensation is ABSENT on the left side of the face.\n3. Pinprick sensation is ABSENT on the right side of the body, but normal on the left side of the body.",
     findings: [
@@ -156,7 +156,7 @@ export const CLINICAL_CASES = [
   {
     id: 6,
     source: "Exam 1 Cases - Case 6",
-    title: "Tree Trimmer Fall with Asymmetric Cord Signs",
+    title: "Tree Trimmer Fall with Asymmetric Leg Deficits",
     category: "Spinal Cord",
     vignette: "A 25-year-old man fell off a ladder while trimming trees and suffered spinal trauma. After regaining consciousness, exam reveals:\n1. Tactile and vibratory sensation is ABSENT over entire left lower body and lower limb. He cannot tell orientation of his left leg on passive movement.\n2. Tactile sensation is NORMAL on entire right side of body.\n3. Pinprick sensation is ABSENT on right side of lower body and leg from the level of the umbilicus (T10) down.\n4. Pinprick sensation is NORMAL on entire left side of body.\nQuestion: What SIDE and LEVEL is the lesion?",
     findings: [
@@ -368,7 +368,7 @@ export const CLINICAL_CASES = [
   {
     id: 13,
     source: "Clinical Case 13",
-    title: "Medial Medullary Syndrome (Dejerine Syndrome)",
+    title: "Sudden Left Body Weakness & Right Tongue Deviation",
     category: "Medulla",
     vignette: "A 64-year-old man with hypertension develops sudden weakness and numbness. Exam shows:\n1. Touch, vibratory, and proprioceptive sensation are ABSENT on the entire left body (arm, trunk, leg).\n2. Loss of pinprick/temperature is absent; pain/temperature is normal bilaterally.\n3. Left hemiparesis with hyperreflexia and positive Babinski.\n4. When he protrudes his tongue, it deviates strongly to the RIGHT with fasciculations and atrophy.",
     findings: [
@@ -397,7 +397,7 @@ export const CLINICAL_CASES = [
   {
     id: 14,
     source: "Clinical Case 14",
-    title: "Midbrain Tegmental Lesion (Weber Syndrome)",
+    title: "Right Ptosis with Mydriasis & Contralateral Left Hemiparesis",
     category: "Midbrain",
     vignette: "A 72-year-old man presents with sudden double vision and weakness. Exam reveals:\n1. Ptosis of the left upper eyelid, a dilated non-reactive left pupil, and the left eye is deviated 'down and out' at rest.\n2. Flaccid paralysis of the right lower face and right arm and leg (contralateral hemiplegia).\n3. Babinski sign is present on the right.",
     findings: [
@@ -425,7 +425,7 @@ export const CLINICAL_CASES = [
   {
     id: 15,
     source: "Clinical Case 15",
-    title: "Mid-Pontine Trigeminal Neuropathy (Principal Sensory vs Motor)",
+    title: "Right Facial Numbness to Light Touch with Jaw Deviation",
     category: "Pons",
     vignette: "A 48-year-old woman develops a mass in the middle tegmentum of the pons. Exam reveals:\n1. Fine touch, two-point discrimination, and vibratory sensation are ABSENT over the entire right face.\n2. Pinprick and temperature sensation on the right face are surprisingly preserved/normal.\n3. Weakness of right mastication; when she opens her jaw, the mandible deviates to the RIGHT.\n4. Body sensation and motor power are normal bilaterally.",
     findings: [
@@ -454,7 +454,7 @@ export const CLINICAL_CASES = [
   {
     id: 16,
     source: "Clinical Case 16",
-    title: "Anterior Spinal Artery Syndrome of the Thoracic Cord",
+    title: "Acute Paraplegia and Bilateral Loss of Pain and Temperature",
     category: "Spinal Cord",
     vignette: "A 62-year-old man undergoing abdominal aortic aneurysm repair develops sudden paraplegia. Exam reveals:\n1. Flaccid paralysis of both legs with bilateral Babinski signs.\n2. Complete loss of pinprick and temperature sensation below the T10 dermatome bilaterally.\n3. Vibratory sense, two-point discrimination, and joint position sense are COMPLETELY PRESERVED in both legs.",
     findings: [
@@ -482,7 +482,7 @@ export const CLINICAL_CASES = [
   {
     id: 17,
     source: "Clinical Case 17",
-    title: "Caudal Pons Infarction (Millard-Gubler Syndrome)",
+    title: "Left Bell-Type Facial Droop, Lateral Rectus Palsy & Right Hemiplegia",
     category: "Pons",
     vignette: "A 59-year-old woman presents with facial droop and weakness. Exam shows:\n1. Inability to abduct the left eye on lateral gaze; left eye is stuck in adduction at rest.\n2. Complete lower motor neuron paralysis of the entire left face (forehead, eye closure, mouth droop).\n3. Spastic hemiplegia of the right arm and right leg with Babinski sign on the right.\n4. Proprioception, vibration, and pinprick are normal throughout.",
     findings: [
@@ -511,7 +511,7 @@ export const CLINICAL_CASES = [
   {
     id: 18,
     source: "Clinical Case 18",
-    title: "Locked-In Syndrome (Bilateral Basilar Pons Infarction)",
+    title: "Bilateral Quadriplegia and Aphonia with Vertical Eye Movements Spared",
     category: "Pons",
     vignette: "A 52-year-old man collapses and is found unresponsive to verbal commands. On detailed exam:\n1. He is fully awake and alert, comprehending questions by blinking and moving eyes vertically.\n2. Complete quadriplegia (0/5 strength in all 4 limbs).\n3. Complete bilateral loss of horizontal eye movements, speech (anarthria), and facial movement.\n4. Sensation (vibration, touch, pain) is remarkably intact throughout body and face.",
     findings: [
@@ -540,7 +540,7 @@ export const CLINICAL_CASES = [
   {
     id: 19,
     source: "Clinical Case 19",
-    title: "Lateral Pontine Syndrome (AICA Stroke)",
+    title: "Vertigo, Right Facial Palsy, Deafness & Left Body Pinprick Loss",
     category: "Pons",
     vignette: "A 56-year-old woman develops sudden vertigo, nausea, and deafness in the right ear. Exam reveals:\n1. Severe right-sided facial weakness (upper and lower face, CN VII).\n2. Loss of pinprick and temperature sensation on the RIGHT face.\n3. Loss of pinprick and temperature sensation on the LEFT body (neck down).\n4. Complete sensorineural hearing loss in the right ear (CN VIII).\n5. Right limb ataxia and dysmetria.\n6. Touch and vibration are normal on both sides of the body.",
     findings: [
@@ -571,7 +571,7 @@ export const CLINICAL_CASES = [
   {
     id: 20,
     source: "Clinical Case 20",
-    title: "Tabes Dorsalis (Syphilitic Dorsal Column Degeneration)",
+    title: "Severe Sensory Ataxia, Stamping Gait & Bilateral Leg Proprioception Loss",
     category: "Spinal Cord",
     vignette: "A 61-year-old man presents with sharp, shooting 'lightning pains' in his legs and severe difficulty walking at night. Exam shows:\n1. Complete loss of vibratory sense and joint position sense in both lower extremities.\n2. Normal pain and temperature sensation on the legs, trunk, and face.\n3. Absent deep tendon reflexes at knees and ankles bilaterally.\n4. Positive Romberg sign; wide-based high-stepping 'slapping' gait.\n5. Argyll Robertson pupils (accommodate but do not react to light).",
     findings: [
@@ -601,7 +601,7 @@ export const CLINICAL_CASES = [
   {
     id: 21,
     source: "Clinical Case 21",
-    title: "Central Cord Syndrome (Hyperextension Neck Injury)",
+    title: "Motor Vehicle Collision with Weakness in Arms Worse than Legs",
     category: "Spinal Cord",
     vignette: "A 71-year-old woman with severe cervical spondylosis is in a motor vehicle accident and suffers a hyperextension injury of the neck. Exam reveals:\n1. Severe flaccid weakness of both hands and arms (1/5 power), but motor strength in both legs is nearly normal (4+/5 power).\n2. Loss of pinprick and temperature sensation in a bilateral 'cape-like' distribution across shoulders, arms, and upper chest.\n3. Vibratory sense and proprioception are completely preserved throughout.",
     findings: [
@@ -630,7 +630,7 @@ export const CLINICAL_CASES = [
   {
     id: 22,
     source: "Clinical Case 22",
-    title: "Midbrain Claude Syndrome (Tegmental PCA Infarct)",
+    title: "Right Oculomotor Palsy with Contralateral Left Intention Tremor",
     category: "Midbrain",
     vignette: "A 67-year-old man presents with double vision and severe tremor of his left arm. Exam shows:\n1. Ptosis of the right upper eyelid, dilated right pupil, and right eye deviated down and out (right CN III palsy).\n2. Right eye cannot adduct, elevate, or depress.\n3. Severe intention tremor and dysmetria of the LEFT arm and leg.\n4. Muscle power is 5/5 throughout; no spasticity or Babinski sign.\n5. Sensation is intact throughout.",
     findings: [
@@ -659,7 +659,7 @@ export const CLINICAL_CASES = [
   {
     id: 23,
     source: "Clinical Case 23",
-    title: "Midbrain Benedikt Syndrome (Crus Cerebri + Red Nucleus)",
+    title: "Right Down-and-Out Eye with Left Hemiplegia and Choreoathetosis",
     category: "Midbrain",
     vignette: "A 70-year-old woman presents with stroke. Exam shows:\n1. Complete right oculomotor (CN III) palsy with ptosis and dilated non-reactive right pupil.\n2. Dense spastic hemiparesis of the left arm and leg.\n3. Left arm exhibits coarse choreoathetoid movements and violent resting and intention tremors.\n4. Vibration and proprioception are absent in the left arm and leg.",
     findings: [
@@ -688,7 +688,7 @@ export const CLINICAL_CASES = [
   {
     id: 24,
     source: "Clinical Case 24",
-    title: "Dorsal Midbrain Parinaud Syndrome (Pinealoma Compression)",
+    title: "Defective Upward Gaze and Bilateral Light-Near Pupillary Dissociation",
     category: "Midbrain",
     vignette: "A 16-year-old boy presents with progressive headaches and double vision. Exam reveals:\n1. Inability to direct gaze upward (paralysis of upward gaze).\n2. Pupils are large and do not react to direct or consensual light, but constrict briskly during convergence (light-near dissociation).\n3. Attempted upward gaze produces convergence-retraction nystagmus.\n4. Bilateral eyelid retraction (Collier sign).\n5. Body motor and sensory testing are completely normal.",
     findings: [
@@ -717,7 +717,7 @@ export const CLINICAL_CASES = [
   {
     id: 25,
     source: "Clinical Case 25",
-    title: "Thalamic Pain Syndrome (Déjerine-Roussy Syndrome)",
+    title: "Severe Burning Pain and Allodynia Over the Entire Left Hemibody",
     category: "Thalamus",
     vignette: "A 65-year-old man suffered a right thalamic lacunar stroke 6 months ago. His initial complete left-sided numbness has evolved into severe, intractable, agonizing burning and crushing pain across the entire left body and face. Exam shows:\n1. Light stroking with a cotton wisp across his left cheek or hand produces excruciating burning pain (allodynia).\n2. Pinprick threshold on the left is elevated, but once felt, the pain is abnormally intense and prolonged (hyperpathia).\n3. Touch, vibration, and proprioception are moderately impaired over the left body and face.\n4. Strength is normal.",
     findings: [
@@ -746,7 +746,7 @@ export const CLINICAL_CASES = [
   {
     id: 26,
     source: "Clinical Case 26",
-    title: "Posterior Limb of Internal Capsule Stroke (Pure Motor Hemiparesis)",
+    title: "Dense Pure Motor Hemiparesis of Face, Arm, and Leg Without Sensory Loss",
     category: "Thalamus",
     vignette: "A 69-year-old diabetic woman presents with sudden onset of right-sided weakness. Exam reveals:\n1. Severe weakness (2/5 power) equally involving the right face, right arm, and right leg.\n2. Hyperreflexia, sustained clonus, and Babinski sign on the right.\n3. Sensation (fine touch, vibration, position, pinprick, temperature) is COMPLETELY NORMAL over the entire body and face.\n4. Language and visual fields are completely intact.",
     findings: [
@@ -775,7 +775,7 @@ export const CLINICAL_CASES = [
   {
     id: 27,
     source: "Clinical Case 27",
-    title: "Anterior Cerebral Artery (ACA) Stroke (Leg-Dominant Deficit)",
+    title: "Severe Contralateral Leg Weakness with Relative Sparing of Arm and Face",
     category: "Cortex",
     vignette: "A 74-year-old man develops weakness and numbness in his right leg. Exam reveals:\n1. Severe weakness (1/5) in the right leg and foot, but right arm and face motor strength are completely normal (5/5).\n2. Loss of joint position sense, two-point discrimination, and vibratory sense in the right foot and leg.\n3. Pinprick in the right foot is felt as dull and poorly localized.\n4. Sensation in the right arm, right face, and entire left side is completely normal.",
     findings: [
@@ -804,7 +804,7 @@ export const CLINICAL_CASES = [
   {
     id: 28,
     source: "Clinical Case 28",
-    title: "Parietal Lobe Sensory Extinction & Hemi-Spatial Neglect",
+    title: "Failure to Report Left Touch on Double Simultaneous Tactile Testing",
     category: "Cortex",
     vignette: "A 68-year-old woman is evaluated after a right hemispheric stroke. When her left hand or right hand is touched individually, she identifies the stimulus accurately. However, when both hands are touched simultaneously, she ONLY feels the touch on her RIGHT hand (sensory extinction to double simultaneous stimulation). Exam also shows:\n1. She ignores food on the left side of her plate and leaves the left side of her face unwashed.\n2. Primary sensation (pinprick, vibration) is intact when tested unilaterally.\n3. Left visual field extinction on double visual stimulation.",
     findings: [
@@ -833,7 +833,7 @@ export const CLINICAL_CASES = [
   {
     id: 29,
     source: "Clinical Case 29",
-    title: "Gerstmann Syndrome (Dominant Angular Gyrus Lesion)",
+    title: "Agraphia, Acalculia, Finger Agnosia, and Right-Left Confusion",
     category: "Cortex",
     vignette: "A 54-year-old schoolteacher suffers an ischemic stroke. On neurological testing:\n1. She cannot identify, name, or distinguish her own fingers or the examiner's fingers (finger agnosia).\n2. She cannot distinguish right from left on herself or the examiner (right-left disorientation).\n3. She cannot perform simple arithmetic calculations like 7 + 5 or 12 - 4 (acalculia).\n4. She cannot write sentences, although her reading and spoken language are fluent (agraphia without alexia).\n5. Primary sensation and motor power are intact.",
     findings: [
@@ -863,7 +863,7 @@ export const CLINICAL_CASES = [
   {
     id: 30,
     source: "Clinical Case 30",
-    title: "Caudal Medullary Infarct of Nucleus Cuneatus (Isolated Arm Proprioception Loss)",
+    title: "Isolated Loss of Vibration and Joint Position Sense in Right Arm",
     category: "Medulla",
     vignette: "A 51-year-old man presents with sudden inability to use his right arm in the dark. Exam reveals:\n1. Touch, vibratory, and joint position sense are ABSENT in the entire right arm and hand.\n2. Touch, vibratory, and joint position sense are completely normal in both legs, the left arm, and the face.\n3. Pinprick and temperature sensation are normal throughout the entire body and face.\n4. Motor power is normal (5/5).",
     findings: [
@@ -892,7 +892,7 @@ export const CLINICAL_CASES = [
   {
     id: 31,
     source: "Clinical Case 31",
-    title: "Rostral Pons Tegmental Stroke with Crossed Body & Face Pain Loss",
+    title: "Left Facial Pinprick Loss and Left Body Pinprick Loss with Sparing of Touch",
     category: "Pons",
     vignette: "A 63-year-old man presents after a stroke. Exam shows:\n1. Complete loss of pinprick and temperature sensation on the LEFT face.\n2. Complete loss of pinprick and temperature sensation on the entire LEFT body (neck to toes).\n3. Touch, vibration, and proprioception are completely normal on both face and body.\n4. Motor strength, reflexes, and coordination are normal.",
     findings: [
@@ -921,7 +921,7 @@ export const CLINICAL_CASES = [
   {
     id: 32,
     source: "Clinical Case 32",
-    title: "Midbrain Lateral Sensory Crescent Lesion",
+    title: "Complete Hemisensory Loss Across All Modalities on Left Face & Body",
     category: "Midbrain",
     vignette: "A 49-year-old woman develops a focal cavernoma in the lateral midbrain tegmentum. Exam shows:\n1. Loss of all sensory modalities (touch, vibration, proprioception, pinprick, temperature) over the entire LEFT body.\n2. Loss of all sensory modalities over the entire LEFT face.\n3. Motor power is normal (5/5); no ptosis, eye movements are completely normal.",
     findings: [
@@ -950,7 +950,7 @@ export const CLINICAL_CASES = [
   {
     id: 33,
     source: "Clinical Case 33",
-    title: "Cervical Spinal Cord Hemisection at C4 (Brown-Séquard with Arm & Leg)",
+    title: "Right Arm & Leg Weakness with Contralateral Loss of Pain and Temperature",
     category: "Spinal Cord",
     vignette: "A 32-year-old man is stabbed in the back of the neck on the right side. Exam reveals:\n1. Tactile, vibratory, and proprioceptive sensation are ABSENT over the entire RIGHT arm, trunk, and leg.\n2. Spastic paralysis (1/5 power) of the entire RIGHT arm and leg with hyperreflexia and Babinski sign on the right.\n3. Pinprick and temperature sensation are ABSENT on the LEFT side of the body from the level of the clavicle/upper chest (C6) down.\n4. Pinprick is normal on the right body.",
     findings: [
@@ -979,7 +979,7 @@ export const CLINICAL_CASES = [
   {
     id: 34,
     source: "Clinical Case 34",
-    title: "Medial Rostral Medullary Stroke (Bilateral Pyramid Infarction)",
+    title: "Sudden Flaccid Quadriparesis with Bilateral Upgoing Toes and Normal Sensation",
     category: "Medulla",
     vignette: "A 75-year-old man with severe vertebral basilar atherosclerotic disease develops sudden quadriparesis. Exam shows:\n1. Flaccid paralysis of all four extremities (0/5 in arms and legs) with bilateral Babinski signs.\n2. Vibratory and proprioceptive sensation are normal in all four limbs and face.\n3. Pinprick and temperature sensation are normal throughout.\n4. Bilateral paralysis and fasciculations of the tongue.",
     findings: [
@@ -1008,7 +1008,7 @@ export const CLINICAL_CASES = [
   {
     id: 35,
     source: "Clinical Case 35",
-    title: "Conus Medullaris Syndrome vs Cauda Equina",
+    title: "Sudden Symmetric Perianal Sensory Loss and Early Urinary Incontinence",
     category: "Spinal Cord",
     vignette: "A 45-year-old construction worker with a large L1 burst fracture presents with sudden bowel and bladder incontinence. Exam reveals:\n1. Severe, symmetrical 'saddle anesthesia' (numbness over perineum, buttocks, anus, S3-S5 dermatomes bilaterally).\n2. Early, severe urinary retention with overflow incontinence and fecal incontinence with loss of anal sphincter tone.\n3. Mild, symmetrical weakness of the lower extremities (4/5 power).\n4. Bilateral Achilles reflexes are absent, but patellar reflexes are preserved.\n5. Bilateral Babinski signs are present.",
     findings: [
@@ -1037,7 +1037,7 @@ export const CLINICAL_CASES = [
   {
     id: 36,
     source: "Clinical Case 36",
-    title: "Post-Herpetic Trigeminal Ganglionitis (Isolated V1 Pain)",
+    title: "Severe Burning Pain & Sensation Loss Over Right Forehead and Cornea",
     category: "Medulla",
     vignette: "A 73-year-old woman develops severe vesicular eruptions and stabbing pain over her right forehead, upper eyelid, and bridge of the nose (ophthalmic division, V1). Two months later, the rash has resolved but she has severe lancinating pain and numbness over the right forehead. Exam shows:\n1. Pinprick, temperature, and light touch are ABSENT over the right forehead and upper eyelid (V1 territory).\n2. Sensation over the right maxillary (V2) and mandibular (V3) divisions is completely normal.\n3. The right corneal reflex is absent when stimulating the right cornea, but consensual blink in the left eye is intact when stimulating the left cornea.\n4. Body sensation is normal.",
     findings: [
@@ -1066,7 +1066,7 @@ export const CLINICAL_CASES = [
   {
     id: 37,
     source: "Clinical Case 37",
-    title: "Anterior Choroidal Artery Infarct (Posterior Limb & Optic Tract)",
+    title: "Right Hemiplegia, Right Hemianesthesia, and Right Homonymous Hemianopia",
     category: "Thalamus",
     vignette: "A 58-year-old woman presents with stroke. Exam shows:\n1. Dense hemiplegia of the left face, left arm, and left leg (0/5 power throughout).\n2. Complete loss of all sensory modalities (touch, vibration, pain, temperature) over the entire left face and body.\n3. Left homonymous hemianopia on visual field testing.\n4. Normal speech, cognitive function, and comprehension.",
     findings: [
@@ -1095,7 +1095,7 @@ export const CLINICAL_CASES = [
   {
     id: 38,
     source: "Clinical Case 38",
-    title: "Thoracic Cord Posterior Funiculus Tumor (Isolated Bilateral Leg Proprioception Loss)",
+    title: "Bilateral Leg Sensory Ataxia and Vibration Loss with Preserved Pain & Touch",
     category: "Spinal Cord",
     vignette: "A 38-year-old woman develops a slow-growing ependymoma in the dorsal columns of the thoracic cord at T8. Exam reveals:\n1. Severe loss of vibratory sensation and joint position sense in both feet and legs.\n2. Vibratory and position sense are normal in both arms and hands.\n3. Pinprick and temperature sensation are normal throughout the entire body.\n4. Motor strength is 5/5 in all extremities.\n5. Sways and falls with eyes closed (positive Romberg).",
     findings: [
@@ -1125,7 +1125,7 @@ export const CLINICAL_CASES = [
   {
     id: 39,
     source: "Clinical Case 39",
-    title: "Mid-Pontine Tegmental Lesion (Foville Syndrome)",
+    title: "Right Facial Droop, Right Lateral Conjugate Gaze Palsy & Left Hemiplegia",
     category: "Pons",
     vignette: "A 66-year-old man presents with acute gaze palsy. Exam shows:\n1. Conjugate horizontal gaze palsy to the right: neither the right eye nor the left eye can look to the right.\n2. Complete right peripheral facial palsy (upper and lower right face, CN VII).\n3. Spastic hemiparesis of the left arm and leg.\n4. Proprioception and vibratory sense are absent in the left arm and leg.\n5. Pain and temperature are normal.",
     findings: [
@@ -1155,7 +1155,7 @@ export const CLINICAL_CASES = [
   {
     id: 40,
     source: "Clinical Case 40",
-    title: "Somatosensory Cortex Astereognosis (Pure Cortical Hand Lesion)",
+    title: "Inability to Recognize Objects in Left Hand Despite Intact Light Touch",
     category: "Cortex",
     vignette: "A 39-year-old software architect notices she cannot type accurately with her left hand without looking at the keyboard. Exam reveals:\n1. When objects (key, paperclip, marble) are placed in her left hand with eyes closed, she can describe their texture (smooth, cold) but CANNOT recognize what they are (astereognosis).\n2. She cannot identify numbers traced on her left palm (agraphesthesia).\n3. Two-point discrimination on the left fingertips is markedly widened (12 mm vs 3 mm on right).\n4. Pinprick, temperature, and crude touch are completely normal on both sides of the body.\n5. Motor strength is 5/5 throughout.",
     findings: [

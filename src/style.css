@@ -1183,3 +1183,208 @@ body {
   color: #94a3b8;
 }
 
+/* STEP 2 VERIFICATION HUD & LOCATION FEEDBACK */
+.step2-verification-hud {
+  padding: 14px 20px;
+  background: rgba(10, 15, 29, 0.85);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.step2-action-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.btn-step2-check {
+  background: linear-gradient(135deg, var(--accent-cyan), #0284c7);
+  color: #ffffff;
+  border: none;
+  padding: 12px 22px;
+  border-radius: var(--radius-md);
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(6, 182, 212, 0.35);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-step2-check:hover:not(.btn-disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(6, 182, 212, 0.55);
+  filter: brightness(1.1);
+}
+
+.btn-step2-check.btn-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.step2-action-guide {
+  font-size: 12.5px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.step2-feedback-banner {
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: slide-up 0.25s ease-out;
+}
+
+.step2-feedback-banner.success {
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.step2-feedback-banner.partial {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.step2-feedback-banner.error {
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.4);
+}
+
+.step2-feedback-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.step2-feedback-icon {
+  font-size: 24px;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+}
+
+.step2-feedback-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.step2-feedback-heading strong {
+  font-family: var(--font-display);
+  font-size: 14px;
+  color: var(--text-main);
+}
+
+.step2-subtext {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.step2-feedback-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.step2-next-prompt {
+  font-size: 12.5px;
+  color: #fef08a;
+  font-weight: 600;
+}
+
+.btn-inline-fix {
+  background: var(--accent-rose);
+  border: none;
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-inline-fix:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+.btn-recheck-inline {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-recheck-inline:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--text-main);
+}
+
+/* STEP 3 GATING & UNLOCK STYLES */
+.step-locked {
+  opacity: 0.6;
+  border-style: dashed;
+  border-color: rgba(148, 163, 184, 0.2);
+}
+
+.step-unlocked {
+  border-color: rgba(245, 158, 11, 0.35);
+}
+
+.step-unlocked.glow-focus {
+  animation: unlock-pulse 2s ease-in-out infinite;
+}
+
+@keyframes unlock-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.15);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(245, 158, 11, 0.3);
+  }
+}
+
+.status-indicator-tag {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+}
+
+.status-indicator-tag.locked {
+  background: rgba(100, 116, 139, 0.2);
+  color: var(--text-dim);
+  border: 1px solid rgba(100, 116, 139, 0.3);
+}
+
+.status-indicator-tag.unlocked {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--accent-amber);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.why-option-card.correct-choice {
+  border-color: var(--accent-emerald) !important;
+  background: rgba(16, 185, 129, 0.16) !important;
+}
+
+.why-option-card.wrong-choice {
+  border-color: var(--accent-rose) !important;
+  background: rgba(244, 63, 94, 0.16) !important;
+}
+
+

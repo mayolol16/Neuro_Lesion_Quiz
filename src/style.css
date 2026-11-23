@@ -1388,3 +1388,369 @@ body {
 }
 
 
+
+
+/* ==========================================================
+   STROKE LOCALIZATION MODE, CORTICAL TERRITORIES & MULTI-LOC
+   ========================================================== */
+
+/* Mode Switcher in Header */
+.mode-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 4px;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+}
+
+.mode-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-muted);
+  padding: 7px 14px;
+  border-radius: var(--radius-xl);
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: all 0.2s ease;
+}
+
+.mode-btn:hover {
+  color: var(--text-main);
+  background: rgba(30, 41, 59, 0.6);
+}
+
+.mode-btn.active {
+  background: linear-gradient(135deg, var(--accent-indigo), #4f46e5);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(99, 102, 241, 0.45);
+}
+
+.mode-btn.stroke-mode-btn.active {
+  background: linear-gradient(135deg, #e11d48, #be123c);
+  box-shadow: 0 0 14px rgba(244, 63, 94, 0.45);
+}
+
+.mode-count {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+/* Stroke Case Badges */
+.badge-stroke-exam3 {
+  background: rgba(244, 63, 94, 0.16);
+  color: #fda4af;
+  border: 1px solid rgba(244, 63, 94, 0.35);
+}
+
+.badge-stroke-brainstem {
+  background: rgba(245, 158, 11, 0.16);
+  color: #fcd34d;
+  border: 1px solid rgba(245, 158, 11, 0.35);
+}
+
+.multi-loc-hint-pill {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  background: rgba(168, 85, 247, 0.16);
+  color: #d8b4fe;
+  border: 1px solid rgba(168, 85, 247, 0.35);
+}
+
+.level-pick-featured {
+  border-color: rgba(6, 182, 212, 0.35) !important;
+  background: rgba(6, 182, 212, 0.08) !important;
+}
+
+/* Cortical Territories SVG Styling */
+.cortical-territories-svg {
+  max-height: 510px;
+}
+
+.territory-legend-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.territory-mca-bg {
+  fill: rgba(99, 102, 241, 0.09);
+  stroke: rgba(129, 140, 248, 0.45);
+}
+
+.territory-aca-bg {
+  fill: rgba(6, 182, 212, 0.08);
+  stroke: rgba(34, 211, 238, 0.4);
+}
+
+/* Artery Picker (Stroke Mode Step 3A) */
+.artery-picker-section {
+  background: rgba(10, 15, 29, 0.55);
+  border: 1px solid rgba(244, 63, 94, 0.22);
+  border-radius: var(--radius-md);
+  padding: 12px;
+}
+
+.artery-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.artery-pick-btn {
+  background: rgba(30, 41, 59, 0.55);
+  border: 1px solid var(--border-subtle);
+  color: #cbd5e1;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+}
+
+.artery-pick-btn:hover:not(:disabled) {
+  background: rgba(51, 65, 85, 0.75);
+  border-color: rgba(244, 63, 94, 0.45);
+  color: #fff;
+}
+
+.artery-pick-btn.selected {
+  background: rgba(244, 63, 94, 0.22);
+  border-color: #fb7185;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.3);
+}
+
+.artery-pick-btn.artery-correct {
+  background: rgba(16, 185, 129, 0.22);
+  border-color: #34d399;
+  color: #a7f3d0;
+}
+
+.artery-pick-btn.artery-wrong {
+  background: rgba(244, 63, 94, 0.25);
+  border-color: #f43f5e;
+  color: #fecdd3;
+}
+
+/* Multi-Location Reference Switcher (Step 2 Banner & Step 3 Debrief) */
+.multi-loc-ref-bar {
+  margin: 10px 0;
+  padding: 10px 12px;
+  background: rgba(15, 23, 42, 0.72);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  border-radius: var(--radius-md);
+}
+
+.multi-loc-ref-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #d8b4fe;
+  margin-bottom: 6px;
+}
+
+.multi-loc-ref-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.ref-loc-pill {
+  background: rgba(30, 41, 59, 0.75);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.ref-loc-pill:hover {
+  background: rgba(168, 85, 247, 0.25);
+  color: #fff;
+}
+
+.ref-loc-pill.active {
+  background: rgba(16, 185, 129, 0.25);
+  border-color: #34d399;
+  color: #a7f3d0;
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+}
+
+.multi-loc-ref-note {
+  margin-top: 7px;
+  font-size: 11.5px;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+
+.multi-loc-debrief-box {
+  background: rgba(168, 85, 247, 0.08);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.multi-loc-debrief-header {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #d8b4fe;
+  margin-bottom: 8px;
+}
+
+.multi-loc-debrief-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.multi-loc-debrief-item {
+  text-align: left;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.multi-loc-debrief-item:hover, .multi-loc-debrief-item.active {
+  border-color: #34d399;
+  background: rgba(16, 185, 129, 0.12);
+}
+
+.multi-loc-item-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.multi-loc-item-title span {
+  font-weight: 500;
+  color: #67e8f9;
+}
+
+.multi-loc-item-note {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 3px;
+}
+
+/* Stroke Reference Modal Content */
+.atlas-tab-group {
+  display: flex;
+  gap: 6px;
+}
+
+.stroke-ref-territory-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.stroke-ref-card {
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 12px;
+}
+
+.stroke-ref-title {
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.stroke-ref-regions {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #e2e8f0;
+  margin-bottom: 4px;
+}
+
+.stroke-ref-deficits {
+  font-size: 11.5px;
+  color: #94a3b8;
+  line-height: 1.45;
+}
+
+.stroke-ref-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+}
+
+.stroke-ref-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+}
+
+.stroke-ref-table th {
+  background: rgba(15, 23, 42, 0.95);
+  color: #94a3b8;
+  text-align: left;
+  padding: 9px 10px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.stroke-ref-table td {
+  padding: 8px 10px;
+  color: #cbd5e1;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+  vertical-align: top;
+}
+
+.cn-chip {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(6, 182, 212, 0.16);
+  color: #67e8f9;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10.5px;
+}
+
+.artery-chip {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(244, 63, 94, 0.16);
+  color: #fda4af;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10.5px;
+}
+
+@media (max-width: 1100px) {
+  .app-header {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .stroke-ref-territory-grid {
+    grid-template-columns: 1fr;
+  }
+}

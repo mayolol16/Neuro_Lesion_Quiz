@@ -8,8 +8,9 @@ export const DIAGRAM_LEVELS = [
   { id: "caudal_mid_pons", name: "Caudal / Mid Pons", subtitle: "Square Tegmentum & Basilar Pons", mnemonic: "Slide 5 & 12" },
   { id: "rostral_pons", name: "Rostral Pons", subtitle: "'The Snowman!'", mnemonic: "Slide 6 & 13" },
   { id: "midbrain", name: "Midbrain", subtitle: "'The Pig (from the rear)!'", mnemonic: "Slide 7 & 14" },
-  { id: "thalamus", name: "Diencephalon / Thalamus", subtitle: "VPL, VPM & Internal Capsule", mnemonic: "Sensory Relay" },
-  { id: "cortex", name: "Cerebral Cortex", subtitle: "Homunculus & Paracentral Lobule", mnemonic: "Discriminative" }
+  { id: "thalamus", name: "Diencephalon / Thalamus", subtitle: "VPL, VPM, STN & Internal Capsule", mnemonic: "Subcortical / Lacunar" },
+  { id: "cortex", name: "Cortex (Homunculus)", subtitle: "Coronal Sensory & Motor Strip", mnemonic: "Coronal Cut" },
+  { id: "cortex_territories", name: "Cortical Territories", subtitle: "Lateral & Medial Brain (ACA / MCA / PCA)", mnemonic: "Stroke Lecture Slide 11" }
 ];
 
 export function renderDiagramSVG(levelId, selectedStructures = [], feedback = null) {
@@ -30,6 +31,8 @@ export function renderDiagramSVG(levelId, selectedStructures = [], feedback = nu
       return renderThalamusSVG(selectedStructures, feedback);
     case "cortex":
       return renderCortexSVG(selectedStructures, feedback);
+    case "cortex_territories":
+      return renderCorticalTerritoriesSVG(selectedStructures, feedback);
     default:
       return renderSpinalCordSVG(selectedStructures, feedback);
   }
@@ -411,6 +414,45 @@ function renderRostralMedullaSVG(selectedStructures, feedback) {
             data-name="Left Hypoglossal Nucleus (CN XII)" 
             data-info="Motor to tongue: ipsilateral deviation on protrusion" />
 
+    <!-- Vestibular Nuclei (Dorsolateral floor of 4th ventricle) -->
+    <ellipse cx="255" cy="150" rx="22" ry="14"
+             class="${getStructureClass('right_vestibular_nuclei', selectedStructures, feedback)}"
+             data-id="right_vestibular_nuclei"
+             data-name="Right Vestibular Nuclei"
+             data-info="Vertigo, nausea, vomiting, and nystagmus (Lateral Medullary / PICA stroke)" />
+
+    <ellipse cx="445" cy="150" rx="22" ry="14"
+             class="${getStructureClass('left_vestibular_nuclei', selectedStructures, feedback)}"
+             data-id="left_vestibular_nuclei"
+             data-name="Left Vestibular Nuclei"
+             data-info="Vertigo, nausea, vomiting, and nystagmus (Lateral Medullary / PICA stroke)" />
+
+    <!-- Nucleus Ambiguus (CN IX, X - Lateral Tegmentum) -->
+    <circle cx="235" cy="245" r="14"
+            class="${getStructureClass('right_nucleus_ambiguus', selectedStructures, feedback)}"
+            data-id="right_nucleus_ambiguus"
+            data-name="Right Nucleus Ambiguus (CN IX / X)"
+            data-info="Hoarseness, dysphagia, loss of gag reflex, uvula deviates AWAY (to left)" />
+
+    <circle cx="465" cy="245" r="14"
+            class="${getStructureClass('left_nucleus_ambiguus', selectedStructures, feedback)}"
+            data-id="left_nucleus_ambiguus"
+            data-name="Left Nucleus Ambiguus (CN IX / X)"
+            data-info="Hoarseness, dysphagia, loss of gag reflex, uvula deviates AWAY (to right)" />
+
+    <!-- Descending Sympathetic / Hypothalamospinal Fibers (Horner's Syndrome) -->
+    <circle cx="215" cy="215" r="10"
+            class="${getStructureClass('right_sympathetic', selectedStructures, feedback)}"
+            data-id="right_sympathetic"
+            data-name="Right Hypothalamospinal (Sympathetic) Fibers"
+            data-info="Ipsilateral Horner's syndrome: ptosis, miosis, anhidrosis" />
+
+    <circle cx="485" cy="215" r="10"
+            class="${getStructureClass('left_sympathetic', selectedStructures, feedback)}"
+            data-id="left_sympathetic"
+            data-name="Left Hypothalamospinal (Sympathetic) Fibers"
+            data-info="Ipsilateral Horner's syndrome: ptosis, miosis, anhidrosis" />
+
     <!-- Labels -->
     <text x="350" y="30" class="diagram-label label-cardinal">DORSAL (4th VENTRICLE)</text>
     <text x="350" y="490" class="diagram-label label-cardinal">VENTRAL (PYRAMIDS)</text>
@@ -418,7 +460,10 @@ function renderRostralMedullaSVG(selectedStructures, feedback) {
     <text x="650" y="250" class="diagram-label label-side">LEFT</text>
 
     <text x="170" y="80" class="text-hint">ICP</text>
+    <text x="255" y="128" class="text-hint">Vestib</text>
     <text x="100" y="210" class="text-hint">Spinal V</text>
+    <text x="235" y="272" class="text-hint">Nuc Amb</text>
+    <text x="215" y="198" class="text-hint">Symp</text>
     <text x="125" y="295" class="text-hint">ALS</text>
     <text x="210" y="360" class="text-hint">Inf. Olive</text>
     <text x="270" y="280" class="text-hint">Medial Lemniscus</text>
@@ -534,6 +579,45 @@ function renderCaudalMidPonsSVG(selectedStructures, feedback) {
             data-name="Left Abducens (CN VI) Nucleus" 
             data-info="Lateral rectus motor & PPRF gaze center" />
 
+    <!-- Middle Cerebellar Peduncles (MCP Arms - Lateral) -->
+    <ellipse cx="145" cy="175" rx="36" ry="26"
+             class="${getStructureClass('right_mcp', selectedStructures, feedback)}"
+             data-id="right_mcp"
+             data-name="Right Middle Cerebellar Peduncle (MCP)"
+             data-info="Pontocerebellar fibers: IPSILATERAL (right) limb ataxia & dysmetria (Mid/Caudal Pons)" />
+
+    <ellipse cx="555" cy="175" rx="36" ry="26"
+             class="${getStructureClass('left_mcp', selectedStructures, feedback)}"
+             data-id="left_mcp"
+             data-name="Left Middle Cerebellar Peduncle (MCP)"
+             data-info="Pontocerebellar fibers: IPSILATERAL (left) limb ataxia & dysmetria (Mid/Caudal Pons)" />
+
+    <!-- Trigeminal Motor Nucleus (Mid-Pons: Jaw Deviation) -->
+    <circle cx="272" cy="128" r="12"
+            class="${getStructureClass('right_trigeminal_motor', selectedStructures, feedback)}"
+            data-id="right_trigeminal_motor"
+            data-name="Right Trigeminal Motor Nucleus (CN Vm)"
+            data-info="Muscles of mastication: jaw deviates IPSILATERALLY (to right) on opening" />
+
+    <circle cx="428" cy="128" r="12"
+            class="${getStructureClass('left_trigeminal_motor', selectedStructures, feedback)}"
+            data-id="left_trigeminal_motor"
+            data-name="Left Trigeminal Motor Nucleus (CN Vm)"
+            data-info="Muscles of mastication: jaw deviates IPSILATERALLY (to left) on opening" />
+
+    <!-- Descending Sympathetic Fibers (Horner's Syndrome in Lateral Pons) -->
+    <circle cx="250" cy="182" r="9"
+            class="${getStructureClass('right_sympathetic', selectedStructures, feedback)}"
+            data-id="right_sympathetic"
+            data-name="Right Descending Sympathetic Fibers"
+            data-info="Ipsilateral Horner's syndrome: ptosis, miosis, anhidrosis" />
+
+    <circle cx="450" cy="182" r="9"
+            class="${getStructureClass('left_sympathetic', selectedStructures, feedback)}"
+            data-id="left_sympathetic"
+            data-name="Left Descending Sympathetic Fibers"
+            data-info="Ipsilateral Horner's syndrome: ptosis, miosis, anhidrosis" />
+
     <!-- Facial Motor Nucleus (Ventrolateral tegmentum) -->
     <circle cx="275" cy="165" r="14" 
             class="${getStructureClass('right_facial_nucleus', selectedStructures, feedback)}" 
@@ -553,7 +637,8 @@ function renderCaudalMidPonsSVG(selectedStructures, feedback) {
     <text x="40" y="250" class="diagram-label label-side">RIGHT</text>
     <text x="660" y="250" class="diagram-label label-side">LEFT</text>
 
-    <text x="80" y="125" class="text-hint">MCP (Arm)</text>
+    <text x="145" y="138" class="text-hint">MCP (Arm)</text>
+    <text x="272" y="110" class="text-hint">Vm</text>
     <text x="350" y="80" class="text-hint-center">Sensory Square (Tegmentum)</text>
     <text x="290" y="215" class="text-hint">ML (Slanting!)</text>
     <text x="210" y="215" class="text-hint">VTT ("Head on top")</text>
@@ -698,9 +783,29 @@ function renderMidbrainSVG(selectedStructures, feedback) {
           data-name="Left Crus Cerebri" 
           data-info="Corticospinal & corticobulbar fibers (Weber syndrome: contralateral hemiplegia)" />
 
-    <!-- Substantia Nigra (Dorsal to Crus Cerebri) -->
-    <path d="M 210 325 C 240 315, 280 320, 305 340" stroke="#475569" stroke-width="8" stroke-linecap="round" fill="none" />
-    <path d="M 490 325 C 460 315, 420 320, 395 340" stroke="#475569" stroke-width="8" stroke-linecap="round" fill="none" />
+    <!-- Substantia Nigra (Dorsal to Crus Cerebri - Interactive for Parkinsonian signs) -->
+    <path d="M 205 325 C 240 314, 280 318, 308 338 L 300 348 C 275 330, 240 326, 210 336 Z"
+          class="${getStructureClass('right_substantia_nigra', selectedStructures, feedback)}"
+          data-id="right_substantia_nigra"
+          data-name="Right Substantia Nigra"
+          data-info="Dopaminergic neurons: contralateral (left) bradykinesia, rigidity, or tremor" />
+    <path d="M 495 325 C 460 314, 420 318, 392 338 L 400 348 C 425 330, 460 326, 490 336 Z"
+          class="${getStructureClass('left_substantia_nigra', selectedStructures, feedback)}"
+          data-id="left_substantia_nigra"
+          data-name="Left Substantia Nigra"
+          data-info="Dopaminergic neurons: contralateral (right) bradykinesia, rigidity, or tremor" />
+
+    <!-- Superior Cerebellar Peduncle Fibers (Post-decussation near Red Nucleus) -->
+    <ellipse cx="268" cy="235" rx="18" ry="13"
+             class="${getStructureClass('right_scp', selectedStructures, feedback)}"
+             data-id="right_scp"
+             data-name="Right Superior Cerebellar Peduncle (SCP)"
+             data-info="Post-decussation cerebellar outflow: CONTRALATERAL (left) arm & leg ataxia / intention tremor" />
+    <ellipse cx="432" cy="235" rx="18" ry="13"
+             class="${getStructureClass('left_scp', selectedStructures, feedback)}"
+             data-id="left_scp"
+             data-name="Left Superior Cerebellar Peduncle (SCP)"
+             data-info="Post-decussation cerebellar outflow: CONTRALATERAL (right) arm & leg ataxia / intention tremor" />
 
     <!-- Red Nuclei (Slide 7 / Claude Syndrome) -->
     <circle cx="300" cy="270" r="32" 
@@ -853,6 +958,19 @@ function renderThalamusSVG(selectedStructures, feedback) {
           data-name="Left Internal Capsule (Posterior Limb)" 
           data-info="Descending corticospinal motor & ascending thalamocortical sensory fibers" />
 
+    <!-- SUBTHALAMIC NUCLEI (STN - Hemiballismus, PCA perforators / Anterior Choroidal) -->
+    <ellipse cx="275" cy="365" rx="22" ry="12"
+             class="${getStructureClass('right_subthalamic_nucleus', selectedStructures, feedback)}"
+             data-id="right_subthalamic_nucleus"
+             data-name="Right Subthalamic Nucleus (STN)"
+             data-info="Basal ganglia/diencephalon: lacunar infarct causes CONTRALATERAL (left) hemiballismus" />
+
+    <ellipse cx="425" cy="365" rx="22" ry="12"
+             class="${getStructureClass('left_subthalamic_nucleus', selectedStructures, feedback)}"
+             data-id="left_subthalamic_nucleus"
+             data-name="Left Subthalamic Nucleus (STN)"
+             data-info="Basal ganglia/diencephalon: lacunar infarct causes CONTRALATERAL (right) hemiballismus" />
+
     <!-- Labels -->
     <text x="350" y="30" class="diagram-label label-cardinal">ANTERIOR</text>
     <text x="350" y="480" class="diagram-label label-cardinal">POSTERIOR</text>
@@ -862,6 +980,7 @@ function renderThalamusSVG(selectedStructures, feedback) {
     <text x="350" y="95" class="text-hint-center">3rd Ventricle</text>
     <text x="245" y="295" class="text-hint">VPL (Body)</text>
     <text x="295" y="310" class="text-hint">VPM (Face)</text>
+    <text x="275" y="390" class="text-hint">Subthalamic Nuc (STN)</text>
     <text x="140" y="270" class="text-hint">Post. Limb Int. Capsule</text>
   </svg>`;
 }
@@ -961,5 +1080,273 @@ function renderCortexSVG(selectedStructures, feedback) {
     <text x="305" y="200" class="text-hint">Paracentral (Leg/Foot)</text>
     <text x="215" y="195" class="text-hint">Trunk/Arm</text>
     <text x="110" y="270" class="text-hint">Hand & Face (MCA)</text>
+  </svg>`;
+}
+
+// -------------------------------------------------------------
+// 9. CEREBRAL CORTEX FUNCTIONAL REGIONS & ARTERIAL TERRITORIES
+// Based on Stroke Lecture Slide 11 (Lateral & Medial Views, Both Hemispheres)
+// Color-coded vascular territory backdrops: ACA (cyan), MCA (indigo), PCA (amber)
+// -------------------------------------------------------------
+function renderCorticalTerritoriesSVG(selectedStructures, feedback) {
+  return `
+  <svg viewBox="0 0 760 540" class="neuro-cross-section cortical-territories-svg" data-level="cortex_territories">
+    <!-- Top Vascular Territory Legend -->
+    <g transform="translate(150, 8)">
+      <rect x="0" y="0" width="460" height="28" rx="14" fill="rgba(15,23,42,0.85)" stroke="rgba(148,163,184,0.25)" />
+      <circle cx="32" cy="14" r="6" fill="rgba(6,182,212,0.55)" stroke="#06b6d4" stroke-width="1.5" />
+      <text x="45" y="18" class="territory-legend-text" fill="#67e8f9">ACA (Medial / Leg)</text>
+      <circle cx="195" cy="14" r="6" fill="rgba(99,102,241,0.55)" stroke="#818cf8" stroke-width="1.5" />
+      <text x="208" y="18" class="territory-legend-text" fill="#a5b4fc">MCA (Lateral / Face-Arm)</text>
+      <circle cx="368" cy="14" r="6" fill="rgba(245,158,11,0.55)" stroke="#f59e0b" stroke-width="1.5" />
+      <text x="381" y="18" class="territory-legend-text" fill="#fcd34d">PCA (Visual)</text>
+    </g>
+
+    <!-- ======================================================= -->
+    <!-- TOP LEFT: LEFT HEMISPHERE — LATERAL SURFACE (Anterior Left) -->
+    <!-- ======================================================= -->
+    <g transform="translate(20, 48)">
+      <text x="170" y="14" class="diagram-label" style="fill:#a5b4fc;">LEFT HEMISPHERE — LATERAL (MCA)</text>
+      <!-- Outer Brain Silhouette (Frontal on Left, Occipital on Right) -->
+      <path d="M 40 130 C 35 72, 90 30, 175 28 C 255 26, 315 62, 322 122 C 326 158, 302 184, 260 185 C 228 186, 200 182, 165 186 C 120 192, 92 178, 86 156 C 58 158, 42 150, 40 130 Z"
+            class="cortex-outline territory-mca-bg" />
+      <!-- Central Sulcus & Sylvian Fissure guides -->
+      <path d="M 186 30 Q 174 82, 162 124" stroke="#475569" stroke-width="2" stroke-dasharray="4 3" fill="none" />
+      <path d="M 118 140 Q 180 128, 238 118" stroke="#475569" stroke-width="2" stroke-dasharray="4 3" fill="none" />
+
+      <!-- Left Prefrontal / Executive -->
+      <path d="M 42 126 C 42 78, 82 42, 128 34 L 128 116 L 84 134 C 58 136, 44 135, 42 126 Z"
+            class="${getStructureClass('left_prefrontal', selectedStructures, feedback)}"
+            data-id="left_prefrontal"
+            data-name="Left Prefrontal Cortex (Executive)"
+            data-info="Executive functions, planning, working memory, motivation (ACA/MCA)" />
+
+      <!-- Left FEF -->
+      <ellipse cx="144" cy="70" rx="18" ry="14"
+               class="${getStructureClass('left_fef', selectedStructures, feedback)}"
+               data-id="left_fef"
+               data-name="Left Frontal Eye Field (FEF)"
+               data-info="Conjugate gaze to opposite side; lesion -> eyes deviate IPSILATERALLY (to left) (MCA)" />
+
+      <!-- Left Broca's Area (Inferior Frontal Gyrus) -->
+      <ellipse cx="122" cy="116" rx="26" ry="18"
+               class="${getStructureClass('left_broca', selectedStructures, feedback)}"
+               data-id="left_broca"
+               data-name="Left Broca's Area (Inferior Frontal Gyrus)"
+               data-info="Non-fluent, hesitant expressive aphasia with intact comprehension (Left MCA Superior Div.)" />
+
+      <!-- Left Lateral Motor & Sensory Strip (Arm / Hand / Face) -->
+      <path d="M 164 34 L 204 34 L 190 124 L 154 124 Z"
+            class="${getStructureClass('left_postcentral_hand_face', selectedStructures, feedback)}"
+            data-id="left_postcentral_hand_face"
+            data-name="Left Lateral Motor & Sensory Cortex (Face/Arm/Hand)"
+            data-info="Contralateral (right) face/arm/hand weakness & sensory loss, astereognosis (Left MCA)" />
+
+      <!-- Left Wernicke's Area (Posterior Superior Temporal Gyrus) -->
+      <ellipse cx="222" cy="144" rx="34" ry="20"
+               class="${getStructureClass('left_wernicke', selectedStructures, feedback)}"
+               data-id="left_wernicke"
+               data-name="Left Wernicke's Area (Post. Sup. Temporal Gyrus)"
+               data-info="Fluent, nonsensical speech with impaired comprehension & unawareness of errors (Left MCA Inferior Div.)" />
+
+      <!-- Left Posterior Parietal / Angular Gyrus -->
+      <ellipse cx="242" cy="86" rx="30" ry="26"
+               class="${getStructureClass('left_parietal_association', selectedStructures, feedback)}"
+               data-id="left_parietal_association"
+               data-name="Left Posterior Parietal Cortex (Angular Gyrus)"
+               data-info="Gerstmann syndrome (agraphia, acalculia, finger agnosia, R-L confusion) & agraphesthesia (Left MCA)" />
+
+      <!-- Left Lateral Occipital / Visual Pole -->
+      <path d="M 282 68 C 308 82, 322 104, 320 132 C 316 158, 298 176, 274 180 L 270 110 Z"
+            class="${getStructureClass('left_visual_cortex', selectedStructures, feedback)}"
+            data-id="left_visual_cortex"
+            data-name="Left Occipital / Visual Cortex (PCA)"
+            data-info="Contralateral (right) homonymous hemianopia with macular sparing (Left PCA)" />
+
+      <text x="80" y="84" class="text-hint">Prefrontal</text>
+      <text x="144" y="74" class="text-hint" style="font-size:9px;">FEF</text>
+      <text x="122" y="120" class="text-hint" style="font-size:9.5px;">Broca</text>
+      <text x="178" y="82" class="text-hint" style="font-size:9px;">M1/S1</text>
+      <text x="176" y="94" class="text-hint" style="font-size:8.5px;">Face/Arm</text>
+      <text x="242" y="88" class="text-hint" style="font-size:9px;">Post. Parietal</text>
+      <text x="222" y="148" class="text-hint" style="font-size:9.5px;">Wernicke</text>
+      <text x="296" y="130" class="text-hint" style="font-size:9px;">Visual</text>
+      <text x="48" y="204" class="text-hint" style="font-size:9px;">ANT</text>
+      <text x="310" y="204" class="text-hint" style="font-size:9px;">POST</text>
+    </g>
+
+    <!-- ======================================================= -->
+    <!-- TOP RIGHT: RIGHT HEMISPHERE — LATERAL SURFACE (Anterior Right) -->
+    <!-- ======================================================= -->
+    <g transform="translate(390, 48)">
+      <text x="170" y="14" class="diagram-label" style="fill:#a5b4fc;">RIGHT HEMISPHERE — LATERAL (MCA)</text>
+      <!-- Outer Brain Silhouette (Occipital on Left, Frontal on Right) -->
+      <path d="M 300 130 C 305 72, 250 30, 165 28 C 85 26, 25 62, 18 122 C 14 158, 38 184, 80 185 C 112 186, 140 182, 175 186 C 220 192, 248 178, 254 156 C 282 158, 298 150, 300 130 Z"
+            class="cortex-outline territory-mca-bg" />
+      <path d="M 154 30 Q 166 82, 178 124" stroke="#475569" stroke-width="2" stroke-dasharray="4 3" fill="none" />
+      <path d="M 222 140 Q 160 128, 102 118" stroke="#475569" stroke-width="2" stroke-dasharray="4 3" fill="none" />
+
+      <!-- Right Prefrontal / Executive -->
+      <path d="M 298 126 C 298 78, 258 42, 212 34 L 212 116 L 256 134 C 282 136, 296 135, 298 126 Z"
+            class="${getStructureClass('right_prefrontal', selectedStructures, feedback)}"
+            data-id="right_prefrontal"
+            data-name="Right Prefrontal Cortex (Executive)"
+            data-info="Executive functions, attention, emotional prosody (ACA/MCA)" />
+
+      <!-- Right FEF -->
+      <ellipse cx="196" cy="70" rx="18" ry="14"
+               class="${getStructureClass('right_fef', selectedStructures, feedback)}"
+               data-id="right_fef"
+               data-name="Right Frontal Eye Field (FEF)"
+               data-info="Conjugate gaze to left; lesion -> eyes deviate IPSILATERALLY (to right) (MCA)" />
+
+      <!-- Right Inferior Frontal -->
+      <ellipse cx="218" cy="116" rx="26" ry="18"
+               class="${getStructureClass('right_broca', selectedStructures, feedback)}"
+               data-id="right_broca"
+               data-name="Right Inferior Frontal Gyrus"
+               data-info="Non-dominant homologue: affective prosody of speech (Right MCA)" />
+
+      <!-- Right Lateral Motor & Sensory Strip (Arm / Hand / Face) -->
+      <path d="M 176 34 L 136 34 L 150 124 L 186 124 Z"
+            class="${getStructureClass('right_postcentral_hand_face', selectedStructures, feedback)}"
+            data-id="right_postcentral_hand_face"
+            data-name="Right Lateral Motor & Sensory Cortex (Face/Arm/Hand)"
+            data-info="Contralateral (left) face/arm/hand weakness & sensory loss, astereognosis (Right MCA)" />
+
+      <!-- Right Posterior Parietal (Hemineglect!) -->
+      <ellipse cx="98" cy="86" rx="32" ry="26"
+               class="${getStructureClass('right_parietal_association', selectedStructures, feedback)}"
+               data-id="right_parietal_association"
+               data-name="Right Posterior Parietal Cortex (Neglect)"
+               data-info="Left hemispatial neglect, anosognosia, sensory extinction on double simultaneous stim (Right MCA)" />
+
+      <!-- Right Superior Temporal -->
+      <ellipse cx="118" cy="144" rx="34" ry="20"
+               class="${getStructureClass('right_wernicke', selectedStructures, feedback)}"
+               data-id="right_wernicke"
+               data-name="Right Posterior Superior Temporal Gyrus"
+               data-info="Non-dominant temporal cortex: receptive prosody / emotional tone (Right MCA)" />
+
+      <!-- Right Lateral Occipital / Visual Pole -->
+      <path d="M 58 68 C 32 82, 18 104, 20 132 C 24 158, 42 176, 66 180 L 70 110 Z"
+            class="${getStructureClass('right_visual_cortex', selectedStructures, feedback)}"
+            data-id="right_visual_cortex"
+            data-name="Right Occipital / Visual Cortex (PCA)"
+            data-info="Contralateral (left) homonymous hemianopia with macular sparing (Right PCA)" />
+
+      <text x="260" y="84" class="text-hint">Prefrontal</text>
+      <text x="196" y="74" class="text-hint" style="font-size:9px;">FEF</text>
+      <text x="162" y="82" class="text-hint" style="font-size:9px;">M1/S1</text>
+      <text x="164" y="94" class="text-hint" style="font-size:8.5px;">Face/Arm</text>
+      <text x="98" y="84" class="text-hint" style="font-size:9px;">Post. Parietal</text>
+      <text x="98" y="96" class="text-hint" style="font-size:8.5px;">(Neglect)</text>
+      <text x="118" y="148" class="text-hint" style="font-size:9px;">Sup. Temp</text>
+      <text x="44" y="130" class="text-hint" style="font-size:9px;">Visual</text>
+      <text x="30" y="204" class="text-hint" style="font-size:9px;">POST</text>
+      <text x="292" y="204" class="text-hint" style="font-size:9px;">ANT</text>
+    </g>
+
+    <!-- ======================================================= -->
+    <!-- BOTTOM LEFT: LEFT HEMISPHERE — MEDIAL SURFACE (ACA & PCA) -->
+    <!-- ======================================================= -->
+    <g transform="translate(20, 290)">
+      <text x="170" y="14" class="diagram-label" style="fill:#67e8f9;">LEFT HEMISPHERE — MEDIAL (ACA &amp; PCA)</text>
+      <!-- Medial Brain Silhouette (Frontal Left, Occipital Right) -->
+      <path d="M 40 130 C 35 72, 90 30, 175 28 C 255 26, 315 62, 322 122 C 326 158, 295 182, 240 176 C 210 172, 185 150, 155 150 C 115 150, 50 156, 40 130 Z"
+            class="cortex-outline territory-aca-bg" />
+      <!-- Corpus Callosum landmark -->
+      <path d="M 110 118 C 125 90, 215 90, 232 118 C 222 126, 208 112, 170 110 C 135 110, 122 124, 110 118 Z"
+            fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+      <!-- Calcarine Sulcus guide -->
+      <path d="M 244 134 L 316 122" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 2" fill="none" />
+
+      <!-- Left Medial Frontal / Emotional Control (ACA) -->
+      <path d="M 44 128 C 44 78, 86 42, 146 32 L 154 92 C 128 96, 112 108, 108 124 L 62 138 Z"
+            class="${getStructureClass('left_medial_frontal', selectedStructures, feedback)}"
+            data-id="left_medial_frontal"
+            data-name="Left Medial Frontal Cortex (ACA)"
+            data-info="Executive & emotional control, abulia / apathy (Left ACA)" />
+
+      <!-- Left Paracentral Lobule (Foot / Leg Motor & Sensory + Bladder - ACA) -->
+      <path d="M 150 32 C 175 28, 206 32, 224 40 L 210 94 C 190 90, 172 90, 156 92 Z"
+            class="${getStructureClass('left_paracentral_lobule', selectedStructures, feedback)}"
+            data-id="left_paracentral_lobule"
+            data-name="Left Paracentral Lobule (Foot/Leg - ACA)"
+            data-info="Contralateral (right) foot & leg weakness/sensory loss + urinary incontinence (Left ACA)" />
+
+      <!-- Left Cuneus (Upper Bank of Calcarine Sulcus -> Lower Visual Field - PCA) -->
+      <path d="M 240 50 C 284 62, 316 86, 320 120 L 246 132 L 232 96 Z"
+            class="${getStructureClass('left_cuneus', selectedStructures, feedback)}"
+            data-id="left_cuneus"
+            data-name="Left Cuneus (Upper Visual Cortex - PCA)"
+            data-info="Upper bank of calcarine sulcus: contralateral RIGHT LOWER homonymous quadrantanopia (Left PCA)" />
+
+      <!-- Left Lingual Gyrus (Lower Bank of Calcarine Sulcus -> Upper Visual Field - PCA) -->
+      <path d="M 246 136 L 320 124 C 318 156, 294 176, 250 174 L 234 156 Z"
+            class="${getStructureClass('left_lingual_gyrus', selectedStructures, feedback)}"
+            data-id="left_lingual_gyrus"
+            data-name="Left Lingual Gyrus (Lower Visual Cortex - PCA)"
+            data-info="Lower bank of calcarine sulcus: contralateral RIGHT UPPER homonymous quadrantanopia w/ macular sparing (Left PCA)" />
+
+      <text x="96" y="78" class="text-hint" style="font-size:9px;">Med. Frontal</text>
+      <text x="96" y="90" class="text-hint" style="font-size:8.5px;">(Emotion)</text>
+      <text x="186" y="58" class="text-hint" style="font-size:9px;">Paracentral</text>
+      <text x="186" y="70" class="text-hint" style="font-size:8.5px;">Leg/Foot (ACA)</text>
+      <text x="278" y="96" class="text-hint" style="font-size:9px;">Cuneus</text>
+      <text x="278" y="156" class="text-hint" style="font-size:9px;">Lingual</text>
+      <text x="170" y="106" class="text-hint" style="font-size:8px; fill:#64748b;">Corpus Callosum</text>
+    </g>
+
+    <!-- ======================================================= -->
+    <!-- BOTTOM RIGHT: RIGHT HEMISPHERE — MEDIAL SURFACE (ACA & PCA) -->
+    <!-- ======================================================= -->
+    <g transform="translate(390, 290)">
+      <text x="170" y="14" class="diagram-label" style="fill:#67e8f9;">RIGHT HEMISPHERE — MEDIAL (ACA &amp; PCA)</text>
+      <!-- Medial Brain Silhouette (Occipital Left, Frontal Right) -->
+      <path d="M 300 130 C 305 72, 250 30, 165 28 C 85 26, 25 62, 18 122 C 14 158, 45 182, 100 176 C 130 172, 155 150, 185 150 C 225 150, 290 156, 300 130 Z"
+            class="cortex-outline territory-aca-bg" />
+      <!-- Corpus Callosum landmark -->
+      <path d="M 230 118 C 215 90, 125 90, 108 118 C 118 126, 132 112, 170 110 C 205 110, 218 124, 230 118 Z"
+            fill="#0f172a" stroke="#475569" stroke-width="1.5" />
+      <!-- Calcarine Sulcus guide -->
+      <path d="M 96 134 L 24 122" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 2" fill="none" />
+
+      <!-- Right Medial Frontal / Emotional Control (ACA) -->
+      <path d="M 296 128 C 296 78, 254 42, 194 32 L 186 92 C 212 96, 228 108, 232 124 L 278 138 Z"
+            class="${getStructureClass('right_medial_frontal', selectedStructures, feedback)}"
+            data-id="right_medial_frontal"
+            data-name="Right Medial Frontal Cortex (ACA)"
+            data-info="Executive & emotional control, abulia / apathy (Right ACA)" />
+
+      <!-- Right Paracentral Lobule (Foot / Leg Motor & Sensory + Bladder - ACA) -->
+      <path d="M 190 32 C 165 28, 134 32, 116 40 L 130 94 C 150 90, 168 90, 184 92 Z"
+            class="${getStructureClass('right_paracentral_lobule', selectedStructures, feedback)}"
+            data-id="right_paracentral_lobule"
+            data-name="Right Paracentral Lobule (Foot/Leg - ACA)"
+            data-info="Contralateral (left) foot & leg weakness/sensory loss + urinary incontinence (Right ACA)" />
+
+      <!-- Right Cuneus (Upper Bank of Calcarine Sulcus -> Lower Visual Field - PCA) -->
+      <path d="M 100 50 C 56 62, 24 86, 20 120 L 94 132 L 108 96 Z"
+            class="${getStructureClass('right_cuneus', selectedStructures, feedback)}"
+            data-id="right_cuneus"
+            data-name="Right Cuneus (Upper Visual Cortex - PCA)"
+            data-info="Upper bank of calcarine sulcus: contralateral LEFT LOWER homonymous quadrantanopia (Right PCA)" />
+
+      <!-- Right Lingual Gyrus (Lower Bank of Calcarine Sulcus -> Upper Visual Field - PCA) -->
+      <path d="M 94 136 L 20 124 C 22 156, 46 176, 90 174 L 106 156 Z"
+            class="${getStructureClass('right_lingual_gyrus', selectedStructures, feedback)}"
+            data-id="right_lingual_gyrus"
+            data-name="Right Lingual Gyrus (Lower Visual Cortex - PCA)"
+            data-info="Lower bank of calcarine sulcus: contralateral LEFT UPPER homonymous quadrantanopia w/ macular sparing (Right PCA)" />
+
+      <text x="244" y="78" class="text-hint" style="font-size:9px;">Med. Frontal</text>
+      <text x="244" y="90" class="text-hint" style="font-size:8.5px;">(Emotion)</text>
+      <text x="154" y="58" class="text-hint" style="font-size:9px;">Paracentral</text>
+      <text x="154" y="70" class="text-hint" style="font-size:8.5px;">Leg/Foot (ACA)</text>
+      <text x="62" y="96" class="text-hint" style="font-size:9px;">Cuneus</text>
+      <text x="62" y="156" class="text-hint" style="font-size:9px;">Lingual</text>
+      <text x="170" y="106" class="text-hint" style="font-size:8px; fill:#64748b;">Corpus Callosum</text>
+    </g>
   </svg>`;
 }

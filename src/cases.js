@@ -55,6 +55,7 @@ export const CLINICAL_CASES = [
     correctSide: "left",
     correctStructures: ["left_medial_lemniscus", "left_vtt"],
     correctStructureNames: "Left Medial Lemniscus & Left Ventral Trigeminothalamic Tract (VTT)",
+    validLocations: [{"level": "rostral_pons", "levelLabel": "Rostral Pons ('The Snowman')", "structures": ["left_medial_lemniscus", "left_vtt"], "structureNames": "Left Medial Lemniscus & Left VTT", "note": "Primary level: ML & VTT sit side-by-side in the upper oval."}, {"level": "midbrain", "levelLabel": "Midbrain ('The Pig')", "structures": ["left_medial_lemniscus", "left_vtt"], "structureNames": "Left Medial Lemniscus & Left VTT", "note": "Also valid: ML & VTT remain adjacent in the lateral midbrain sensory ribbon."}, {"level": "caudal_mid_pons", "levelLabel": "Caudal / Mid Pons", "structures": ["left_medial_lemniscus", "left_vtt"], "structureNames": "Left Medial Lemniscus & Left VTT", "note": "Also valid: VTT sits directly atop the lateral tip of ML ('head on top of body')."}],
     clinicalSyndrome: "Pontine/Midbrain Tegmental Infarct (ML + VTT)",
     whyOptions: [
       "Medial lemniscus carries both facial and somatic nociception above the mid-pons.",
@@ -84,6 +85,7 @@ export const CLINICAL_CASES = [
     correctSide: "left",
     correctStructures: ["left_spinal_v", "left_als"],
     correctStructureNames: "Left Spinal Trigeminal Tract/Nucleus & Left Spinothalamic Tract (ALS)",
+    validLocations: [{"level": "rostral_medulla", "levelLabel": "Rostral Medulla (Lateral)", "structures": ["left_spinal_v", "left_als"], "structureNames": "Left Spinal V & Left ALS", "note": "Primary level: Lateral medullary (Wallenberg) territory with Spinal V + ALS."}, {"level": "caudal_medulla", "levelLabel": "Caudal Medulla (Lateral)", "structures": ["left_spinal_v", "left_als"], "structureNames": "Left Spinal V & Left ALS", "note": "Also valid: Spinal V and ALS are already adjacent in the lateral caudal medulla."}],
     clinicalSyndrome: "Lateral Medullary Syndrome (Wallenberg Syndrome)",
     whyOptions: [
       "Medial lemniscus fibers carry ipsilateral facial touch and contralateral pain.",
@@ -113,6 +115,7 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_paracentral_lobule"],
     correctStructureNames: "Right Paracentral Lobule (Primary Somatosensory Cortex, Foot Area)",
+    validLocations: [{"level": "cortex", "levelLabel": "Cortex Homunculus \u2014 Right Paracentral Lobule", "structures": ["right_paracentral_lobule"], "structureNames": "Right Paracentral Lobule (Foot/Leg)", "note": "Coronal homunculus view: medial wall leg/foot sensory cortex (ACA)."}, {"level": "cortex_territories", "levelLabel": "Cortical Territories \u2014 Right Paracentral Lobule (ACA)", "structures": ["right_paracentral_lobule"], "structureNames": "Right Paracentral Lobule (ACA Territory)", "note": "Medial hemisphere stroke territory view (Right ACA)."}],
     clinicalSyndrome: "Cortical Somatosensory Deficit (ACA Territory)",
     whyOptions: [
       "Fasciculus gracilis fibers decussate within lumbar cord before entering thalamus.",
@@ -291,6 +294,7 @@ export const CLINICAL_CASES = [
     correctSide: "left",
     correctStructures: ["left_postcentral_hand_face"],
     correctStructureNames: "Left Postcentral Gyrus (Primary Somatosensory Cortex, Hand & Lower Face Area)",
+    validLocations: [{"level": "cortex", "levelLabel": "Cortex Homunculus \u2014 Left Postcentral (Hand/Face)", "structures": ["left_postcentral_hand_face"], "structureNames": "Left Postcentral Gyrus (Hand & Face)", "note": "Coronal homunculus view: lateral convexity hand/face sensory cortex (MCA)."}, {"level": "cortex_territories", "levelLabel": "Cortical Territories \u2014 Left Lateral S1 (MCA)", "structures": ["left_postcentral_hand_face"], "structureNames": "Left Lateral Motor/Sensory Cortex (MCA)", "note": "Lateral hemisphere stroke territory view (Left MCA)."}],
     clinicalSyndrome: "Cortical Somatosensory Syndrome (MCA Territory)",
     whyOptions: [
       "Medial lemniscus fibers bypass thalamus to synapse directly in parietal cortex.",
@@ -320,6 +324,7 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_als", "right_vtt"],
     correctStructureNames: "Right ALS + Right Ventral Trigeminothalamic Tract (VTT)",
+    validLocations: [{"level": "rostral_pons", "levelLabel": "Rostral Pons ('The Snowman')", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Primary level: ALS and VTT are lateral neighbors in the upper oval."}, {"level": "midbrain", "levelLabel": "Midbrain ('The Pig')", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Also valid: ALS and VTT remain side-by-side at the lateral edge of the midbrain sensory ribbon."}],
     clinicalSyndrome: "Rostral Brainstem Tegmental Lesion (ALS + VTT)",
     whyOptions: [
       "Primary facial pain fibers cross in medulla before entering spinal trigeminal nuc.",
@@ -525,6 +530,7 @@ export const CLINICAL_CASES = [
     correctSide: "bilateral",
     correctStructures: ["left_basilar_pons", "right_basilar_pons"],
     correctStructureNames: "Bilateral Basilar Pons (Corticospinal & Corticobulbar Tracts)",
+    validLocations: [{"level": "caudal_mid_pons", "levelLabel": "Caudal / Mid Pons \u2014 Bilateral Basilar Pons", "structures": ["left_basilar_pons", "right_basilar_pons"], "structureNames": "Bilateral Basilar Pons", "note": "Primary level: bilateral ventral pons (basilar trunk occlusion)."}, {"level": "rostral_pons", "levelLabel": "Rostral Pons \u2014 Basilar Pons", "structures": ["left_basilar_pons"], "structureNames": "Basilar Pons (Ventral Oval)", "note": "Also valid on the Rostral Pons diagram."}],
     clinicalSyndrome: "Locked-In Syndrome",
     whyOptions: [
       "Cerebral cortex is fully infarcted while brainstem generates reflex eye blinks.",
@@ -644,6 +650,7 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_red_nucleus", "right_oculomotor_nucleus"],
     correctStructureNames: "Right Red Nucleus & Right CN III Fascicles",
+    validLocations: [{"level": "midbrain", "levelLabel": "Right Midbrain (Red Nucleus + CN III)", "structures": ["right_red_nucleus", "right_oculomotor_nucleus"], "structureNames": "Right Red Nucleus & Right CN III", "note": "Classic Claude syndrome localization."}, {"level": "midbrain", "levelLabel": "Right Midbrain (SCP + CN III)", "structures": ["right_scp", "right_oculomotor_nucleus"], "structureNames": "Right SCP & Right CN III", "note": "Also valid: post-decussation SCP fibers traversing the red nucleus region cause contralateral ataxia."}],
     clinicalSyndrome: "Claude Syndrome (Midbrain Tegmental Syndrome)",
     whyOptions: [
       "Substantia nigra destruction causes resting tremor and contralateral pupil miosis.",
@@ -789,6 +796,7 @@ export const CLINICAL_CASES = [
     correctSide: "left",
     correctStructures: ["left_paracentral_lobule"],
     correctStructureNames: "Left Paracentral Lobule (Primary Motor & Sensory Cortex, Leg Representation)",
+    validLocations: [{"level": "cortex", "levelLabel": "Cortex Homunculus \u2014 Left Paracentral Lobule", "structures": ["left_paracentral_lobule"], "structureNames": "Left Paracentral Lobule (ACA)", "note": "Coronal homunculus view."}, {"level": "cortex_territories", "levelLabel": "Cortical Territories \u2014 Left Paracentral Lobule (ACA)", "structures": ["left_paracentral_lobule"], "structureNames": "Left Paracentral Lobule (ACA Territory)", "note": "Medial hemisphere stroke territory view."}],
     clinicalSyndrome: "Anterior Cerebral Artery (ACA) Infarction",
     whyOptions: [
       "Middle cerebral artery exclusively supplies the lower extremity motor homunculus.",
@@ -818,6 +826,7 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_parietal_association"],
     correctStructureNames: "Right Posterior Parietal Association Cortex",
+    validLocations: [{"level": "cortex", "levelLabel": "Cortex Homunculus \u2014 Right Posterior Parietal", "structures": ["right_parietal_association"], "structureNames": "Right Posterior Parietal Cortex", "note": "Coronal cortex view."}, {"level": "cortex_territories", "levelLabel": "Cortical Territories \u2014 Right Posterior Parietal (MCA)", "structures": ["right_parietal_association"], "structureNames": "Right Posterior Parietal Cortex (Neglect)", "note": "Lateral hemisphere stroke territory view (Right MCA)."}],
     clinicalSyndrome: "Hemi-Spatial Neglect & Tactile Extinction",
     whyOptions: [
       "Left medial lemniscus suppresses contralateral tactile perception on double touch.",
@@ -848,6 +857,7 @@ export const CLINICAL_CASES = [
     correctSide: "left",
     correctStructures: ["left_parietal_association"],
     correctStructureNames: "Left Angular Gyrus (Brodmann Area 39)",
+    validLocations: [{"level": "cortex", "levelLabel": "Cortex Homunculus \u2014 Left Posterior Parietal", "structures": ["left_parietal_association"], "structureNames": "Left Posterior Parietal (Angular Gyrus)", "note": "Coronal cortex view."}, {"level": "cortex_territories", "levelLabel": "Cortical Territories \u2014 Left Posterior Parietal (MCA)", "structures": ["left_parietal_association"], "structureNames": "Left Posterior Parietal (Angular Gyrus)", "note": "Lateral hemisphere stroke territory view (Left MCA)."}],
     clinicalSyndrome: "Gerstmann Syndrome",
     whyOptions: [
       "Dominant angular gyrus lesion produces finger agnosia, acalculia, and agraphia.",
@@ -906,6 +916,7 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_als", "right_vtt"],
     correctStructureNames: "Right Spinothalamic Tract (ALS) & Right VTT",
+    validLocations: [{"level": "rostral_pons", "levelLabel": "Rostral Pons \u2014 Right ALS & VTT", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Primary level: lateral tegmentum of rostral pons."}, {"level": "midbrain", "levelLabel": "Midbrain \u2014 Right ALS & VTT", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Also valid: ALS and VTT remain adjacent in the lateral midbrain tegmentum."}],
     clinicalSyndrome: "Rostral Pontine Tegmental Infarct (Snowman Level)",
     whyOptions: [
       "Medial lemniscus merges with anterolateral system in rostral pons to carry pain.",
@@ -1170,6 +1181,7 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_postcentral_hand_face"],
     correctStructureNames: "Right Postcentral Gyrus (Primary Somatosensory Cortex, Hand Area)",
+    validLocations: [{"level": "cortex", "levelLabel": "Cortex Homunculus \u2014 Right Postcentral (Hand/Face)", "structures": ["right_postcentral_hand_face"], "structureNames": "Right Postcentral Gyrus (Hand/Face)", "note": "Coronal homunculus view."}, {"level": "cortex_territories", "levelLabel": "Cortical Territories \u2014 Right Lateral S1 (MCA)", "structures": ["right_postcentral_hand_face"], "structureNames": "Right Lateral Motor/Sensory Cortex (MCA)", "note": "Lateral hemisphere stroke territory view (Right MCA)."}],
     clinicalSyndrome: "Isolated Cortical Astereognosis & Agraphesthesia",
     whyOptions: [
       "Thalamic VPM nucleus processes stereognosis whereas cortex processes crude touch.",

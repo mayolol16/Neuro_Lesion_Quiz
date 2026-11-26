@@ -530,7 +530,7 @@ export const CLINICAL_CASES = [
     correctSide: "bilateral",
     correctStructures: ["left_basilar_pons", "right_basilar_pons"],
     correctStructureNames: "Bilateral Basilar Pons (Corticospinal & Corticobulbar Tracts)",
-    validLocations: [{"level": "caudal_mid_pons", "levelLabel": "Caudal / Mid Pons \u2014 Bilateral Basilar Pons", "structures": ["left_basilar_pons", "right_basilar_pons"], "structureNames": "Bilateral Basilar Pons", "note": "Primary level: bilateral ventral pons (basilar trunk occlusion)."}, {"level": "rostral_pons", "levelLabel": "Rostral Pons \u2014 Basilar Pons", "structures": ["left_basilar_pons"], "structureNames": "Basilar Pons (Ventral Oval)", "note": "Also valid on the Rostral Pons diagram."}],
+    validLocations: [{"level": "caudal_mid_pons", "levelLabel": "Caudal / Mid Pons \u2014 Bilateral Basilar Pons", "structures": ["left_basilar_pons", "right_basilar_pons"], "structureNames": "Bilateral Basilar Pons", "note": "Primary level: bilateral ventral pons (basilar trunk occlusion)."}, {"level": "rostral_pons", "levelLabel": "Rostral Pons ('The Snowman') \u2014 Bilateral Basilar Pons", "structures": ["right_basilar_pons", "left_basilar_pons"], "structureNames": "Right & Left Basilar Pons (Ventral Oval)", "note": "Also valid on the Rostral Pons diagram."}],
     clinicalSyndrome: "Locked-In Syndrome",
     whyOptions: [
       "Cerebral cortex is fully infarcted while brainstem generates reflex eye blinks.",

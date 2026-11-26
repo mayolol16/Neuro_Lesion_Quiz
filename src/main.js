@@ -395,6 +395,18 @@ function renderApp() {
             }
           </div>
 
+          ${state.selectedLevel && !['cortex', 'cortex_territories'].includes(state.selectedLevel) ? `
+            <div class="pathway-legend-bar" aria-label="Functional Pathway Legend">
+              <span class="pathway-legend-item"><span class="pathway-dot motor"></span>Motor (CST/CBT)</span>
+              <span class="pathway-legend-item"><span class="pathway-dot dcml"></span>Touch/Prop (DCML)</span>
+              <span class="pathway-legend-item"><span class="pathway-dot als"></span>Body Pain (ALS)</span>
+              <span class="pathway-legend-item"><span class="pathway-dot trigeminal"></span>Face Sens (V/VTT)</span>
+              <span class="pathway-legend-item"><span class="pathway-dot cn"></span>CN Nuclei</span>
+              <span class="pathway-legend-item"><span class="pathway-dot cerebellar"></span>Cerebellar</span>
+              <span class="pathway-legend-item"><span class="pathway-dot autonomic"></span>Symp/BG</span>
+            </div>
+          ` : ''}
+
           <!-- Bottom HUD with Selection Pills & Hover info -->
           <div class="diagram-footer-hud">
             <div class="selected-pills-wrap">

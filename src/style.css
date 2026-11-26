@@ -2043,3 +2043,133 @@ body {
   stroke: #fbbf24;
   filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.75));
 }
+
+
+/* ==========================================================
+   MEDICAL-ATLAS FUNCTIONAL PATHWAY COLORS & LEGEND
+   ========================================================== */
+
+.nerve-rootlet-line {
+  stroke: rgba(251, 191, 36, 0.52);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 2;
+  fill: none;
+}
+
+.somatotopy-tag {
+  font-size: 9px !important;
+  font-family: var(--font-mono) !important;
+  fill: #94a3b8 !important;
+  font-weight: 600 !important;
+}
+
+/* Functional Pathway Color Legend Bar */
+.pathway-legend-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(10, 15, 29, 0.82);
+  border-top: 1px solid var(--border-subtle);
+  font-size: 10.5px;
+  font-family: var(--font-mono);
+  color: #cbd5e1;
+}
+
+.pathway-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+}
+
+.pathway-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.pathway-dot.motor { background: #fb7185; box-shadow: 0 0 6px rgba(244, 63, 94, 0.6); }
+.pathway-dot.dcml { background: #38bdf8; box-shadow: 0 0 6px rgba(56, 189, 248, 0.6); }
+.pathway-dot.als { background: #fb923c; box-shadow: 0 0 6px rgba(249, 115, 22, 0.6); }
+.pathway-dot.trigeminal { background: #c084fc; box-shadow: 0 0 6px rgba(168, 85, 247, 0.6); }
+.pathway-dot.cn { background: #facc15; box-shadow: 0 0 6px rgba(234, 179, 8, 0.6); }
+.pathway-dot.cerebellar { background: #34d399; box-shadow: 0 0 6px rgba(16, 185, 129, 0.6); }
+.pathway-dot.autonomic { background: #f472b6; box-shadow: 0 0 6px rgba(236, 72, 153, 0.6); }
+
+/* Tract Resting & Hover Color-Coding (overridden by .selected / .state-correct / .state-incorrect) */
+.interactive-struct.tract-motor {
+  fill: rgba(244, 63, 94, 0.22);
+  stroke: rgba(251, 113, 133, 0.72);
+}
+.interactive-struct.tract-motor:hover {
+  fill: rgba(244, 63, 94, 0.46);
+  stroke: #fb7185;
+  filter: drop-shadow(0 0 10px rgba(244, 63, 94, 0.75));
+}
+
+.interactive-struct.tract-dcml {
+  fill: rgba(14, 165, 233, 0.22);
+  stroke: rgba(56, 189, 248, 0.72);
+}
+.interactive-struct.tract-dcml:hover {
+  fill: rgba(14, 165, 233, 0.46);
+  stroke: #38bdf8;
+  filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.75));
+}
+
+.interactive-struct.tract-als {
+  fill: rgba(249, 115, 22, 0.22);
+  stroke: rgba(251, 146, 60, 0.72);
+}
+.interactive-struct.tract-als:hover {
+  fill: rgba(249, 115, 22, 0.46);
+  stroke: #fb923c;
+  filter: drop-shadow(0 0 10px rgba(249, 115, 22, 0.75));
+}
+
+.interactive-struct.tract-trigeminal {
+  fill: rgba(168, 85, 247, 0.22);
+  stroke: rgba(192, 132, 252, 0.72);
+}
+.interactive-struct.tract-trigeminal:hover {
+  fill: rgba(168, 85, 247, 0.46);
+  stroke: #c084fc;
+  filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.75));
+}
+
+.interactive-struct.tract-cn {
+  fill: rgba(234, 179, 8, 0.22);
+  stroke: rgba(250, 204, 21, 0.75);
+}
+.interactive-struct.tract-cn:hover {
+  fill: rgba(234, 179, 8, 0.46);
+  stroke: #facc15;
+  filter: drop-shadow(0 0 10px rgba(234, 179, 8, 0.75));
+}
+
+.interactive-struct.tract-cerebellar {
+  fill: rgba(16, 185, 129, 0.22);
+  stroke: rgba(52, 211, 153, 0.72);
+}
+.interactive-struct.tract-cerebellar:hover {
+  fill: rgba(16, 185, 129, 0.46);
+  stroke: #34d399;
+  filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.75));
+}
+
+.interactive-struct.tract-autonomic {
+  fill: rgba(236, 72, 153, 0.22);
+  stroke: rgba(244, 114, 182, 0.72);
+}
+.interactive-struct.tract-autonomic:hover {
+  fill: rgba(236, 72, 153, 0.46);
+  stroke: #f472b6;
+  filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.75));
+}

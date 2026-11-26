@@ -51,29 +51,67 @@ function getStructureClass(structId, selectedStructures, feedback, extraClass = 
   return "interactive-struct" + suffix;
 }
 
+function renderSharedSVGDefs() {
+  return `
+    <defs>
+      <radialGradient id="bg-parenchyma" cx="50%" cy="45%" r="60%">
+        <stop offset="0%" stop-color="#1e2b45" />
+        <stop offset="70%" stop-color="#141e33" />
+        <stop offset="100%" stop-color="#0d1526" />
+      </radialGradient>
+      <radialGradient id="bg-tegmentum" cx="50%" cy="45%" r="60%">
+        <stop offset="0%" stop-color="#1b2842" />
+        <stop offset="100%" stop-color="#0f172a" />
+      </radialGradient>
+      <linearGradient id="bg-gray-matter" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#2d3c5c" />
+        <stop offset="100%" stop-color="#1e2942" />
+      </linearGradient>
+      <radialGradient id="bg-ventricle" cx="50%" cy="50%" r="55%">
+        <stop offset="0%" stop-color="#020617" />
+        <stop offset="100%" stop-color="#081226" />
+      </radialGradient>
+      <linearGradient id="bg-cortex-surface" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#1f2d47" />
+        <stop offset="100%" stop-color="#131c30" />
+      </linearGradient>
+      <filter id="shadow-depth" x="-12%" y="-12%" width="124%" height="124%">
+        <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.55" />
+      </filter>
+    </defs>
+  `;
+}
+
 // -------------------------------------------------------------
 // 1. SPINAL CORD (Slide 2 & 9)
-// Large oval, central gray butterfly, central canal
+// Large oval, central gray butterfly, dorsal/ventral rootlets, Lissauer's tract & somatotopy
 // -------------------------------------------------------------
 function renderSpinalCordSVG(selectedStructures, feedback) {
   return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="spinal_cord">
-    <defs>
-      <filter id="glow-teal" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#06b6d4" />
-      </filter>
-      <filter id="glow-success" x="-20%" y="-20%" width="140%" height="140%">
-        <feDropShadow dx="0" dy="0" stdDeviation="8" flood-color="#10b981" />
-      </filter>
-    </defs>
+    ${renderSharedSVGDefs()}
+
+    <!-- Dorsal & Ventral Nerve Rootlets -->
+    <g class="nerve-rootlet-group" pointer-events="none">
+      <path d="M 215 112 Q 190 80, 156 58" class="nerve-rootlet-line" />
+      <path d="M 225 106 Q 202 74, 172 52" class="nerve-rootlet-line" />
+      <path d="M 485 112 Q 510 80, 544 58" class="nerve-rootlet-line" />
+      <path d="M 475 106 Q 498 74, 528 52" class="nerve-rootlet-line" />
+      <path d="M 238 386 Q 214 418, 192 444" class="nerve-rootlet-line" />
+      <path d="M 254 392 Q 232 424, 212 448" class="nerve-rootlet-line" />
+      <path d="M 462 386 Q 486 418, 508 444" class="nerve-rootlet-line" />
+      <path d="M 446 392 Q 468 424, 488 448" class="nerve-rootlet-line" />
+    </g>
 
     <!-- Background Outline: Large Oval (Dr. Cohan Slide 2) -->
-    <ellipse cx="350" cy="250" rx="300" ry="190" class="section-outline" />
+    <ellipse cx="350" cy="250" rx="300" ry="190" fill="url(#bg-parenchyma)" stroke="#475569" stroke-width="3.5" filter="url(#shadow-depth)" />
+    <ellipse cx="350" cy="250" rx="292" ry="182" fill="none" stroke="rgba(148,163,184,0.14)" stroke-width="1" pointer-events="none" />
 
-    <!-- Anterior Median Fissure -->
-    <path d="M 350 440 L 350 310" class="median-sulcus-line" />
-    <!-- Posterior Median Sulcus -->
-    <path d="M 350 60 L 350 180" class="median-sulcus-line" />
+    <!-- Anterior Median Fissure & Posterior Median Sulcus -->
+    <path d="M 350 440 L 350 306" class="median-sulcus-line" stroke-width="3" />
+    <path d="M 350 60 L 350 185" class="median-sulcus-line" />
+    <path d="M 290 88 Q 290 120, 292 142" stroke="#475569" stroke-width="1.4" stroke-dasharray="3 2" fill="none" pointer-events="none" />
+    <path d="M 410 88 Q 410 120, 408 142" stroke="#475569" stroke-width="1.4" stroke-dasharray="3 2" fill="none" pointer-events="none" />
 
     <!-- Central Gray Butterfly -->
     <path d="M 350 250 
@@ -89,186 +127,197 @@ function renderSpinalCordSVG(selectedStructures, feedback) {
              C 440 250, 470 190, 455 150 
              C 445 125, 415 120, 420 150 
              C 430 210, 365 240, 350 250 Z" 
-          class="central-gray-matter" />
+          fill="url(#bg-gray-matter)" stroke="#64748b" stroke-width="2" />
+
+    <!-- Lissauer's Tract caps on Dorsal Horns -->
+    <path d="M 244 134 C 254 120, 274 120, 282 134" fill="none" stroke="rgba(245,158,11,0.55)" stroke-width="4" stroke-linecap="round" pointer-events="none" />
+    <path d="M 456 134 C 446 120, 426 120, 418 134" fill="none" stroke="rgba(245,158,11,0.55)" stroke-width="4" stroke-linecap="round" pointer-events="none" />
 
     <!-- DORSAL COLUMNS: Left & Right (Slide 9) -->
-    <!-- Fasciculus Gracilis: Medial (Legs/Lower Body) -->
-    <!-- Right Gracilis (Viewer Left: Anatomical Right) -->
     <path d="M 350 60 C 310 65, 290 90, 290 140 C 300 170, 330 180, 350 180 Z" 
-          class="${getStructureClass('right_fasciculus_gracilis', selectedStructures, feedback)}" 
+          class="${getStructureClass('right_fasciculus_gracilis', selectedStructures, feedback, 'tract-dcml')}" 
           data-id="right_fasciculus_gracilis" 
           data-name="Right Fasciculus Gracilis" 
           data-info="Dorsal Column: Conscious touch, vibration, and proprioception from RIGHT lower body (T7-S5)" />
 
-    <!-- Left Gracilis (Viewer Right: Anatomical Left) -->
     <path d="M 350 60 C 390 65, 410 90, 410 140 C 400 170, 370 180, 350 180 Z" 
-          class="${getStructureClass('left_fasciculus_gracilis', selectedStructures, feedback)}" 
+          class="${getStructureClass('left_fasciculus_gracilis', selectedStructures, feedback, 'tract-dcml')}" 
           data-id="left_fasciculus_gracilis" 
           data-name="Left Fasciculus Gracilis" 
           data-info="Dorsal Column: Conscious touch, vibration, and proprioception from LEFT lower body (T7-S5)" />
 
-    <!-- Fasciculus Cuneatus: Lateral (Arms/Upper Body, T6 & above) -->
-    <!-- Right Cuneatus -->
     <path d="M 290 90 C 230 115, 200 150, 205 180 C 240 180, 275 160, 290 140 Z" 
-          class="${getStructureClass('right_fasciculus_cuneatus', selectedStructures, feedback)}" 
+          class="${getStructureClass('right_fasciculus_cuneatus', selectedStructures, feedback, 'tract-dcml')}" 
           data-id="right_fasciculus_cuneatus" 
           data-name="Right Fasciculus Cuneatus" 
           data-info="Dorsal Column: Conscious touch, vibration, and proprioception from RIGHT upper body (C1-T6)" />
 
-    <!-- Left Cuneatus -->
     <path d="M 410 90 C 470 115, 500 150, 495 180 C 460 180, 425 160, 410 140 Z" 
-          class="${getStructureClass('left_fasciculus_cuneatus', selectedStructures, feedback)}" 
+          class="${getStructureClass('left_fasciculus_cuneatus', selectedStructures, feedback, 'tract-dcml')}" 
           data-id="left_fasciculus_cuneatus" 
           data-name="Left Fasciculus Cuneatus" 
           data-info="Dorsal Column: Conscious touch, vibration, and proprioception from LEFT upper body (C1-T6)" />
 
-    <!-- LATERAL CORONAL / LATERAL CORTICOSPINAL TRACTS -->
+    <!-- LATERAL CORTICOSPINAL TRACTS -->
     <path d="M 120 220 C 130 180, 170 180, 210 210 C 220 260, 180 300, 140 280 C 120 260, 115 240, 120 220 Z" 
-          class="${getStructureClass('right_lateral_corticospinal', selectedStructures, feedback)}" 
+          class="${getStructureClass('right_lateral_corticospinal', selectedStructures, feedback, 'tract-motor')}" 
           data-id="right_lateral_corticospinal" 
           data-name="Right Lateral Corticospinal Tract" 
-          data-info="Motor: Primary voluntary motor pathway for RIGHT extremities" />
+          data-info="Motor: Primary voluntary motor pathway for RIGHT extremities (Somatotopy: C medial -> S lateral)" />
 
     <path d="M 580 220 C 570 180, 530 180, 490 210 C 480 260, 520 300, 560 280 C 580 260, 585 240, 580 220 Z" 
-          class="${getStructureClass('left_lateral_corticospinal', selectedStructures, feedback)}" 
+          class="${getStructureClass('left_lateral_corticospinal', selectedStructures, feedback, 'tract-motor')}" 
           data-id="left_lateral_corticospinal" 
           data-name="Left Lateral Corticospinal Tract" 
-          data-info="Motor: Primary voluntary motor pathway for LEFT extremities" />
+          data-info="Motor: Primary voluntary motor pathway for LEFT extremities (Somatotopy: C medial -> S lateral)" />
 
-    <!-- ANTEROLATERAL SYSTEM (ALS / Spinothalamic Tract - Slide 9) -->
-    <!-- Right ALS -->
+    <!-- ANTEROLATERAL SYSTEM (ALS) -->
     <path d="M 120 300 C 140 330, 200 400, 260 410 C 250 380, 210 330, 160 300 Z" 
-          class="${getStructureClass('right_als', selectedStructures, feedback)}" 
+          class="${getStructureClass('right_als', selectedStructures, feedback, 'tract-als')}" 
           data-id="right_als" 
           data-name="Right Anterolateral System (ALS)" 
-          data-info="ALS: Pain & Temperature from CONTRALATERAL (LEFT) body starting 1-2 segments below" />
+          data-info="ALS: Pain & Temperature from CONTRALATERAL (LEFT) body starting 1-2 segments below (C medial -> S lateral)" />
 
-    <!-- Left ALS -->
     <path d="M 580 300 C 560 330, 500 400, 440 410 C 450 380, 490 330, 540 300 Z" 
-          class="${getStructureClass('left_als', selectedStructures, feedback)}" 
+          class="${getStructureClass('left_als', selectedStructures, feedback, 'tract-als')}" 
           data-id="left_als" 
           data-name="Left Anterolateral System (ALS)" 
-          data-info="ALS: Pain & Temperature from CONTRALATERAL (RIGHT) body starting 1-2 segments below" />
+          data-info="ALS: Pain & Temperature from CONTRALATERAL (RIGHT) body starting 1-2 segments below (C medial -> S lateral)" />
 
-    <!-- VENTRAL HORNS (Lower Motor Neurons) -->
+    <!-- VENTRAL HORNS -->
     <ellipse cx="280" cy="340" rx="30" ry="25" 
-             class="${getStructureClass('right_ventral_horn', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_ventral_horn', selectedStructures, feedback, 'tract-motor')}" 
              data-id="right_ventral_horn" 
              data-name="Right Ventral Horn" 
-             data-info="Lower Motor Neurons for right limb/trunk muscles" />
+             data-info="Lower Motor Neurons for right limb/trunk muscles (flaccid weakness, atrophy, fasciculations)" />
 
     <ellipse cx="420" cy="340" rx="30" ry="25" 
-             class="${getStructureClass('left_ventral_horn', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_ventral_horn', selectedStructures, feedback, 'tract-motor')}" 
              data-id="left_ventral_horn" 
              data-name="Left Ventral Horn" 
-             data-info="Lower Motor Neurons for left limb/trunk muscles" />
+             data-info="Lower Motor Neurons for left limb/trunk muscles (flaccid weakness, atrophy, fasciculations)" />
 
-    <!-- VENTRAL WHITE COMMISSURE (Slide 2 & Case 1) -->
+    <!-- VENTRAL WHITE COMMISSURE -->
     <rect x="330" y="270" width="40" height="26" rx="6" 
-          class="${getStructureClass('ventral_white_commissure', selectedStructures, feedback)}" 
+          class="${getStructureClass('ventral_white_commissure', selectedStructures, feedback, 'tract-als')}" 
           data-id="ventral_white_commissure" 
           data-name="Ventral White Commissure" 
           data-info="Decussating second-order spinothalamic pain/temp axons (damaged in Syringomyelia)" />
 
     <!-- Central Canal -->
-    <circle cx="350" cy="250" r="10" class="central-canal" />
+    <circle cx="350" cy="250" r="10" fill="url(#bg-ventricle)" stroke="#0ea5e9" stroke-width="1.8" />
 
     <!-- Anatomical Labels -->
-    <text x="350" y="35" class="diagram-label label-cardinal">DORSAL (POSTERIOR)</text>
-    <text x="350" y="475" class="diagram-label label-cardinal">VENTRAL (ANTERIOR)</text>
-    <text x="50" y="250" class="diagram-label label-side">RIGHT</text>
-    <text x="650" y="250" class="diagram-label label-side">LEFT</text>
+    <text x="350" y="32" class="diagram-label label-cardinal">DORSAL (POSTERIOR)</text>
+    <text x="350" y="478" class="diagram-label label-cardinal">VENTRAL (ANTERIOR)</text>
+    <text x="48" y="250" class="diagram-label label-side">RIGHT</text>
+    <text x="652" y="250" class="diagram-label label-side">LEFT</text>
 
-    <!-- Tract Text Guides -->
-    <text x="315" y="130" class="text-hint">F. Gracilis (R)</text>
-    <text x="385" y="130" class="text-hint">F. Gracilis (L)</text>
-    <text x="235" y="145" class="text-hint">F. Cuneatus (R)</text>
-    <text x="465" y="145" class="text-hint">F. Cuneatus (L)</text>
-    <text x="180" y="380" class="text-hint">ALS (R)</text>
-    <text x="520" y="380" class="text-hint">ALS (L)</text>
-    <text x="350" y="315" class="text-hint-center">Ventral White Comm.</text>
+    <text x="320" y="122" class="text-hint territory-label-xs">Gracilis</text>
+    <text x="380" y="122" class="text-hint territory-label-xs">Gracilis</text>
+    <text x="245" y="145" class="text-hint territory-label-xs">Cuneatus</text>
+    <text x="455" y="145" class="text-hint territory-label-xs">Cuneatus</text>
+    <text x="320" y="142" class="text-hint somatotopy-tag">S · L</text>
+    <text x="252" y="162" class="text-hint somatotopy-tag">T · C</text>
+    <text x="168" y="236" class="text-hint territory-label-xs">Lat. CST</text>
+    <text x="532" y="236" class="text-hint territory-label-xs">Lat. CST</text>
+    <text x="168" y="250" class="text-hint somatotopy-tag">C · T · L · S</text>
+    <text x="180" y="375" class="text-hint territory-label-xs">ALS (C·T·L·S)</text>
+    <text x="520" y="375" class="text-hint territory-label-xs">ALS (C·T·L·S)</text>
+    <text x="280" y="344" class="text-hint territory-label-xs">Vent. Horn</text>
+    <text x="420" y="344" class="text-hint territory-label-xs">Vent. Horn</text>
+    <text x="350" y="314" class="text-hint-center" style="font-size:10.5px;">Ventral White Comm.</text>
   </svg>`;
 }
 
 // -------------------------------------------------------------
 // 2. CAUDAL MEDULLA (Slide 3 & 10)
-// Big circle, central canal 1/3 from top, 3 dorsal circle neighbors
+// Big circle, central canal 1/3 from top, internal arcuate fibers, pyramidal decussation
 // -------------------------------------------------------------
 function renderCaudalMedullaSVG(selectedStructures, feedback) {
   return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="caudal_medulla">
-    <!-- Big Circle Outline (Slide 3) -->
-    <circle cx="350" cy="250" r="210" class="section-outline" />
+    ${renderSharedSVGDefs()}
 
-    <!-- Central Canal (1/3 from top - Slide 3) -->
-    <circle cx="350" cy="180" r="12" class="central-canal" />
+    <!-- Big Circle Outline -->
+    <circle cx="350" cy="250" r="210" fill="url(#bg-parenchyma)" stroke="#475569" stroke-width="3.5" filter="url(#shadow-depth)" />
+    <circle cx="350" cy="250" r="202" fill="none" stroke="rgba(148,163,184,0.14)" stroke-width="1" pointer-events="none" />
+
+    <!-- Decorative Internal Arcuate Fibers & Pyramidal Decussation -->
+    <g pointer-events="none" opacity="0.55">
+      <path d="M 300 142 Q 285 215, 350 248" stroke="#38bdf8" stroke-width="1.6" stroke-dasharray="4 3" fill="none" />
+      <path d="M 240 165 Q 250 232, 350 258" stroke="#38bdf8" stroke-width="1.6" stroke-dasharray="4 3" fill="none" />
+      <path d="M 400 142 Q 415 215, 350 248" stroke="#38bdf8" stroke-width="1.6" stroke-dasharray="4 3" fill="none" />
+      <path d="M 460 165 Q 450 232, 350 258" stroke="#38bdf8" stroke-width="1.6" stroke-dasharray="4 3" fill="none" />
+      <path d="M 320 390 L 380 412 M 380 390 L 320 412 M 325 405 L 375 426 M 375 405 L 325 426" stroke="#fb7185" stroke-width="1.8" stroke-linecap="round" />
+    </g>
+
+    <!-- Central Canal -->
+    <circle cx="350" cy="180" r="12" fill="url(#bg-ventricle)" stroke="#0ea5e9" stroke-width="1.8" />
 
     <!-- Median Fissures -->
     <line x1="350" y1="40" x2="350" y2="160" class="median-sulcus-line" />
     <line x1="350" y1="260" x2="350" y2="460" class="median-sulcus-line" />
 
-    <!-- 3 CIRCLE NEIGHBORS ON EACH SIDE (Slide 10) -->
-    <!-- 1. Nucleus Gracilis: Most medial -->
+    <!-- 3 CIRCLE NEIGHBORS ON EACH SIDE -->
     <circle cx="305" cy="110" r="32" 
-            class="${getStructureClass('right_nucleus_gracilis', selectedStructures, feedback)}" 
+            class="${getStructureClass('right_nucleus_gracilis', selectedStructures, feedback, 'tract-dcml')}" 
             data-id="right_nucleus_gracilis" 
             data-name="Right Nucleus Gracilis" 
             data-info="Relay nucleus for RIGHT lower body touch, vibration, and proprioception" />
 
     <circle cx="395" cy="110" r="32" 
-            class="${getStructureClass('left_nucleus_gracilis', selectedStructures, feedback)}" 
+            class="${getStructureClass('left_nucleus_gracilis', selectedStructures, feedback, 'tract-dcml')}" 
             data-id="left_nucleus_gracilis" 
             data-name="Left Nucleus Gracilis" 
             data-info="Relay nucleus for LEFT lower body touch, vibration, and proprioception" />
 
-    <!-- 2. Nucleus Cuneatus: Middle circle neighbor -->
     <circle cx="230" cy="135" r="34" 
-            class="${getStructureClass('right_nucleus_cuneatus', selectedStructures, feedback)}" 
+            class="${getStructureClass('right_nucleus_cuneatus', selectedStructures, feedback, 'tract-dcml')}" 
             data-id="right_nucleus_cuneatus" 
             data-name="Right Nucleus Cuneatus" 
             data-info="Relay nucleus for RIGHT upper body (arm/hand) touch, vibration, and proprioception" />
 
     <circle cx="470" cy="135" r="34" 
-            class="${getStructureClass('left_nucleus_cuneatus', selectedStructures, feedback)}" 
+            class="${getStructureClass('left_nucleus_cuneatus', selectedStructures, feedback, 'tract-dcml')}" 
             data-id="left_nucleus_cuneatus" 
             data-name="Left Nucleus Cuneatus" 
             data-info="Relay nucleus for LEFT upper body (arm/hand) touch, vibration, and proprioception" />
 
-    <!-- 3. Spinal Trigeminal Tract & Nucleus: Lateral circle neighbor -->
     <ellipse cx="165" cy="185" rx="28" ry="38" 
-             class="${getStructureClass('right_spinal_v', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_spinal_v', selectedStructures, feedback, 'tract-trigeminal')}" 
              data-id="right_spinal_v" 
              data-name="Right Spinal Trigeminal Complex" 
              data-info="Pars caudalis: Pain & Temperature from IPSILATERAL (RIGHT) face (onion-skin somatotopy)" />
 
     <ellipse cx="535" cy="185" rx="28" ry="38" 
-             class="${getStructureClass('left_spinal_v', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_spinal_v', selectedStructures, feedback, 'tract-trigeminal')}" 
              data-id="left_spinal_v" 
              data-name="Left Spinal Trigeminal Complex" 
              data-info="Pars caudalis: Pain & Temperature from IPSILATERAL (LEFT) face (onion-skin somatotopy)" />
 
-    <!-- ALS: "Don't forget me!" (Slide 10) -->
+    <!-- ALS -->
     <path d="M 155 270 C 145 320, 175 380, 220 405 C 235 385, 215 330, 190 280 Z" 
-          class="${getStructureClass('right_als', selectedStructures, feedback)}" 
+          class="${getStructureClass('right_als', selectedStructures, feedback, 'tract-als')}" 
           data-id="right_als" 
           data-name="Right Anterolateral System (ALS)" 
           data-info="ALS: Pain & temperature from CONTRALATERAL (LEFT) body" />
 
     <path d="M 545 270 C 555 320, 525 380, 480 405 C 465 385, 485 330, 510 280 Z" 
-          class="${getStructureClass('left_als', selectedStructures, feedback)}" 
+          class="${getStructureClass('left_als', selectedStructures, feedback, 'tract-als')}" 
           data-id="left_als" 
           data-name="Left Anterolateral System (ALS)" 
           data-info="ALS: Pain & temperature from CONTRALATERAL (RIGHT) body" />
 
-    <!-- Pyramids / Pyramidal Decussation (Ventral) -->
+    <!-- Pyramids -->
     <path d="M 270 430 C 270 380, 310 350, 345 350 L 345 450 C 315 450, 285 445, 270 430 Z" 
-          class="${getStructureClass('right_pyramid', selectedStructures, feedback)}" 
+          class="${getStructureClass('right_pyramid', selectedStructures, feedback, 'tract-motor')}" 
           data-id="right_pyramid" 
           data-name="Right Pyramid / Motor Decussation" 
           data-info="Corticospinal tract decussating to form lateral corticospinal tract" />
 
     <path d="M 430 430 C 430 380, 390 350, 355 350 L 355 450 C 385 450, 415 445, 430 430 Z" 
-          class="${getStructureClass('left_pyramid', selectedStructures, feedback)}" 
+          class="${getStructureClass('left_pyramid', selectedStructures, feedback, 'tract-motor')}" 
           data-id="left_pyramid" 
           data-name="Left Pyramid / Motor Decussation" 
           data-info="Corticospinal tract decussating to form lateral corticospinal tract" />
@@ -279,22 +328,30 @@ function renderCaudalMedullaSVG(selectedStructures, feedback) {
     <text x="60" y="250" class="diagram-label label-side">RIGHT</text>
     <text x="640" y="250" class="diagram-label label-side">LEFT</text>
 
-    <text x="290" y="70" class="text-hint">Nuc Gracilis</text>
-    <text x="220" y="90" class="text-hint">Nuc Cuneatus</text>
-    <text x="110" y="140" class="text-hint">Spinal V (Tract & Nuc)</text>
-    <text x="140" y="370" class="text-hint">ALS ("Don't forget me!")</text>
-    <text x="300" y="420" class="text-hint">Pyramids</text>
+    <text x="305" y="114" class="text-hint territory-label-xs">Gracilis</text>
+    <text x="395" y="114" class="text-hint territory-label-xs">Gracilis</text>
+    <text x="230" y="139" class="text-hint territory-label-xs">Cuneatus</text>
+    <text x="470" y="139" class="text-hint territory-label-xs">Cuneatus</text>
+    <text x="165" y="188" class="text-hint territory-label-xs">Spinal V</text>
+    <text x="535" y="188" class="text-hint territory-label-xs">Spinal V</text>
+    <text x="350" y="238" class="text-hint somatotopy-tag">Internal Arcuate Fibers</text>
+    <text x="180" y="346" class="text-hint territory-label-xs">ALS</text>
+    <text x="520" y="346" class="text-hint territory-label-xs">ALS</text>
+    <text x="306" y="422" class="text-hint territory-label-xs">Pyramids</text>
+    <text x="394" y="422" class="text-hint territory-label-xs">Decuss.</text>
   </svg>`;
 }
 
 // -------------------------------------------------------------
 // 3. ROSTRAL MEDULLA (Slide 4 & 11)
-// Big circle + 2 ICP circles above + 2 Olive circles below + 2 Pyramid triangles bottom + 4th Ventricle
+// Crinkled Inferior Olives, exiting CN XII & CN IX/X rootlets, ASA vs PICA territories
 // -------------------------------------------------------------
 function renderRostralMedullaSVG(selectedStructures, feedback) {
   return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="rostral_medulla">
-    <!-- Base Shape & 4th Ventricle Floor (Slide 4) -->
+    ${renderSharedSVGDefs()}
+
+    <!-- Base Shape & 4th Ventricle Floor -->
     <path d="M 230 90 
              C 270 120, 330 140, 350 140 
              C 370 140, 430 120, 470 90 
@@ -304,183 +361,197 @@ function renderRostralMedullaSVG(selectedStructures, feedback) {
              C 340 475, 290 470, 260 450 
              C 150 420, 100 320, 100 230 
              C 100 150, 160 100, 230 90 Z" 
-          class="section-outline" />
+          fill="url(#bg-parenchyma)" stroke="#475569" stroke-width="3.5" filter="url(#shadow-depth)" />
 
-    <!-- 4th Ventricle depression -->
-    <path d="M 230 90 Q 350 150 470 90 Z" class="ventricle-space" />
+    <!-- Vascular Territory Guides & Exiting CN Rootlets -->
+    <g pointer-events="none">
+      <line x1="288" y1="150" x2="275" y2="455" stroke="rgba(244,63,94,0.32)" stroke-width="1.5" stroke-dasharray="5 4" />
+      <line x1="412" y1="150" x2="425" y2="455" stroke="rgba(244,63,94,0.32)" stroke-width="1.5" stroke-dasharray="5 4" />
+      <path d="M 322 166 Q 295 280, 272 440" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="3 2" fill="none" opacity="0.7" />
+      <path d="M 378 166 Q 405 280, 428 440" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="3 2" fill="none" opacity="0.7" />
+      <path d="M 222 248 Q 160 258, 92 268" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="3 2" fill="none" opacity="0.7" />
+      <path d="M 478 248 Q 540 258, 608 268" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="3 2" fill="none" opacity="0.7" />
+    </g>
 
-    <!-- Inferior Cerebellar Peduncles (ICP) - 2 smaller circles above (Slide 4) -->
+    <!-- 4th Ventricle -->
+    <path d="M 230 90 Q 350 150 470 90 Z" fill="url(#bg-ventricle)" stroke="#0ea5e9" stroke-width="1.8" />
+
+    <!-- ICP -->
     <circle cx="170" cy="130" r="38" 
-            class="${getStructureClass('right_icp', selectedStructures, feedback)}" 
+            class="${getStructureClass('right_icp', selectedStructures, feedback, 'tract-cerebellar')}" 
             data-id="right_icp" 
             data-name="Right Inferior Cerebellar Peduncle (ICP)" 
-            data-info="Restiform body: afferent fibers to cerebellum (ataxia if damaged)" />
+            data-info="Restiform body: afferent fibers to cerebellum (ipsilateral ataxia in Wallenberg / PICA)" />
 
     <circle cx="530" cy="130" r="38" 
-            class="${getStructureClass('left_icp', selectedStructures, feedback)}" 
+            class="${getStructureClass('left_icp', selectedStructures, feedback, 'tract-cerebellar')}" 
             data-id="left_icp" 
             data-name="Left Inferior Cerebellar Peduncle (ICP)" 
-            data-info="Restiform body: afferent fibers to cerebellum" />
+            data-info="Restiform body: afferent fibers to cerebellum (ipsilateral ataxia in Wallenberg / PICA)" />
 
-    <!-- Inferior Olivary Nuclei (ION) - 2 smaller crinkled circles below (Slide 4) -->
-    <path d="M 230 310 C 200 315, 175 350, 195 385 C 220 405, 260 390, 255 350 Z" 
-          class="${getStructureClass('right_inferior_olive', selectedStructures, feedback)}" 
+    <!-- Crinkled Folded Bag Inferior Olivary Nuclei -->
+    <path d="M 255 322 C 232 308, 200 310, 188 332 C 176 350, 182 378, 204 392 C 228 406, 256 394, 260 374 C 242 378, 224 374, 214 364 C 204 354, 206 340, 220 334 C 234 328, 248 334, 255 322 Z" 
+          class="${getStructureClass('right_inferior_olive', selectedStructures, feedback, 'tract-cerebellar')}" 
           data-id="right_inferior_olive" 
           data-name="Right Inferior Olive" 
-          data-info="Climbing fiber source to cerebellum" />
+          data-info="Crinkled ribbon nucleus: climbing fiber source to cerebellum via ICP" />
 
-    <path d="M 470 310 C 500 315, 525 350, 505 385 C 480 405, 440 390, 445 350 Z" 
-          class="${getStructureClass('left_inferior_olive', selectedStructures, feedback)}" 
+    <path d="M 445 322 C 468 308, 500 310, 512 332 C 524 350, 518 378, 496 392 C 472 406, 444 394, 440 374 C 458 378, 476 374, 486 364 C 496 354, 494 340, 480 334 C 466 328, 452 334, 445 322 Z" 
+          class="${getStructureClass('left_inferior_olive', selectedStructures, feedback, 'tract-cerebellar')}" 
           data-id="left_inferior_olive" 
           data-name="Left Inferior Olive" 
-          data-info="Climbing fiber source to cerebellum" />
+          data-info="Crinkled ribbon nucleus: climbing fiber source to cerebellum via ICP" />
 
-    <!-- Pyramids - 2 Triangles at Bottom (Slide 4) -->
+    <!-- Pyramids -->
     <polygon points="275,445 345,465 345,385 285,385" 
-             class="${getStructureClass('right_pyramid', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_pyramid', selectedStructures, feedback, 'tract-motor')}" 
              data-id="right_pyramid" 
              data-name="Right Pyramid" 
-             data-info="Corticospinal tract: motor fibers to CONTRALATERAL (LEFT) body" />
+             data-info="Corticospinal tract: motor fibers to CONTRALATERAL (LEFT) body (ASA)" />
 
     <polygon points="425,445 355,465 355,385 415,385" 
-             class="${getStructureClass('left_pyramid', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_pyramid', selectedStructures, feedback, 'tract-motor')}" 
              data-id="left_pyramid" 
              data-name="Left Pyramid" 
-             data-info="Corticospinal tract: motor fibers to CONTRALATERAL (RIGHT) body" />
+             data-info="Corticospinal tract: motor fibers to CONTRALATERAL (RIGHT) body (ASA)" />
 
-    <!-- MEDIAL LEMNISCUS: Tall Vertical Ribbon along midline between olives (Slide 11) -->
-    <!-- Right ML (Viewer Left) -->
+    <!-- MEDIAL LEMNISCUS -->
     <rect x="315" y="240" width="30" height="120" rx="8" 
-          class="${getStructureClass('right_medial_lemniscus', selectedStructures, feedback)}" 
+          class="${getStructureClass('right_medial_lemniscus', selectedStructures, feedback, 'tract-dcml')}" 
           data-id="right_medial_lemniscus" 
           data-name="Right Medial Lemniscus" 
           data-info="Medial Lemniscus: Crossed touch, vibration, proprioception from LEFT body (neck dorsal, feet ventral)" />
 
-    <!-- Left ML (Viewer Right) -->
     <rect x="355" y="240" width="30" height="120" rx="8" 
-          class="${getStructureClass('left_medial_lemniscus', selectedStructures, feedback)}" 
+          class="${getStructureClass('left_medial_lemniscus', selectedStructures, feedback, 'tract-dcml')}" 
           data-id="left_medial_lemniscus" 
           data-name="Left Medial Lemniscus" 
           data-info="Medial Lemniscus: Crossed touch, vibration, proprioception from RIGHT body" />
 
-    <!-- VTT: "Hi neighbor!" - sits directly dorsal to Medial Lemniscus (Slide 11) -->
+    <!-- VTT -->
     <circle cx="330" cy="205" r="16" 
-            class="${getStructureClass('right_vtt', selectedStructures, feedback)}" 
+            class="${getStructureClass('right_vtt', selectedStructures, feedback, 'tract-trigeminal')}" 
             data-id="right_vtt" 
             data-name="Right Ventral Trigeminothalamic Tract (VTT)" 
             data-info="VTT: 'Hi neighbor!' Crossed pain, temp & touch from LEFT face" />
 
     <circle cx="370" cy="205" r="16" 
-            class="${getStructureClass('left_vtt', selectedStructures, feedback)}" 
+            class="${getStructureClass('left_vtt', selectedStructures, feedback, 'tract-trigeminal')}" 
             data-id="left_vtt" 
             data-name="Left Ventral Trigeminothalamic Tract (VTT)" 
             data-info="VTT: 'Hi neighbor!' Crossed pain, temp & touch from RIGHT face" />
 
-    <!-- SPINAL TRIGEMINAL TRACT & NUCLEUS: Dorsolateral (medial to ICP - Slide 11) -->
+    <!-- SPINAL TRIGEMINAL -->
     <ellipse cx="170" cy="210" rx="26" ry="34" 
-             class="${getStructureClass('right_spinal_v', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_spinal_v', selectedStructures, feedback, 'tract-trigeminal')}" 
              data-id="right_spinal_v" 
              data-name="Right Spinal Trigeminal Complex" 
              data-info="Primary uncrossed pain/temp from IPSILATERAL (RIGHT) face (Wallenberg syndrome)" />
 
     <ellipse cx="530" cy="210" rx="26" ry="34" 
-             class="${getStructureClass('left_spinal_v', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_spinal_v', selectedStructures, feedback, 'tract-trigeminal')}" 
              data-id="left_spinal_v" 
              data-name="Left Spinal Trigeminal Complex" 
              data-info="Primary uncrossed pain/temp from IPSILATERAL (LEFT) face (Wallenberg syndrome)" />
 
-    <!-- ALS: Anterolateral tegmentum (between Olive & Spinal V - Slide 11) -->
+    <!-- ALS -->
     <ellipse cx="185" cy="285" rx="22" ry="26" 
-             class="${getStructureClass('right_als', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_als', selectedStructures, feedback, 'tract-als')}" 
              data-id="right_als" 
              data-name="Right Anterolateral System (ALS)" 
              data-info="ALS: Pain & temperature from CONTRALATERAL (LEFT) body (Wallenberg syndrome)" />
 
     <ellipse cx="515" cy="285" rx="22" ry="26" 
-             class="${getStructureClass('left_als', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_als', selectedStructures, feedback, 'tract-als')}" 
              data-id="left_als" 
              data-name="Left Anterolateral System (ALS)" 
              data-info="ALS: Pain & temperature from CONTRALATERAL (RIGHT) body (Wallenberg syndrome)" />
 
-    <!-- Hypoglossal Nuclei (Dorsomedial under 4th ventricle) -->
+    <!-- CN XII -->
     <circle cx="325" cy="155" r="11" 
-            class="${getStructureClass('right_hypoglossal_nucleus', selectedStructures, feedback)}" 
+            class="${getStructureClass('right_hypoglossal_nucleus', selectedStructures, feedback, 'tract-cn')}" 
             data-id="right_hypoglossal_nucleus" 
             data-name="Right Hypoglossal Nucleus (CN XII)" 
             data-info="Motor to tongue: ipsilateral deviation on protrusion (Medial Medullary Syndrome)" />
 
     <circle cx="375" cy="155" r="11" 
-            class="${getStructureClass('left_hypoglossal_nucleus', selectedStructures, feedback)}" 
+            class="${getStructureClass('left_hypoglossal_nucleus', selectedStructures, feedback, 'tract-cn')}" 
             data-id="left_hypoglossal_nucleus" 
             data-name="Left Hypoglossal Nucleus (CN XII)" 
             data-info="Motor to tongue: ipsilateral deviation on protrusion" />
 
-    <!-- Vestibular Nuclei (Dorsolateral floor of 4th ventricle) -->
+    <!-- Vestibular Nuclei -->
     <ellipse cx="255" cy="150" rx="22" ry="14"
-             class="${getStructureClass('right_vestibular_nuclei', selectedStructures, feedback)}"
+             class="${getStructureClass('right_vestibular_nuclei', selectedStructures, feedback, 'tract-cn')}"
              data-id="right_vestibular_nuclei"
              data-name="Right Vestibular Nuclei"
              data-info="Vertigo, nausea, vomiting, and nystagmus (Lateral Medullary / PICA stroke)" />
 
     <ellipse cx="445" cy="150" rx="22" ry="14"
-             class="${getStructureClass('left_vestibular_nuclei', selectedStructures, feedback)}"
+             class="${getStructureClass('left_vestibular_nuclei', selectedStructures, feedback, 'tract-cn')}"
              data-id="left_vestibular_nuclei"
              data-name="Left Vestibular Nuclei"
              data-info="Vertigo, nausea, vomiting, and nystagmus (Lateral Medullary / PICA stroke)" />
 
-    <!-- Nucleus Ambiguus (CN IX, X - Lateral Tegmentum) -->
+    <!-- Nucleus Ambiguus -->
     <circle cx="235" cy="245" r="14"
-            class="${getStructureClass('right_nucleus_ambiguus', selectedStructures, feedback)}"
+            class="${getStructureClass('right_nucleus_ambiguus', selectedStructures, feedback, 'tract-cn')}"
             data-id="right_nucleus_ambiguus"
             data-name="Right Nucleus Ambiguus (CN IX / X)"
             data-info="Hoarseness, dysphagia, loss of gag reflex, uvula deviates AWAY (to left)" />
 
     <circle cx="465" cy="245" r="14"
-            class="${getStructureClass('left_nucleus_ambiguus', selectedStructures, feedback)}"
+            class="${getStructureClass('left_nucleus_ambiguus', selectedStructures, feedback, 'tract-cn')}"
             data-id="left_nucleus_ambiguus"
             data-name="Left Nucleus Ambiguus (CN IX / X)"
             data-info="Hoarseness, dysphagia, loss of gag reflex, uvula deviates AWAY (to right)" />
 
-    <!-- Descending Sympathetic / Hypothalamospinal Fibers (Horner's Syndrome) -->
+    <!-- Sympathetics -->
     <circle cx="215" cy="215" r="10"
-            class="${getStructureClass('right_sympathetic', selectedStructures, feedback)}"
+            class="${getStructureClass('right_sympathetic', selectedStructures, feedback, 'tract-autonomic')}"
             data-id="right_sympathetic"
             data-name="Right Hypothalamospinal (Sympathetic) Fibers"
             data-info="Ipsilateral Horner's syndrome: ptosis, miosis, anhidrosis" />
 
     <circle cx="485" cy="215" r="10"
-            class="${getStructureClass('left_sympathetic', selectedStructures, feedback)}"
+            class="${getStructureClass('left_sympathetic', selectedStructures, feedback, 'tract-autonomic')}"
             data-id="left_sympathetic"
             data-name="Left Hypothalamospinal (Sympathetic) Fibers"
             data-info="Ipsilateral Horner's syndrome: ptosis, miosis, anhidrosis" />
 
     <!-- Labels -->
-    <text x="350" y="30" class="diagram-label label-cardinal">DORSAL (4th VENTRICLE)</text>
-    <text x="350" y="490" class="diagram-label label-cardinal">VENTRAL (PYRAMIDS)</text>
-    <text x="50" y="250" class="diagram-label label-side">RIGHT</text>
-    <text x="650" y="250" class="diagram-label label-side">LEFT</text>
+    <text x="350" y="28" class="diagram-label label-cardinal">DORSAL (4th VENTRICLE)</text>
+    <text x="350" y="492" class="diagram-label label-cardinal">VENTRAL (PYRAMIDS) • ASA (MEDIAL) vs PICA (LATERAL)</text>
+    <text x="48" y="250" class="diagram-label label-side">RIGHT</text>
+    <text x="652" y="250" class="diagram-label label-side">LEFT</text>
 
-    <text x="170" y="80" class="text-hint">ICP</text>
-    <text x="255" y="128" class="text-hint">Vestib</text>
-    <text x="100" y="210" class="text-hint">Spinal V</text>
-    <text x="235" y="272" class="text-hint">Nuc Amb</text>
-    <text x="215" y="198" class="text-hint">Symp</text>
-    <text x="125" y="295" class="text-hint">ALS</text>
-    <text x="210" y="360" class="text-hint">Inf. Olive</text>
-    <text x="270" y="280" class="text-hint">Medial Lemniscus</text>
-    <text x="350" y="195" class="text-hint-center">VTT ("Hi neighbor")</text>
+    <text x="170" y="134" class="text-hint territory-label-xs">ICP</text>
+    <text x="255" y="154" class="text-hint territory-label-xs">Vestib</text>
+    <text x="170" y="214" class="text-hint territory-label-xs">Spinal V</text>
+    <text x="235" y="249" class="text-hint territory-label-xs">N. Amb</text>
+    <text x="215" y="200" class="text-hint territory-label-xs">Symp</text>
+    <text x="185" y="289" class="text-hint territory-label-xs">ALS</text>
+    <text x="218" y="362" class="text-hint territory-label-xs">Olive</text>
+    <text x="330" y="302" class="text-hint territory-label-xs">ML</text>
+    <text x="350" y="185" class="text-hint territory-label-xs">VTT</text>
+    <text x="325" y="140" class="text-hint territory-label-xs">XII</text>
+    <text x="80" y="284" class="text-hint somatotopy-tag">CN IX/X</text>
+    <text x="262" y="438" class="text-hint somatotopy-tag">CN XII</text>
+    <text x="115" y="395" class="text-hint territory-axis" style="fill:#fda4af;">← PICA</text>
+    <text x="350" y="472" class="text-hint somatotopy-tag" style="fill:#fda4af;">ASA</text>
   </svg>`;
 }
 
 // -------------------------------------------------------------
 // 4. CAUDAL & MID PONS (Slide 5 & 12)
-// Large square tegmentum atop curved basilar pons, MCP lateral arms, 4th ventricle
+// Facial colliculus + internal genu of CN VII, pontocerebellar striations, Basilar vs AICA
 // -------------------------------------------------------------
 function renderCaudalMidPonsSVG(selectedStructures, feedback) {
   return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="caudal_mid_pons">
-    <!-- Basilar Pons (Large curved belly below - Slide 5) -->
-    <!-- Protruding MCP arms -->
+    ${renderSharedSVGDefs()}
+
+    <!-- Basilar Pons -->
     <path d="M 120 220 
              C 70 190, 80 140, 140 130 
              L 210 130 L 210 230 
@@ -492,236 +563,274 @@ function renderCaudalMidPonsSVG(selectedStructures, feedback) {
              C 560 280, 520 380, 470 430 
              C 410 475, 290 475, 230 430 
              C 180 380, 140 280, 120 220 Z" 
-          class="basilar-pons-base" />
+          fill="url(#bg-parenchyma)" stroke="#3b82f6" stroke-width="2.8" filter="url(#shadow-depth)" />
 
-    <!-- Tegmentum: Large Square at Top (Slide 5: "All sensory structures go in the square") -->
-    <rect x="210" y="90" width="280" height="150" rx="10" class="tegmentum-square" />
+    <!-- Transverse Pontocerebellar Fiber Striations -->
+    <g pointer-events="none" opacity="0.38">
+      <path d="M 225 315 Q 350 335, 475 315" stroke="#34d399" stroke-width="1.5" stroke-dasharray="6 4" fill="none" />
+      <path d="M 215 355 Q 350 380, 485 355" stroke="#34d399" stroke-width="1.5" stroke-dasharray="6 4" fill="none" />
+      <path d="M 175 215 Q 155 245, 235 320" stroke="#34d399" stroke-width="1.5" stroke-dasharray="4 3" fill="none" />
+      <path d="M 525 215 Q 545 245, 465 320" stroke="#34d399" stroke-width="1.5" stroke-dasharray="4 3" fill="none" />
+    </g>
 
-    <!-- 4th Ventricle (Top circle/roof - Slide 5) -->
-    <path d="M 270 90 Q 350 140 430 90 Z" class="ventricle-space" />
+    <!-- Tegmentum -->
+    <rect x="210" y="90" width="280" height="150" rx="10" fill="url(#bg-tegmentum)" stroke="#38bdf8" stroke-width="2.5" />
 
-    <!-- Basilar Pons Interactive Regions (Motor & Corticospinal) -->
+    <!-- 4th Ventricle -->
+    <path d="M 270 90 Q 350 142 430 90 Z" fill="url(#bg-ventricle)" stroke="#0ea5e9" stroke-width="1.8" />
+
+    <!-- Internal Genu of CN VII (Facial Colliculus) + Exiting CN VI & VII Rootlets -->
+    <g pointer-events="none" opacity="0.8">
+      <path d="M 275 152 C 295 110, 336 96, 336 122 C 336 140, 290 148, 200 205" stroke="#fbbf24" stroke-width="2" fill="none" />
+      <path d="M 425 152 C 405 110, 364 96, 364 122 C 364 140, 410 148, 500 205" stroke="#fbbf24" stroke-width="2" fill="none" />
+      <path d="M 320 133 L 315 445" stroke="#fbbf24" stroke-width="1.6" stroke-dasharray="4 3" fill="none" />
+      <path d="M 380 133 L 385 445" stroke="#fbbf24" stroke-width="1.6" stroke-dasharray="4 3" fill="none" />
+      <line x1="286" y1="100" x2="286" y2="238" stroke="rgba(244,63,94,0.3)" stroke-width="1.4" stroke-dasharray="4 3" />
+      <line x1="414" y1="100" x2="414" y2="238" stroke="rgba(244,63,94,0.3)" stroke-width="1.4" stroke-dasharray="4 3" />
+    </g>
+
+    <!-- Basilar Pons -->
     <ellipse cx="295" cy="360" rx="55" ry="45" 
-             class="${getStructureClass('right_basilar_pons', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_basilar_pons', selectedStructures, feedback, 'tract-motor')}" 
              data-id="right_basilar_pons" 
              data-name="Right Basilar Pons" 
-             data-info="Corticospinal & corticobulbar fibers, pontine nuclei (damaged in Millard-Gubler & Locked-in)" />
+             data-info="Corticospinal & corticobulbar fibers, pontine nuclei (Millard-Gubler & Locked-in)" />
 
     <ellipse cx="405" cy="360" rx="55" ry="45" 
-             class="${getStructureClass('left_basilar_pons', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_basilar_pons', selectedStructures, feedback, 'tract-motor')}" 
              data-id="left_basilar_pons" 
              data-name="Left Basilar Pons" 
-             data-info="Corticospinal & corticobulbar fibers, pontine nuclei (damaged in Millard-Gubler & Locked-in)" />
+             data-info="Corticospinal & corticobulbar fibers, pontine nuclei (Millard-Gubler & Locked-in)" />
 
-    <!-- MEDIAL LEMNISCUS: "Slanting now!" (Slide 12: slanting horizontally along border) -->
-    <!-- Right ML -->
+    <!-- MEDIAL LEMNISCUS -->
     <path d="M 240 225 L 340 220 L 340 238 L 240 242 Z" 
-          class="${getStructureClass('right_medial_lemniscus', selectedStructures, feedback)}" 
+          class="${getStructureClass('right_medial_lemniscus', selectedStructures, feedback, 'tract-dcml')}" 
           data-id="right_medial_lemniscus" 
           data-name="Right Medial Lemniscus" 
           data-info="Medial Lemniscus: 'Slanting now!' Crossed touch/proprioception from LEFT body" />
 
-    <!-- Left ML -->
     <path d="M 360 220 L 460 225 L 460 242 L 360 238 Z" 
-          class="${getStructureClass('left_medial_lemniscus', selectedStructures, feedback)}" 
+          class="${getStructureClass('left_medial_lemniscus', selectedStructures, feedback, 'tract-dcml')}" 
           data-id="left_medial_lemniscus" 
           data-name="Left Medial Lemniscus" 
           data-info="Medial Lemniscus: 'Slanting now!' Crossed touch/proprioception from RIGHT body" />
 
-    <!-- VTT: "Hi neighbor! Head on top of body!" (Slide 12: sits on lateral/dorsal tip of ML) -->
+    <!-- VTT -->
     <circle cx="250" cy="205" r="16" 
-            class="${getStructureClass('right_vtt', selectedStructures, feedback)}" 
+            class="${getStructureClass('right_vtt', selectedStructures, feedback, 'tract-trigeminal')}" 
             data-id="right_vtt" 
             data-name="Right Ventral Trigeminothalamic Tract (VTT)" 
             data-info="VTT: 'Hi neighbor! Head on top of body!' Crossed touch & pain/temp from LEFT face" />
 
     <circle cx="450" cy="205" r="16" 
-            class="${getStructureClass('left_vtt', selectedStructures, feedback)}" 
+            class="${getStructureClass('left_vtt', selectedStructures, feedback, 'tract-trigeminal')}" 
             data-id="left_vtt" 
             data-name="Left Ventral Trigeminothalamic Tract (VTT)" 
             data-info="VTT: 'Hi neighbor! Head on top of body!' Crossed touch & pain/temp from RIGHT face" />
 
-    <!-- ALS: Lateral Tegmentum (Slide 12) -->
+    <!-- ALS -->
     <ellipse cx="225" cy="180" rx="16" ry="20" 
-             class="${getStructureClass('right_als', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_als', selectedStructures, feedback, 'tract-als')}" 
              data-id="right_als" 
              data-name="Right Anterolateral System (ALS)" 
              data-info="ALS: Pain & temperature from CONTRALATERAL (LEFT) body" />
 
     <ellipse cx="475" cy="180" rx="16" ry="20" 
-             class="${getStructureClass('left_als', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_als', selectedStructures, feedback, 'tract-als')}" 
              data-id="left_als" 
              data-name="Left Anterolateral System (ALS)" 
              data-info="ALS: Pain & temperature from CONTRALATERAL (RIGHT) body" />
 
-    <!-- Spinal Trigeminal Complex / Principal Sensory Nucleus of V (Lateral - Slide 12) -->
+    <!-- Spinal / Chief Sensory V -->
     <circle cx="230" cy="135" r="18" 
-            class="${getStructureClass('right_spinal_v', selectedStructures, feedback)}" 
+            class="${getStructureClass('right_spinal_v', selectedStructures, feedback, 'tract-trigeminal')}" 
             data-id="right_spinal_v" 
             data-name="Right Trigeminal Sensory Complex (Chief / Spinal V)" 
             data-info="Mid-pons: Principal sensory nucleus (facial touch) & spinal V tract" />
 
     <circle cx="470" cy="135" r="18" 
-            class="${getStructureClass('left_spinal_v', selectedStructures, feedback)}" 
+            class="${getStructureClass('left_spinal_v', selectedStructures, feedback, 'tract-trigeminal')}" 
             data-id="left_spinal_v" 
             data-name="Left Trigeminal Sensory Complex (Chief / Spinal V)" 
             data-info="Mid-pons: Principal sensory nucleus (facial touch) & spinal V tract" />
 
-    <!-- Abducens Nucleus (Dorsomedial under facial colliculus) -->
+    <!-- CN VI -->
     <circle cx="320" cy="120" r="13" 
-            class="${getStructureClass('right_abducens_nucleus', selectedStructures, feedback)}" 
+            class="${getStructureClass('right_abducens_nucleus', selectedStructures, feedback, 'tract-cn')}" 
             data-id="right_abducens_nucleus" 
             data-name="Right Abducens (CN VI) Nucleus" 
             data-info="Lateral rectus motor & PPRF gaze center (Millard-Gubler & Foville)" />
 
     <circle cx="380" cy="120" r="13" 
-            class="${getStructureClass('left_abducens_nucleus', selectedStructures, feedback)}" 
+            class="${getStructureClass('left_abducens_nucleus', selectedStructures, feedback, 'tract-cn')}" 
             data-id="left_abducens_nucleus" 
             data-name="Left Abducens (CN VI) Nucleus" 
             data-info="Lateral rectus motor & PPRF gaze center" />
 
-    <!-- Middle Cerebellar Peduncles (MCP Arms - Lateral) -->
+    <!-- MCP -->
     <ellipse cx="145" cy="175" rx="36" ry="26"
-             class="${getStructureClass('right_mcp', selectedStructures, feedback)}"
+             class="${getStructureClass('right_mcp', selectedStructures, feedback, 'tract-cerebellar')}"
              data-id="right_mcp"
              data-name="Right Middle Cerebellar Peduncle (MCP)"
              data-info="Pontocerebellar fibers: IPSILATERAL (right) limb ataxia & dysmetria (Mid/Caudal Pons)" />
 
     <ellipse cx="555" cy="175" rx="36" ry="26"
-             class="${getStructureClass('left_mcp', selectedStructures, feedback)}"
+             class="${getStructureClass('left_mcp', selectedStructures, feedback, 'tract-cerebellar')}"
              data-id="left_mcp"
              data-name="Left Middle Cerebellar Peduncle (MCP)"
              data-info="Pontocerebellar fibers: IPSILATERAL (left) limb ataxia & dysmetria (Mid/Caudal Pons)" />
 
-    <!-- Trigeminal Motor Nucleus (Mid-Pons: Jaw Deviation) -->
+    <!-- Vm -->
     <circle cx="272" cy="128" r="12"
-            class="${getStructureClass('right_trigeminal_motor', selectedStructures, feedback)}"
+            class="${getStructureClass('right_trigeminal_motor', selectedStructures, feedback, 'tract-cn')}"
             data-id="right_trigeminal_motor"
             data-name="Right Trigeminal Motor Nucleus (CN Vm)"
             data-info="Muscles of mastication: jaw deviates IPSILATERALLY (to right) on opening" />
 
     <circle cx="428" cy="128" r="12"
-            class="${getStructureClass('left_trigeminal_motor', selectedStructures, feedback)}"
+            class="${getStructureClass('left_trigeminal_motor', selectedStructures, feedback, 'tract-cn')}"
             data-id="left_trigeminal_motor"
             data-name="Left Trigeminal Motor Nucleus (CN Vm)"
             data-info="Muscles of mastication: jaw deviates IPSILATERALLY (to left) on opening" />
 
-    <!-- Descending Sympathetic Fibers (Horner's Syndrome in Lateral Pons) -->
+    <!-- Sympathetics -->
     <circle cx="250" cy="182" r="9"
-            class="${getStructureClass('right_sympathetic', selectedStructures, feedback)}"
+            class="${getStructureClass('right_sympathetic', selectedStructures, feedback, 'tract-autonomic')}"
             data-id="right_sympathetic"
             data-name="Right Descending Sympathetic Fibers"
             data-info="Ipsilateral Horner's syndrome: ptosis, miosis, anhidrosis" />
 
     <circle cx="450" cy="182" r="9"
-            class="${getStructureClass('left_sympathetic', selectedStructures, feedback)}"
+            class="${getStructureClass('left_sympathetic', selectedStructures, feedback, 'tract-autonomic')}"
             data-id="left_sympathetic"
             data-name="Left Descending Sympathetic Fibers"
             data-info="Ipsilateral Horner's syndrome: ptosis, miosis, anhidrosis" />
 
-    <!-- Facial Motor Nucleus (Ventrolateral tegmentum) -->
+    <!-- CN VII -->
     <circle cx="275" cy="165" r="14" 
-            class="${getStructureClass('right_facial_nucleus', selectedStructures, feedback)}" 
+            class="${getStructureClass('right_facial_nucleus', selectedStructures, feedback, 'tract-cn')}" 
             data-id="right_facial_nucleus" 
             data-name="Right Facial (CN VII) Nucleus" 
             data-info="Motor to right face muscles (lower motor neuron facial palsy)" />
 
     <circle cx="425" cy="165" r="14" 
-            class="${getStructureClass('left_facial_nucleus', selectedStructures, feedback)}" 
+            class="${getStructureClass('left_facial_nucleus', selectedStructures, feedback, 'tract-cn')}" 
             data-id="left_facial_nucleus" 
             data-name="Left Facial (CN VII) Nucleus" 
             data-info="Motor to left face muscles (lower motor neuron facial palsy)" />
 
     <!-- Labels -->
-    <text x="350" y="30" class="diagram-label label-cardinal">DORSAL (4th VENTRICLE)</text>
-    <text x="350" y="490" class="diagram-label label-cardinal">VENTRAL (BASILAR PONS)</text>
+    <text x="350" y="28" class="diagram-label label-cardinal">DORSAL (4th VENTRICLE)</text>
+    <text x="350" y="492" class="diagram-label label-cardinal">VENTRAL (BASILAR PONS) • BASILAR PARAMEDIAN vs AICA</text>
     <text x="40" y="250" class="diagram-label label-side">RIGHT</text>
     <text x="660" y="250" class="diagram-label label-side">LEFT</text>
 
-    <text x="145" y="138" class="text-hint">MCP (Arm)</text>
-    <text x="272" y="110" class="text-hint">Vm</text>
-    <text x="350" y="80" class="text-hint-center">Sensory Square (Tegmentum)</text>
-    <text x="290" y="215" class="text-hint">ML (Slanting!)</text>
-    <text x="210" y="215" class="text-hint">VTT ("Head on top")</text>
-    <text x="350" y="400" class="text-hint-center">Basilar Pons (Motor)</text>
+    <text x="145" y="179" class="text-hint territory-label-xs">MCP</text>
+    <text x="555" y="179" class="text-hint territory-label-xs">MCP</text>
+    <text x="272" y="112" class="text-hint territory-label-xs">Vm</text>
+    <text x="428" y="112" class="text-hint territory-label-xs">Vm</text>
+    <text x="320" y="124" class="text-hint territory-label-xs">VI</text>
+    <text x="380" y="124" class="text-hint territory-label-xs">VI</text>
+    <text x="275" y="169" class="text-hint territory-label-xs">VII</text>
+    <text x="425" y="169" class="text-hint territory-label-xs">VII</text>
+    <text x="230" y="139" class="text-hint territory-label-xs">V</text>
+    <text x="470" y="139" class="text-hint territory-label-xs">V</text>
+    <text x="290" y="233" class="text-hint territory-label-xs">ML</text>
+    <text x="410" y="233" class="text-hint territory-label-xs">ML</text>
+    <text x="295" y="364" class="text-hint territory-label-xs">CST / CBT (R)</text>
+    <text x="405" y="364" class="text-hint territory-label-xs">CST / CBT (L)</text>
+    <text x="350" y="78" class="text-hint-center" style="font-size:11px;">Sensory Square (Tegmentum)</text>
+    <text x="132" y="290" class="text-hint territory-axis" style="fill:#fda4af;">← AICA (Lat.)</text>
   </svg>`;
 }
 
 // -------------------------------------------------------------
 // 5. ROSTRAL PONS (Slide 6 & 13)
-// "The Snowman!" - 2 intersecting ovals (smaller top = tegmentum, larger bottom = basilar pons)
+// "The Snowman!" - 2 intersecting ovals + symmetric Basilar Pons + MLF + Sensory Trio
 // -------------------------------------------------------------
 function renderRostralPonsSVG(selectedStructures, feedback) {
   return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="rostral_pons">
-    <!-- "THE SNOWMAN!" (Slide 6) -->
+    ${renderSharedSVGDefs()}
+
     <!-- Larger Bottom Oval: Basilar Pons -->
-    <ellipse cx="350" cy="330" rx="200" ry="130" class="basilar-pons-base" />
+    <ellipse cx="350" cy="330" rx="200" ry="130" fill="url(#bg-parenchyma)" stroke="#3b82f6" stroke-width="2.8" filter="url(#shadow-depth)" />
 
-    <!-- Smaller Top Oval: Tegmentum (Slide 6: "All sensory structures go in upper oval") -->
-    <ellipse cx="350" cy="180" rx="160" ry="100" class="tegmentum-square" />
+    <!-- Transverse Pontine Fiber Bundles -->
+    <g pointer-events="none" opacity="0.35">
+      <path d="M 175 320 Q 350 342, 525 320" stroke="#34d399" stroke-width="1.6" stroke-dasharray="6 4" fill="none" />
+      <path d="M 170 360 Q 350 385, 530 360" stroke="#34d399" stroke-width="1.6" stroke-dasharray="6 4" fill="none" />
+      <path d="M 205 395 Q 350 415, 495 395" stroke="#34d399" stroke-width="1.6" stroke-dasharray="6 4" fill="none" />
+    </g>
 
-    <!-- 4th Ventricle (beginning / aqueduct transition at top - Slide 6) -->
-    <ellipse cx="350" cy="100" rx="30" ry="16" class="ventricle-space" />
+    <!-- Smaller Top Oval: Tegmentum -->
+    <ellipse cx="350" cy="180" rx="160" ry="100" fill="url(#bg-tegmentum)" stroke="#38bdf8" stroke-width="2.5" />
 
-    <!-- Superior Cerebellar Peduncles (SCP) dorsolateral walls -->
+    <!-- Superior Medullary Velum & 4th Ventricle -->
+    <ellipse cx="350" cy="100" rx="34" ry="16" fill="url(#bg-ventricle)" stroke="#0ea5e9" stroke-width="1.8" />
+    <!-- MLF Landmark Dots (Dorsomedial under 4th ventricle) -->
+    <circle cx="332" cy="134" r="6" fill="rgba(148,163,184,0.22)" stroke="#64748b" stroke-width="1.2" pointer-events="none" />
+    <circle cx="368" cy="134" r="6" fill="rgba(148,163,184,0.22)" stroke="#64748b" stroke-width="1.2" pointer-events="none" />
+
+    <!-- Superior Cerebellar Peduncles (SCP) -->
     <ellipse cx="250" cy="130" rx="24" ry="34" 
-             class="${getStructureClass('right_scp', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_scp', selectedStructures, feedback, 'tract-cerebellar')}" 
              data-id="right_scp" 
              data-name="Right Superior Cerebellar Peduncle (SCP / Brachium Conjunctivum)" 
              data-info="Major cerebellum efferent outflow" />
 
     <ellipse cx="450" cy="130" rx="24" ry="34" 
-             class="${getStructureClass('left_scp', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_scp', selectedStructures, feedback, 'tract-cerebellar')}" 
              data-id="left_scp" 
              data-name="Left Superior Cerebellar Peduncle (SCP / Brachium Conjunctivum)" 
              data-info="Major cerebellum efferent outflow" />
 
-    <!-- Basilar Pons Motor Areas -->
-    <ellipse cx="350" cy="350" rx="140" ry="80" 
-             class="${getStructureClass('left_basilar_pons', selectedStructures, feedback)}" 
-             data-id="left_basilar_pons" 
-             data-name="Basilar Pons (Corticospinal)" 
-             data-info="Corticospinal tracts and pontine nuclei" />
+    <!-- Symmetric Basilar Pons Motor Areas -->
+    <ellipse cx="282" cy="355" rx="68" ry="52" 
+             class="${getStructureClass('right_basilar_pons', selectedStructures, feedback, 'tract-motor')}" 
+             data-id="right_basilar_pons" 
+             data-name="Right Basilar Pons (CST / CBT)" 
+             data-info="Right corticospinal & corticobulbar fibers + pontine nuclei" />
 
-    <!-- SENSORY TRIO IN TEGMENTUM (Slide 13): ML, VTT ("Hi neighbor!"), ALS ("Hi neighbor!") -->
-    <!-- 1. MEDIAL LEMNISCUS: Horizontal flat band along base of tegmentum -->
-    <!-- Right ML -->
+    <ellipse cx="418" cy="355" rx="68" ry="52" 
+             class="${getStructureClass('left_basilar_pons', selectedStructures, feedback, 'tract-motor')}" 
+             data-id="left_basilar_pons" 
+             data-name="Left Basilar Pons (CST / CBT)" 
+             data-info="Left corticospinal & corticobulbar fibers + pontine nuclei" />
+
+    <!-- SENSORY TRIO IN TEGMENTUM (Slide 13): ML -> VTT -> ALS -->
     <path d="M 265 240 L 335 240 L 335 258 L 265 258 Z" 
-          class="${getStructureClass('right_medial_lemniscus', selectedStructures, feedback)}" 
+          class="${getStructureClass('right_medial_lemniscus', selectedStructures, feedback, 'tract-dcml')}" 
           data-id="right_medial_lemniscus" 
           data-name="Right Medial Lemniscus" 
           data-info="Crossed touch, vibration, and proprioception from LEFT body" />
 
-    <!-- Left ML -->
     <path d="M 365 240 L 435 240 L 435 258 L 365 258 Z" 
-          class="${getStructureClass('left_medial_lemniscus', selectedStructures, feedback)}" 
+          class="${getStructureClass('left_medial_lemniscus', selectedStructures, feedback, 'tract-dcml')}" 
           data-id="left_medial_lemniscus" 
           data-name="Left Medial Lemniscus" 
           data-info="Crossed touch, vibration, and proprioception from RIGHT body" />
 
-    <!-- 2. VTT: "Hi neighbor!" - immediately lateral to Medial Lemniscus (Slide 13) -->
     <ellipse cx="240" cy="240" rx="18" ry="14" 
-             class="${getStructureClass('right_vtt', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_vtt', selectedStructures, feedback, 'tract-trigeminal')}" 
              data-id="right_vtt" 
              data-name="Right Ventral Trigeminothalamic Tract (VTT)" 
              data-info="VTT: 'Hi neighbor!' Crossed pain, temp, and touch from LEFT face" />
 
     <ellipse cx="460" cy="240" rx="18" ry="14" 
-             class="${getStructureClass('left_vtt', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_vtt', selectedStructures, feedback, 'tract-trigeminal')}" 
              data-id="left_vtt" 
              data-name="Left Ventral Trigeminothalamic Tract (VTT)" 
              data-info="VTT: 'Hi neighbor!' Crossed pain, temp, and touch from RIGHT face" />
 
-    <!-- 3. ALS: "Hi neighbor!" - immediately lateral to VTT (Slide 13) -->
     <ellipse cx="205" cy="235" rx="16" ry="14" 
-             class="${getStructureClass('right_als', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_als', selectedStructures, feedback, 'tract-als')}" 
              data-id="right_als" 
              data-name="Right Anterolateral System (ALS)" 
              data-info="ALS: 'Hi neighbor!' Crossed pain and temperature from LEFT body" />
 
     <ellipse cx="495" cy="235" rx="16" ry="14" 
-             class="${getStructureClass('left_als', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_als', selectedStructures, feedback, 'tract-als')}" 
              data-id="left_als" 
              data-name="Left Anterolateral System (ALS)" 
              data-info="ALS: 'Hi neighbor!' Crossed pain and temperature from RIGHT body" />
@@ -733,26 +842,34 @@ function renderRostralPonsSVG(selectedStructures, feedback) {
     <text x="640" y="250" class="diagram-label label-side">LEFT</text>
 
     <text x="350" y="65" class="text-hint-center">"The Snowman!" (Rostral Pons)</text>
-    <text x="210" y="115" class="text-hint">SCP</text>
-    <text x="180" y="275" class="text-hint">ALS</text>
-    <text x="235" y="275" class="text-hint">VTT</text>
-    <text x="290" y="275" class="text-hint">ML</text>
-    <text x="350" y="290" class="text-hint-center">Sensory Trio: [ALS - VTT - ML]</text>
+    <text x="350" y="150" class="text-hint somatotopy-tag">MLF</text>
+    <text x="250" y="134" class="text-hint territory-label-xs">SCP</text>
+    <text x="450" y="134" class="text-hint territory-label-xs">SCP</text>
+    <text x="205" y="239" class="text-hint territory-label-xs">ALS</text>
+    <text x="240" y="244" class="text-hint territory-label-xs">VTT</text>
+    <text x="300" y="253" class="text-hint territory-label-xs">ML</text>
+    <text x="400" y="253" class="text-hint territory-label-xs">ML</text>
+    <text x="460" y="244" class="text-hint territory-label-xs">VTT</text>
+    <text x="495" y="239" class="text-hint territory-label-xs">ALS</text>
+    <text x="282" y="359" class="text-hint territory-label-xs">CST / CBT (R)</text>
+    <text x="418" y="359" class="text-hint territory-label-xs">CST / CBT (L)</text>
+    <text x="350" y="290" class="text-hint-center" style="font-size:11px;">Sensory Trio: [ALS — VTT — ML]</text>
   </svg>`;
 }
 
 // -------------------------------------------------------------
 // 6. MIDBRAIN (Slide 7 & 14)
-// "The Pig (from the rear)!" - Oval body, 2 colliculi bumps top, Aqueduct + PAG, 2 Crus Cerebri rectangles bottom
+// "The Pig (from the rear)!" - Exiting CN III rootlets, Crus somatotopy, PCA supply
 // -------------------------------------------------------------
 function renderMidbrainSVG(selectedStructures, feedback) {
   return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="midbrain">
-    <!-- "THE PIG (from the rear)!" Outline (Slide 7) -->
-    <!-- 2 Bumps at top: Colliculi (Slide 7) -->
-    <path d="M 280 85 C 290 55, 330 50, 350 70 C 370 50, 410 55, 420 85 Z" class="colliculi-bumps" />
+    ${renderSharedSVGDefs()}
 
-    <!-- Main Oval Body (Slide 7) -->
+    <!-- 2 Bumps at top: Colliculi -->
+    <path d="M 280 88 C 290 54, 330 50, 350 70 C 370 50, 410 54, 420 88 Z" fill="url(#bg-parenchyma)" stroke="#475569" stroke-width="2.5" />
+
+    <!-- Main Oval Body ("The Pig") -->
     <path d="M 210 120 
              C 120 160, 110 280, 160 360 
              L 210 390 L 290 390 L 310 350 
@@ -760,229 +877,260 @@ function renderMidbrainSVG(selectedStructures, feedback) {
              L 410 390 L 490 390 L 540 360 
              C 590 280, 580 160, 490 120 
              C 450 90, 250 90, 210 120 Z" 
-          class="section-outline" />
+          fill="url(#bg-parenchyma)" stroke="#475569" stroke-width="3.5" filter="url(#shadow-depth)" />
 
-    <!-- Interpeduncular fossa between crus cerebri -->
-    <path d="M 310 350 Q 350 330 390 350 Z" class="ventricle-space" />
+    <!-- Interpeduncular fossa -->
+    <path d="M 310 350 Q 350 326 390 350 Z" fill="url(#bg-ventricle)" stroke="#0ea5e9" stroke-width="1.5" />
 
-    <!-- Cerebral Aqueduct & Periaqueductal Gray (PAG) - Slide 7 -->
-    <ellipse cx="350" cy="140" rx="32" ry="24" class="pag-area" />
-    <circle cx="350" cy="140" r="10" class="central-canal" />
+    <!-- Cerebral Aqueduct & Periaqueductal Gray (PAG) -->
+    <ellipse cx="350" cy="140" rx="34" ry="25" fill="url(#bg-gray-matter)" stroke="#64748b" stroke-width="1.8" />
+    <circle cx="350" cy="140" r="10" fill="url(#bg-ventricle)" stroke="#0ea5e9" stroke-width="1.8" />
+
+    <!-- Decorative Exiting CN III Rootlets + SCP Decussation Fibers -->
+    <g pointer-events="none" opacity="0.82">
+      <!-- Exiting Right CN III fascicles sweeping through Red Nucleus into Interpeduncular Fossa -->
+      <path d="M 332 191 C 314 235, 314 295, 326 346" stroke="#fbbf24" stroke-width="2.1" fill="none" />
+      <path d="M 338 191 C 325 235, 325 295, 333 345" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="3 2" fill="none" />
+      <!-- Exiting Left CN III fascicles -->
+      <path d="M 368 191 C 386 235, 386 295, 374 346" stroke="#fbbf24" stroke-width="2.1" fill="none" />
+      <path d="M 362 191 C 375 235, 375 295, 367 345" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="3 2" fill="none" />
+      <!-- SCP Decussation crossing midline -->
+      <path d="M 282 228 Q 350 212, 418 228" stroke="#34d399" stroke-width="1.6" stroke-dasharray="4 3" fill="none" opacity="0.65" />
+    </g>
 
     <!-- 2 Rectangles on bottom: CRUS CEREBRI (Slide 7) -->
-    <!-- Right Crus Cerebri -->
     <rect x="180" y="340" width="110" height="55" rx="10" transform="rotate(-15 235 365)" 
-          class="${getStructureClass('right_crus_cerebri', selectedStructures, feedback)}" 
+          class="${getStructureClass('right_crus_cerebri', selectedStructures, feedback, 'tract-motor')}" 
           data-id="right_crus_cerebri" 
           data-name="Right Crus Cerebri" 
           data-info="Corticospinal & corticobulbar fibers (Weber syndrome: contralateral hemiplegia)" />
 
-    <!-- Left Crus Cerebri -->
     <rect x="410" y="340" width="110" height="55" rx="10" transform="rotate(15 465 365)" 
-          class="${getStructureClass('left_crus_cerebri', selectedStructures, feedback)}" 
+          class="${getStructureClass('left_crus_cerebri', selectedStructures, feedback, 'tract-motor')}" 
           data-id="left_crus_cerebri" 
           data-name="Left Crus Cerebri" 
           data-info="Corticospinal & corticobulbar fibers (Weber syndrome: contralateral hemiplegia)" />
 
-    <!-- Substantia Nigra (Dorsal to Crus Cerebri - Interactive for Parkinsonian signs) -->
+    <!-- Substantia Nigra -->
     <path d="M 205 325 C 240 314, 280 318, 308 338 L 300 348 C 275 330, 240 326, 210 336 Z"
-          class="${getStructureClass('right_substantia_nigra', selectedStructures, feedback)}"
+          class="${getStructureClass('right_substantia_nigra', selectedStructures, feedback, 'tract-autonomic')}"
           data-id="right_substantia_nigra"
           data-name="Right Substantia Nigra"
           data-info="Dopaminergic neurons: contralateral (left) bradykinesia, rigidity, or tremor" />
     <path d="M 495 325 C 460 314, 420 318, 392 338 L 400 348 C 425 330, 460 326, 490 336 Z"
-          class="${getStructureClass('left_substantia_nigra', selectedStructures, feedback)}"
+          class="${getStructureClass('left_substantia_nigra', selectedStructures, feedback, 'tract-autonomic')}"
           data-id="left_substantia_nigra"
           data-name="Left Substantia Nigra"
           data-info="Dopaminergic neurons: contralateral (right) bradykinesia, rigidity, or tremor" />
 
-    <!-- Superior Cerebellar Peduncle Fibers (Post-decussation near Red Nucleus) -->
+    <!-- Superior Cerebellar Peduncle Fibers -->
     <ellipse cx="268" cy="235" rx="18" ry="13"
-             class="${getStructureClass('right_scp', selectedStructures, feedback)}"
+             class="${getStructureClass('right_scp', selectedStructures, feedback, 'tract-cerebellar')}"
              data-id="right_scp"
              data-name="Right Superior Cerebellar Peduncle (SCP)"
              data-info="Post-decussation cerebellar outflow: CONTRALATERAL (left) arm & leg ataxia / intention tremor" />
     <ellipse cx="432" cy="235" rx="18" ry="13"
-             class="${getStructureClass('left_scp', selectedStructures, feedback)}"
+             class="${getStructureClass('left_scp', selectedStructures, feedback, 'tract-cerebellar')}"
              data-id="left_scp"
              data-name="Left Superior Cerebellar Peduncle (SCP)"
              data-info="Post-decussation cerebellar outflow: CONTRALATERAL (right) arm & leg ataxia / intention tremor" />
 
-    <!-- Red Nuclei (Slide 7 / Claude Syndrome) -->
-    <circle cx="300" cy="270" r="32" 
-            class="${getStructureClass('right_red_nucleus', selectedStructures, feedback)}" 
+    <!-- Red Nuclei -->
+    <circle cx="300" cy="270" r="30" 
+            class="${getStructureClass('right_red_nucleus', selectedStructures, feedback, 'tract-cerebellar')}" 
             data-id="right_red_nucleus" 
             data-name="Right Red Nucleus" 
             data-info="Tegmental motor nucleus & dentatorubrothalamic relay (Claude & Benedikt syndromes)" />
 
-    <circle cx="400" cy="270" r="32" 
-            class="${getStructureClass('left_red_nucleus', selectedStructures, feedback)}" 
+    <circle cx="400" cy="270" r="30" 
+            class="${getStructureClass('left_red_nucleus', selectedStructures, feedback, 'tract-cerebellar')}" 
             data-id="left_red_nucleus" 
             data-name="Left Red Nucleus" 
             data-info="Tegmental motor nucleus & dentatorubrothalamic relay" />
 
-    <!-- Oculomotor (CN III) Nucleus & Exiting Rootlets -->
+    <!-- Oculomotor (CN III) Nucleus -->
     <circle cx="335" cy="180" r="12" 
-            class="${getStructureClass('right_oculomotor_nucleus', selectedStructures, feedback)}" 
+            class="${getStructureClass('right_oculomotor_nucleus', selectedStructures, feedback, 'tract-cn')}" 
             data-id="right_oculomotor_nucleus" 
             data-name="Right Oculomotor (CN III) Nucleus/Nerve" 
             data-info="CN III: Ptosis, mydriasis, 'down & out' eye (Weber, Claude, Benedikt)" />
 
     <circle cx="365" cy="180" r="12" 
-            class="${getStructureClass('left_oculomotor_nucleus', selectedStructures, feedback)}" 
+            class="${getStructureClass('left_oculomotor_nucleus', selectedStructures, feedback, 'tract-cn')}" 
             data-id="left_oculomotor_nucleus" 
             data-name="Left Oculomotor (CN III) Nucleus/Nerve" 
             data-info="CN III: Ptosis, mydriasis, 'down & out' eye" />
 
-    <!-- SENSORY RIBBON IN LATERAL TEGMENTUM (Slide 14) -->
-    <!-- Medial Lemniscus, VTT ("Hi neighbor!"), ALS from medial to lateral curving around tegmentum -->
-    <!-- Right ML -->
+    <!-- SENSORY RIBBON IN LATERAL TEGMENTUM -->
     <ellipse cx="230" cy="265" rx="16" ry="24" 
-             class="${getStructureClass('right_medial_lemniscus', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_medial_lemniscus', selectedStructures, feedback, 'tract-dcml')}" 
              data-id="right_medial_lemniscus" 
              data-name="Right Medial Lemniscus" 
              data-info="Medial Lemniscus: Crossed touch/proprioception from LEFT body" />
 
-    <!-- Left ML -->
     <ellipse cx="470" cy="265" rx="16" ry="24" 
-             class="${getStructureClass('left_medial_lemniscus', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_medial_lemniscus', selectedStructures, feedback, 'tract-dcml')}" 
              data-id="left_medial_lemniscus" 
              data-name="Left Medial Lemniscus" 
              data-info="Medial Lemniscus: Crossed touch/proprioception from RIGHT body" />
 
-    <!-- Right VTT ("Hi neighbor!") -->
     <ellipse cx="205" cy="245" rx="15" ry="20" 
-             class="${getStructureClass('right_vtt', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_vtt', selectedStructures, feedback, 'tract-trigeminal')}" 
              data-id="right_vtt" 
              data-name="Right Ventral Trigeminothalamic Tract (VTT)" 
              data-info="VTT: 'Hi neighbor!' Crossed pain, temp & touch from LEFT face" />
 
-    <!-- Left VTT -->
     <ellipse cx="495" cy="245" rx="15" ry="20" 
-             class="${getStructureClass('left_vtt', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_vtt', selectedStructures, feedback, 'tract-trigeminal')}" 
              data-id="left_vtt" 
              data-name="Left Ventral Trigeminothalamic Tract (VTT)" 
              data-info="VTT: 'Hi neighbor!' Crossed pain, temp & touch from RIGHT face" />
 
-    <!-- Right ALS (Most lateral) -->
     <ellipse cx="180" cy="225" rx="14" ry="18" 
-             class="${getStructureClass('right_als', selectedStructures, feedback)}" 
+             class="${getStructureClass('right_als', selectedStructures, feedback, 'tract-als')}" 
              data-id="right_als" 
              data-name="Right Anterolateral System (ALS)" 
              data-info="ALS: Crossed pain & temperature from LEFT body" />
 
-    <!-- Left ALS -->
     <ellipse cx="520" cy="225" rx="14" ry="18" 
-             class="${getStructureClass('left_als', selectedStructures, feedback)}" 
+             class="${getStructureClass('left_als', selectedStructures, feedback, 'tract-als')}" 
              data-id="left_als" 
              data-name="Left Anterolateral System (ALS)" 
              data-info="ALS: Crossed pain & temperature from RIGHT body" />
 
     <!-- Labels -->
     <text x="350" y="25" class="diagram-label label-cardinal">DORSAL (COLLICULI)</text>
-    <text x="350" y="485" class="diagram-label label-cardinal">VENTRAL (CRUS CEREBRI)</text>
+    <text x="350" y="485" class="diagram-label label-cardinal">VENTRAL (CRUS CEREBRI) • PCA SUPPLY</text>
     <text x="50" y="250" class="diagram-label label-side">RIGHT</text>
     <text x="650" y="250" class="diagram-label label-side">LEFT</text>
 
-    <text x="350" y="55" class="text-hint-center">Colliculi (2 Bumps)</text>
-    <text x="350" y="115" class="text-hint-center">Aqueduct & PAG</text>
-    <text x="300" y="275" class="text-hint">Red Nuc</text>
-    <text x="135" y="210" class="text-hint">ALS</text>
-    <text x="165" y="260" class="text-hint">VTT</text>
-    <text x="215" y="300" class="text-hint">ML</text>
-    <text x="235" y="375" class="text-hint">Crus Cerebri</text>
-    <text x="350" y="440" class="text-hint-center">"The Pig (from the rear)!"</text>
+    <text x="350" y="50" class="text-hint territory-label-xs">Colliculi</text>
+    <text x="350" y="112" class="text-hint territory-label-xs">PAG</text>
+    <text x="335" y="164" class="text-hint territory-label-xs">III</text>
+    <text x="365" y="164" class="text-hint territory-label-xs">III</text>
+    <text x="268" y="218" class="text-hint territory-label-xs">SCP</text>
+    <text x="432" y="218" class="text-hint territory-label-xs">SCP</text>
+    <text x="300" y="274" class="text-hint territory-label-xs">Red Nuc</text>
+    <text x="400" y="274" class="text-hint territory-label-xs">Red Nuc</text>
+    <text x="180" y="229" class="text-hint territory-label-xs">ALS</text>
+    <text x="205" y="249" class="text-hint territory-label-xs">VTT</text>
+    <text x="230" y="269" class="text-hint territory-label-xs">ML</text>
+    <text x="242" y="366" class="text-hint territory-label-xs">CST · CBT</text>
+    <text x="458" y="366" class="text-hint territory-label-xs">CBT · CST</text>
+    <text x="245" y="316" class="text-hint somatotopy-tag">Sub. Nigra</text>
+    <text x="350" y="438" class="text-hint-center" style="font-size:11px;">"The Pig (from the rear)!" • PCA Perforators</text>
   </svg>`;
 }
 
 // -------------------------------------------------------------
-// 7. THALAMUS & DIENCEPHALON
-// VPL, VPM, Posterior Limb of Internal Capsule
+// 7. THALAMUS & DIENCEPHALON (Axial Basal Ganglia + Internal Capsule + Thalamus)
+// Caudate Head, Lentiform Nucleus (Putamen/GP), V-shaped Internal Capsule, VPL, VPM, STN
 // -------------------------------------------------------------
 function renderThalamusSVG(selectedStructures, feedback) {
   return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="thalamus">
-    <!-- Diencephalic Boundary / Third Ventricle at Center -->
-    <ellipse cx="350" cy="250" rx="270" ry="190" class="section-outline" />
+    ${renderSharedSVGDefs()}
 
-    <!-- Third Ventricle slit -->
-    <line x1="350" y1="120" x2="350" y2="380" class="median-sulcus-line" stroke-width="8" />
+    <!-- Axial Diencephalic / Forebrain Capsule Outline -->
+    <ellipse cx="350" cy="250" rx="285" ry="200" fill="url(#bg-parenchyma)" stroke="#475569" stroke-width="3.5" filter="url(#shadow-depth)" />
+
+    <!-- Anterior Horn of Lateral Ventricles & Septum Pellucidum -->
+    <path d="M 346 112 L 346 175 L 296 130 C 310 114, 330 108, 346 112 Z" fill="url(#bg-ventricle)" stroke="#0ea5e9" stroke-width="1.5" pointer-events="none" />
+    <path d="M 354 112 L 354 175 L 404 130 C 390 114, 370 108, 354 112 Z" fill="url(#bg-ventricle)" stroke="#0ea5e9" stroke-width="1.5" pointer-events="none" />
+
+    <!-- Third Ventricle Slit at Center -->
+    <rect x="345" y="190" width="10" height="165" rx="5" fill="url(#bg-ventricle)" stroke="#0ea5e9" stroke-width="1.5" pointer-events="none" />
+
+    <!-- Caudate Nucleus Head (Anteromedial Reference Landmark) -->
+    <path d="M 284 128 C 258 134, 248 164, 266 184 C 282 198, 304 186, 304 160 Z" fill="url(#bg-gray-matter)" stroke="#64748b" stroke-width="1.6" pointer-events="none" />
+    <path d="M 416 128 C 442 134, 452 164, 434 184 C 418 198, 396 186, 396 160 Z" fill="url(#bg-gray-matter)" stroke="#64748b" stroke-width="1.6" pointer-events="none" />
+
+    <!-- Lentiform Nucleus (Putamen & Globus Pallidus - Lateral Reference Wedge) -->
+    <path d="M 122 184 C 98 228, 98 292, 128 332 C 148 310, 174 266, 176 232 C 166 206, 146 188, 122 184 Z" fill="url(#bg-gray-matter)" stroke="#64748b" stroke-width="1.6" pointer-events="none" />
+    <path d="M 578 184 C 602 228, 602 292, 572 332 C 552 310, 526 266, 524 232 C 534 206, 554 188, 578 184 Z" fill="url(#bg-gray-matter)" stroke="#64748b" stroke-width="1.6" pointer-events="none" />
+
+    <!-- Anterior Limb of Internal Capsule (Non-interactive Reference) -->
+    <path d="M 244 138 L 210 198 L 182 188 L 222 128 Z" fill="rgba(148,163,184,0.16)" stroke="rgba(148,163,184,0.35)" stroke-width="1.4" pointer-events="none" />
+    <path d="M 456 138 L 490 198 L 518 188 L 478 128 Z" fill="rgba(148,163,184,0.16)" stroke="rgba(148,163,184,0.35)" stroke-width="1.4" pointer-events="none" />
 
     <!-- Right Thalamus (Viewer Left: Anatomical Right) -->
-    <path d="M 335 150 C 270 150, 220 200, 220 280 C 220 330, 260 370, 335 370 Z" class="thalamus-egg" />
+    <path d="M 336 185 C 276 185, 226 220, 226 280 C 226 326, 264 358, 336 358 Z" fill="url(#bg-tegmentum)" stroke="#64748b" stroke-width="2" />
 
     <!-- Left Thalamus (Viewer Right: Anatomical Left) -->
-    <path d="M 365 150 C 430 150, 480 200, 480 280 C 480 330, 440 370, 365 370 Z" class="thalamus-egg" />
+    <path d="M 364 185 C 424 185, 474 220, 474 280 C 474 326, 436 358, 364 358 Z" fill="url(#bg-tegmentum)" stroke="#64748b" stroke-width="2" />
 
     <!-- VENTRAL POSTEROLATERAL NUCLEUS (VPL): Body Sensory Relay -->
-    <!-- Right VPL -->
-    <circle cx="250" cy="290" r="30" 
-            class="${getStructureClass('right_vpl', selectedStructures, feedback)}" 
+    <circle cx="255" cy="292" r="28" 
+            class="${getStructureClass('right_vpl', selectedStructures, feedback, 'tract-dcml')}" 
             data-id="right_vpl" 
             data-name="Right Thalamus: VPL Nucleus" 
-            data-info="Relay for ML (touch/proprioception) & ALS (pain/temp) from LEFT body" />
+            data-info="Relay for ML (touch/proprioception) & ALS (pain/temp) from LEFT body (PCA perforators)" />
 
-    <!-- Left VPL -->
-    <circle cx="450" cy="290" r="30" 
-            class="${getStructureClass('left_vpl', selectedStructures, feedback)}" 
+    <circle cx="445" cy="292" r="28" 
+            class="${getStructureClass('left_vpl', selectedStructures, feedback, 'tract-dcml')}" 
             data-id="left_vpl" 
             data-name="Left Thalamus: VPL Nucleus" 
-            data-info="Relay for ML & ALS from RIGHT body" />
+            data-info="Relay for ML & ALS from RIGHT body (PCA perforators)" />
 
     <!-- VENTRAL POSTEROMEDIAL NUCLEUS (VPM): Face Sensory Relay -->
-    <!-- Right VPM -->
-    <circle cx="295" cy="305" r="22" 
-            class="${getStructureClass('right_vpm', selectedStructures, feedback)}" 
+    <circle cx="302" cy="306" r="21" 
+            class="${getStructureClass('right_vpm', selectedStructures, feedback, 'tract-trigeminal')}" 
             data-id="right_vpm" 
             data-name="Right Thalamus: VPM Nucleus" 
-            data-info="Relay for trigeminothalamic fibers (all modalities) from LEFT face" />
+            data-info="Relay for trigeminothalamic fibers (all modalities) from LEFT face (PCA perforators)" />
 
-    <!-- Left VPM -->
-    <circle cx="405" cy="305" r="22" 
-            class="${getStructureClass('left_vpm', selectedStructures, feedback)}" 
+    <circle cx="398" cy="306" r="21" 
+            class="${getStructureClass('left_vpm', selectedStructures, feedback, 'tract-trigeminal')}" 
             data-id="left_vpm" 
             data-name="Left Thalamus: VPM Nucleus" 
-            data-info="Relay for trigeminothalamic fibers from RIGHT face" />
+            data-info="Relay for trigeminothalamic fibers from RIGHT face (PCA perforators)" />
 
-    <!-- INTERNAL CAPSULE: POSTERIOR LIMB -->
-    <!-- Right Posterior Limb -->
-    <path d="M 200 200 C 180 250, 180 320, 205 370 L 175 375 C 150 320, 150 250, 170 195 Z" 
-          class="${getStructureClass('right_internal_capsule_posterior_limb', selectedStructures, feedback)}" 
+    <!-- INTERNAL CAPSULE: POSTERIOR LIMB (Boomerang from Genu posteriorly) -->
+    <path d="M 210 202 C 194 248, 190 310, 212 362 L 182 368 C 158 310, 160 245, 182 192 Z" 
+          class="${getStructureClass('right_internal_capsule_posterior_limb', selectedStructures, feedback, 'tract-motor')}" 
           data-id="right_internal_capsule_posterior_limb" 
           data-name="Right Internal Capsule (Posterior Limb)" 
-          data-info="Descending corticospinal motor & ascending thalamocortical sensory fibers" />
+          data-info="Descending CST/CBT motor (Face at genu -> Arm -> Leg) & sensory fibers (Lenticulostriate / MCA)" />
 
-    <!-- Left Posterior Limb -->
-    <path d="M 500 200 C 520 250, 520 320, 495 370 L 525 375 C 550 320, 550 250, 530 195 Z" 
-          class="${getStructureClass('left_internal_capsule_posterior_limb', selectedStructures, feedback)}" 
+    <path d="M 490 202 C 506 248, 510 310, 488 362 L 518 368 C 542 310, 540 245, 518 192 Z" 
+          class="${getStructureClass('left_internal_capsule_posterior_limb', selectedStructures, feedback, 'tract-motor')}" 
           data-id="left_internal_capsule_posterior_limb" 
           data-name="Left Internal Capsule (Posterior Limb)" 
-          data-info="Descending corticospinal motor & ascending thalamocortical sensory fibers" />
+          data-info="Descending CST/CBT motor (Face at genu -> Arm -> Leg) & sensory fibers (Lenticulostriate / MCA)" />
 
-    <!-- SUBTHALAMIC NUCLEI (STN - Hemiballismus, PCA perforators / Anterior Choroidal) -->
-    <ellipse cx="275" cy="365" rx="22" ry="12"
-             class="${getStructureClass('right_subthalamic_nucleus', selectedStructures, feedback)}"
+    <!-- SUBTHALAMIC NUCLEI (STN) -->
+    <ellipse cx="275" cy="378" rx="24" ry="13"
+             class="${getStructureClass('right_subthalamic_nucleus', selectedStructures, feedback, 'tract-autonomic')}"
              data-id="right_subthalamic_nucleus"
              data-name="Right Subthalamic Nucleus (STN)"
              data-info="Basal ganglia/diencephalon: lacunar infarct causes CONTRALATERAL (left) hemiballismus" />
 
-    <ellipse cx="425" cy="365" rx="22" ry="12"
-             class="${getStructureClass('left_subthalamic_nucleus', selectedStructures, feedback)}"
+    <ellipse cx="425" cy="378" rx="24" ry="13"
+             class="${getStructureClass('left_subthalamic_nucleus', selectedStructures, feedback, 'tract-autonomic')}"
              data-id="left_subthalamic_nucleus"
              data-name="Left Subthalamic Nucleus (STN)"
              data-info="Basal ganglia/diencephalon: lacunar infarct causes CONTRALATERAL (right) hemiballismus" />
 
     <!-- Labels -->
-    <text x="350" y="30" class="diagram-label label-cardinal">ANTERIOR</text>
-    <text x="350" y="480" class="diagram-label label-cardinal">POSTERIOR</text>
-    <text x="50" y="250" class="diagram-label label-side">RIGHT</text>
-    <text x="650" y="250" class="diagram-label label-side">LEFT</text>
+    <text x="350" y="28" class="diagram-label label-cardinal">ANTERIOR</text>
+    <text x="350" y="482" class="diagram-label label-cardinal">POSTERIOR</text>
+    <text x="48" y="250" class="diagram-label label-side">RIGHT</text>
+    <text x="652" y="250" class="diagram-label label-side">LEFT</text>
 
-    <text x="350" y="95" class="text-hint-center">3rd Ventricle</text>
-    <text x="245" y="295" class="text-hint">VPL (Body)</text>
-    <text x="295" y="310" class="text-hint">VPM (Face)</text>
-    <text x="275" y="390" class="text-hint">Subthalamic Nuc (STN)</text>
-    <text x="140" y="270" class="text-hint">Post. Limb Int. Capsule</text>
+    <text x="280" y="166" class="text-hint territory-label-xs" style="fill:#64748b;">Caudate</text>
+    <text x="132" y="255" class="text-hint territory-label-xs" style="fill:#64748b;">Lentiform</text>
+    <text x="568" y="255" class="text-hint territory-label-xs" style="fill:#64748b;">Lentiform</text>
+    <text x="350" y="96" class="text-hint-center" style="font-size:11px;">Lat. &amp; 3rd Ventricles</text>
+    <text x="255" y="296" class="text-hint territory-label-xs">VPL</text>
+    <text x="302" y="310" class="text-hint territory-label-xs">VPM</text>
+    <text x="445" y="296" class="text-hint territory-label-xs">VPL</text>
+    <text x="398" y="310" class="text-hint territory-label-xs">VPM</text>
+    <text x="275" y="382" class="text-hint territory-label-xs">STN</text>
+    <text x="425" y="382" class="text-hint territory-label-xs">STN</text>
+    <text x="184" y="282" class="text-hint territory-label-xs">Post. Limb</text>
+    <text x="516" y="282" class="text-hint territory-label-xs">Post. Limb</text>
+    <text x="180" y="395" class="text-hint somatotopy-tag" style="fill:#fda4af;">Lenticulostriate (MCA)</text>
+    <text x="350" y="422" class="text-hint somatotopy-tag" style="fill:#fcd34d;">PCA Perforators (Thalamus / STN)</text>
   </svg>`;
 }
 
@@ -993,6 +1141,7 @@ function renderThalamusSVG(selectedStructures, feedback) {
 function renderCortexSVG(selectedStructures, feedback) {
   return `
   <svg viewBox="0 0 700 520" class="neuro-cross-section" data-level="cortex">
+    ${renderSharedSVGDefs()}
     <!-- Vascular Territory Header Badges -->
     <g transform="translate(215, 42)">
       <rect x="0" y="0" width="270" height="24" rx="12" fill="rgba(15,23,42,0.88)" stroke="rgba(148,163,184,0.25)" />
@@ -1138,6 +1287,7 @@ function renderCorticalTerritoriesSVG(selectedStructures, feedback, options = {}
 
   return `
   <svg viewBox="0 0 820 ${svgHeight}" class="neuro-cross-section cortical-territories-svg ${isZoomed ? 'cortical-zoomed' : ''}" data-level="cortex_territories">
+    ${renderSharedSVGDefs()}
     <!-- Top Vascular Territory Legend -->
     <g transform="translate(155, 8)">
       <rect x="0" y="0" width="510" height="30" rx="15" fill="rgba(15,23,42,0.92)" stroke="rgba(148,163,184,0.28)" />
@@ -1173,12 +1323,14 @@ function renderCorticalTerritoriesSVG(selectedStructures, feedback, options = {}
                  C 42 138, 34 130, 32 118 Z"
               class="cortex-outline territory-mca-bg" />
 
-        <!-- Decorative Cortical Sulci (Superior Frontal, Central, Sylvian, Intraparietal, Sup. Temporal) -->
+        <!-- Decorative Cortical Sulci & MCA Candelabra Vessel Overlay -->
         <path d="M 60 66 Q 108 60, 146 66" class="sulcus-guide-line" />
         <path d="M 176 24 Q 166 78, 154 128" stroke="#64748b" stroke-width="2" stroke-dasharray="4 3" fill="none" pointer-events="none" />
         <path d="M 114 136 Q 176 130, 232 112" stroke="#64748b" stroke-width="2.2" fill="none" pointer-events="none" />
         <path d="M 206 72 Q 242 74, 272 86" class="sulcus-guide-line" />
         <path d="M 136 158 Q 186 154, 240 144" class="sulcus-guide-line" />
+        <!-- MCA M2 cortical branches fanning from Sylvian fissure -->
+        <path d="M 124 148 Q 140 132, 168 122 M 142 132 Q 134 108, 126 92 M 168 122 Q 180 86, 184 52 M 188 120 Q 214 132, 244 138" stroke="rgba(129,140,248,0.45)" stroke-width="1.6" stroke-linecap="round" fill="none" pointer-events="none" />
 
         <!-- 1. Left Prefrontal / Executive (ACA/MCA watershed) -->
         <path d="M 34 116 C 34 70, 74 34, 124 27 L 122 114 C 98 124, 62 134, 34 116 Z"
@@ -1268,12 +1420,13 @@ function renderCorticalTerritoriesSVG(selectedStructures, feedback, options = {}
                  C 292 138, 300 130, 302 118 Z"
               class="cortex-outline territory-mca-bg" />
 
-        <!-- Decorative Cortical Sulci -->
+        <!-- Decorative Cortical Sulci & MCA Candelabra Vessel Overlay -->
         <path d="M 274 66 Q 226 60, 188 66" class="sulcus-guide-line" />
         <path d="M 158 24 Q 168 78, 180 128" stroke="#64748b" stroke-width="2" stroke-dasharray="4 3" fill="none" pointer-events="none" />
         <path d="M 220 136 Q 158 130, 102 112" stroke="#64748b" stroke-width="2.2" fill="none" pointer-events="none" />
         <path d="M 128 72 Q 92 74, 62 86" class="sulcus-guide-line" />
         <path d="M 198 158 Q 148 154, 94 144" class="sulcus-guide-line" />
+        <path d="M 210 148 Q 194 132, 166 122 M 192 132 Q 200 108, 208 92 M 166 122 Q 154 86, 150 52 M 146 120 Q 120 132, 90 138" stroke="rgba(129,140,248,0.45)" stroke-width="1.6" stroke-linecap="round" fill="none" pointer-events="none" />
 
         <!-- 1. Right Prefrontal / Executive -->
         <path d="M 300 116 C 300 70, 260 34, 210 27 L 212 114 C 236 124, 272 134, 300 116 Z"
@@ -1365,8 +1518,9 @@ function renderCorticalTerritoriesSVG(selectedStructures, feedback, options = {}
         <path d="M 102 116 C 102 92, 138 82, 178 82 C 214 82, 234 94, 232 116 C 228 126, 214 114, 198 106 C 170 100, 136 102, 120 116 C 110 124, 102 122, 102 116 Z"
               fill="#0b1120" stroke="#475569" stroke-width="1.8" />
 
-        <!-- Cingulate Sulcus, Parieto-Occipital Sulcus & Calcarine Sulcus Guides -->
+        <!-- Cingulate Sulcus, Parieto-Occipital Sulcus, Calcarine Sulcus & ACA Pericallosal Artery -->
         <path d="M 74 108 C 86 64, 146 56, 204 64 L 216 34" class="sulcus-guide-line" />
+        <path d="M 96 126 C 88 94, 122 72, 178 72 L 204 72" stroke="rgba(34,211,238,0.45)" stroke-width="1.8" stroke-linecap="round" fill="none" pointer-events="none" />
         <path d="M 224 38 L 234 118" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3" fill="none" pointer-events="none" />
         <path d="M 234 126 L 316 114" stroke="#f59e0b" stroke-width="2.2" stroke-dasharray="4 2" fill="none" pointer-events="none" />
 
@@ -1435,8 +1589,9 @@ function renderCorticalTerritoriesSVG(selectedStructures, feedback, options = {}
         <path d="M 232 116 C 232 92, 196 82, 156 82 C 120 82, 100 94, 102 116 C 106 126, 120 114, 136 106 C 164 100, 198 102, 214 116 C 224 124, 232 122, 232 116 Z"
               fill="#0b1120" stroke="#475569" stroke-width="1.8" />
 
-        <!-- Cingulate, Parieto-Occipital & Calcarine Sulci -->
+        <!-- Cingulate, Parieto-Occipital, Calcarine Sulci & ACA Pericallosal Artery -->
         <path d="M 260 108 C 248 64, 188 56, 130 64 L 118 34" class="sulcus-guide-line" />
+        <path d="M 238 126 C 246 94, 212 72, 156 72 L 130 72" stroke="rgba(34,211,238,0.45)" stroke-width="1.8" stroke-linecap="round" fill="none" pointer-events="none" />
         <path d="M 110 38 L 100 118" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3" fill="none" pointer-events="none" />
         <path d="M 100 126 L 18 114" stroke="#f59e0b" stroke-width="2.2" stroke-dasharray="4 2" fill="none" pointer-events="none" />
 

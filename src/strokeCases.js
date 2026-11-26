@@ -544,9 +544,9 @@ export const STROKE_CASES = [
       },
       {
         level: "rostral_pons",
-        levelLabel: "Rostral Pons ('The Snowman') — Basilar Pons",
-        structures: ["left_basilar_pons"],
-        structureNames: "Basilar Pons (Corticospinal/Corticobulbar)",
+        levelLabel: "Rostral Pons ('The Snowman') — Bilateral Basilar Pons",
+        structures: ["right_basilar_pons", "left_basilar_pons"],
+        structureNames: "Right & Left Basilar Pons (Corticospinal/Corticobulbar)",
         note: "Also valid on the Rostral Pons diagram (bottom oval = basilar pons; dorsal tegmentum/reticular formation spared)."
       }
     ],
@@ -992,9 +992,9 @@ export const STROKE_CASES = [
       },
       {
         level: "rostral_pons",
-        levelLabel: "Rostral Pons ('The Snowman') — Basilar Pons",
-        structures: ["left_basilar_pons"],
-        structureNames: "Basilar Pons (Corticospinal/Corticobulbar)",
+        levelLabel: "Rostral Pons ('The Snowman') — Bilateral Basilar Pons",
+        structures: ["right_basilar_pons", "left_basilar_pons"],
+        structureNames: "Right & Left Basilar Pons (Corticospinal/Corticobulbar)",
         note: "Also valid on the Rostral Pons view."
       }
     ],

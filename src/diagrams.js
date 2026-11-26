@@ -871,16 +871,18 @@ function renderMidbrainSVG(selectedStructures, feedback) {
 
     <!-- Main Oval Body ("The Pig") -->
     <path d="M 210 120 
-             C 120 160, 110 280, 160 360 
-             L 210 390 L 290 390 L 310 350 
-             C 330 340, 370 340, 390 350 
-             L 410 390 L 490 390 L 540 360 
+             C 120 160, 110 280, 152 356 
+             C 164 378, 250 408, 286 406
+             L 305 348 
+             C 328 334, 372 334, 395 348 
+             L 414 406
+             C 450 408, 536 378, 548 356 
              C 590 280, 580 160, 490 120 
              C 450 90, 250 90, 210 120 Z" 
           fill="url(#bg-parenchyma)" stroke="#475569" stroke-width="3.5" filter="url(#shadow-depth)" />
 
     <!-- Interpeduncular fossa -->
-    <path d="M 310 350 Q 350 326 390 350 Z" fill="url(#bg-ventricle)" stroke="#0ea5e9" stroke-width="1.5" />
+    <path d="M 305 348 Q 350 322 395 348 Z" fill="url(#bg-ventricle)" stroke="#0ea5e9" stroke-width="1.5" />
 
     <!-- Cerebral Aqueduct & Periaqueductal Gray (PAG) -->
     <ellipse cx="350" cy="140" rx="34" ry="25" fill="url(#bg-gray-matter)" stroke="#64748b" stroke-width="1.8" />
@@ -898,26 +900,26 @@ function renderMidbrainSVG(selectedStructures, feedback) {
       <path d="M 282 228 Q 350 212, 418 228" stroke="#34d399" stroke-width="1.6" stroke-dasharray="4 3" fill="none" opacity="0.65" />
     </g>
 
-    <!-- 2 Rectangles on bottom: CRUS CEREBRI (Slide 7) -->
-    <rect x="180" y="340" width="110" height="55" rx="10" transform="rotate(-15 235 365)" 
+    <!-- 2 Cerebral Peduncle Bases on bottom: CRUS CEREBRI (No transform attr!) -->
+    <path d="M 164 334 C 160 324, 170 314, 184 318 L 300 350 C 310 353, 314 364, 308 376 L 296 396 C 290 406, 276 408, 264 404 L 166 372 C 154 368, 152 356, 156 346 Z"
           class="${getStructureClass('right_crus_cerebri', selectedStructures, feedback, 'tract-motor')}" 
           data-id="right_crus_cerebri" 
-          data-name="Right Crus Cerebri" 
-          data-info="Corticospinal & corticobulbar fibers (Weber syndrome: contralateral hemiplegia)" />
+          data-name="Right Crus Cerebri (Cerebral Peduncle Base)" 
+          data-info="Corticospinal & corticobulbar fibers (Weber syndrome: contralateral left body, lower face & tongue UMN weakness)" />
 
-    <rect x="410" y="340" width="110" height="55" rx="10" transform="rotate(15 465 365)" 
+    <path d="M 536 334 C 540 324, 530 314, 516 318 L 400 350 C 390 353, 386 364, 392 376 L 404 396 C 410 406, 424 408, 436 404 L 534 372 C 546 368, 548 356, 544 346 Z"
           class="${getStructureClass('left_crus_cerebri', selectedStructures, feedback, 'tract-motor')}" 
           data-id="left_crus_cerebri" 
-          data-name="Left Crus Cerebri" 
-          data-info="Corticospinal & corticobulbar fibers (Weber syndrome: contralateral hemiplegia)" />
+          data-name="Left Crus Cerebri (Cerebral Peduncle Base)" 
+          data-info="Corticospinal & corticobulbar fibers (Weber syndrome: contralateral right body, lower face & tongue UMN weakness)" />
 
-    <!-- Substantia Nigra -->
-    <path d="M 205 325 C 240 314, 280 318, 308 338 L 300 348 C 275 330, 240 326, 210 336 Z"
+    <!-- Substantia Nigra (Snuggled dorsal & parallel to Crus Cerebri) -->
+    <path d="M 182 304 C 220 312, 268 326, 308 340 L 302 352 C 262 338, 214 324, 176 316 Z"
           class="${getStructureClass('right_substantia_nigra', selectedStructures, feedback, 'tract-autonomic')}"
           data-id="right_substantia_nigra"
           data-name="Right Substantia Nigra"
           data-info="Dopaminergic neurons: contralateral (left) bradykinesia, rigidity, or tremor" />
-    <path d="M 495 325 C 460 314, 420 318, 392 338 L 400 348 C 425 330, 460 326, 490 336 Z"
+    <path d="M 518 304 C 480 312, 432 326, 392 340 L 398 352 C 438 338, 486 324, 524 316 Z"
           class="${getStructureClass('left_substantia_nigra', selectedStructures, feedback, 'tract-autonomic')}"
           data-id="left_substantia_nigra"
           data-name="Left Substantia Nigra"
@@ -1015,9 +1017,9 @@ function renderMidbrainSVG(selectedStructures, feedback) {
     <text x="180" y="229" class="text-hint territory-label-xs">ALS</text>
     <text x="205" y="249" class="text-hint territory-label-xs">VTT</text>
     <text x="230" y="269" class="text-hint territory-label-xs">ML</text>
-    <text x="242" y="366" class="text-hint territory-label-xs">CST · CBT</text>
-    <text x="458" y="366" class="text-hint territory-label-xs">CBT · CST</text>
-    <text x="245" y="316" class="text-hint somatotopy-tag">Sub. Nigra</text>
+    <text x="232" y="368" class="text-hint territory-label-xs">CST · CBT</text>
+    <text x="468" y="368" class="text-hint territory-label-xs">CBT · CST</text>
+    <text x="244" y="316" class="text-hint somatotopy-tag">Sub. Nigra</text>
     <text x="350" y="438" class="text-hint-center" style="font-size:11px;">"The Pig (from the rear)!" • PCA Perforators</text>
   </svg>`;
 }

@@ -13,7 +13,7 @@ export const DIAGRAM_LEVELS = [
   { id: "cortex_territories", name: "Cortical Territories", subtitle: "Lateral & Medial Brain (ACA / MCA / PCA)", mnemonic: "Stroke Lecture Slide 11" }
 ];
 
-export function renderDiagramSVG(levelId, selectedStructures = [], feedback = null) {
+export function renderDiagramSVG(levelId, selectedStructures = [], feedback = null, options = {}) {
   switch (levelId) {
     case "spinal_cord":
       return renderSpinalCordSVG(selectedStructures, feedback);
@@ -32,22 +32,23 @@ export function renderDiagramSVG(levelId, selectedStructures = [], feedback = nu
     case "cortex":
       return renderCortexSVG(selectedStructures, feedback);
     case "cortex_territories":
-      return renderCorticalTerritoriesSVG(selectedStructures, feedback);
+      return renderCorticalTerritoriesSVG(selectedStructures, feedback, options);
     default:
       return renderSpinalCordSVG(selectedStructures, feedback);
   }
 }
 
-function getStructureClass(structId, selectedStructures, feedback) {
+function getStructureClass(structId, selectedStructures, feedback, extraClass = "") {
   const isSelected = selectedStructures.includes(structId);
+  const suffix = extraClass ? ` ${extraClass}` : "";
   if (!feedback) {
-    return isSelected ? "interactive-struct selected" : "interactive-struct";
+    return (isSelected ? "interactive-struct selected" : "interactive-struct") + suffix;
   }
   const isCorrect = feedback.correctStructures.includes(structId);
-  if (isSelected && isCorrect) return "interactive-struct state-correct";
-  if (isSelected && !isCorrect) return "interactive-struct state-incorrect";
-  if (!isSelected && isCorrect) return "interactive-struct state-missed";
-  return "interactive-struct";
+  if (isSelected && isCorrect) return "interactive-struct state-correct" + suffix;
+  if (isSelected && !isCorrect) return "interactive-struct state-incorrect" + suffix;
+  if (!isSelected && isCorrect) return "interactive-struct state-missed" + suffix;
+  return "interactive-struct" + suffix;
 }
 
 // -------------------------------------------------------------
@@ -987,396 +988,499 @@ function renderThalamusSVG(selectedStructures, feedback) {
 
 // -------------------------------------------------------------
 // 8. CEREBRAL CORTEX & HOMUNCULUS
-// Coronal view: Paracentral Lobule (Leg) to Lateral Postcentral Gyrus (Hand/Face)
+// Coronal view: Paracentral Lobule (Leg/Foot) to Lateral Postcentral Gyrus (Hand/Face)
 // -------------------------------------------------------------
 function renderCortexSVG(selectedStructures, feedback) {
   return `
-  <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="cortex">
-    <!-- Coronal Cut of Cerebral Hemispheres with Longitudinal Fissure -->
-    <path d="M 350 420 
-             L 350 160 
-             C 330 160, 270 170, 220 200 
-             C 170 230, 130 280, 110 350 
-             C 105 370, 120 400, 140 400 
-             C 170 400, 210 320, 250 290 
-             C 290 260, 310 270, 330 350 Z" 
+  <svg viewBox="0 0 700 520" class="neuro-cross-section" data-level="cortex">
+    <!-- Vascular Territory Header Badges -->
+    <g transform="translate(215, 42)">
+      <rect x="0" y="0" width="270" height="24" rx="12" fill="rgba(15,23,42,0.88)" stroke="rgba(148,163,184,0.25)" />
+      <circle cx="22" cy="12" r="5" fill="rgba(6,182,212,0.6)" stroke="#22d3ee" stroke-width="1.5" />
+      <text x="33" y="16" class="territory-legend-text" fill="#67e8f9">ACA (Medial)</text>
+      <circle cx="145" cy="12" r="5" fill="rgba(99,102,241,0.6)" stroke="#818cf8" stroke-width="1.5" />
+      <text x="156" y="16" class="territory-legend-text" fill="#a5b4fc">MCA (Lateral)</text>
+    </g>
+
+    <!-- Coronal White Matter & Gyral Silhouette: Right Hemisphere (Viewer Left) -->
+    <path d="M 346 318
+             L 346 156
+             C 340 132, 318 128, 304 142
+             C 294 126, 266 128, 254 146
+             C 238 138, 212 150, 204 170
+             C 182 172, 160 192, 156 214
+             C 132 222, 114 248, 116 274
+             C 96 290, 92 324, 108 352
+             C 102 374, 114 398, 134 404
+             C 150 426, 182 432, 206 414
+             C 230 412, 256 392, 268 370
+             C 286 358, 314 352, 346 350 Z"
           class="cortex-outline" />
 
-    <!-- Left Hemisphere -->
-    <path d="M 350 420 
-             L 350 160 
-             C 370 160, 430 170, 480 200 
-             C 530 230, 570 280, 590 350 
-             C 595 370, 580 400, 560 400 
-             C 530 400, 490 320, 450 290 
-             C 410 260, 390 270, 370 350 Z" 
+    <!-- Left Hemisphere (Viewer Right) -->
+    <path d="M 354 318
+             L 354 156
+             C 360 132, 382 128, 396 142
+             C 406 126, 434 128, 446 146
+             C 462 138, 488 150, 496 170
+             C 518 172, 540 192, 544 214
+             C 568 222, 586 248, 584 274
+             C 604 290, 608 324, 592 352
+             C 598 374, 586 398, 566 404
+             C 550 426, 518 432, 494 414
+             C 470 412, 444 392, 432 370
+             C 414 358, 386 352, 354 350 Z"
           class="cortex-outline" />
+
+    <!-- Decorative Gyral Sulci & Sylvian Fissure Insular Indentations -->
+    <path d="M 164 366 C 188 354, 206 346, 224 358" class="sulcus-guide-line" />
+    <path d="M 536 366 C 512 354, 494 346, 476 358" class="sulcus-guide-line" />
+    <path d="M 254 146 Q 262 178, 272 198" class="sulcus-guide-line" />
+    <path d="M 446 146 Q 438 178, 428 198" class="sulcus-guide-line" />
+
+    <!-- Corpus Callosum Bridge & Lateral Ventricles (Anatomical Orientation) -->
+    <path d="M 278 308 C 296 286, 404 286, 422 308 C 414 326, 388 318, 350 318 C 312 318, 286 326, 278 308 Z"
+          fill="#0f172a" stroke="#475569" stroke-width="2" />
+    <path d="M 344 322 C 324 322, 304 334, 300 352 C 318 358, 338 352, 344 340 Z" class="ventricle-space" />
+    <path d="M 356 322 C 376 322, 396 334, 400 352 C 382 358, 362 352, 356 340 Z" class="ventricle-space" />
 
     <!-- Longitudinal Fissure -->
-    <line x1="350" y1="50" x2="350" y2="440" class="median-sulcus-line" stroke-width="4" />
+    <line x1="350" y1="74" x2="350" y2="306" class="median-sulcus-line" stroke-width="3.5" />
 
-    <!-- 1. PARACENTRAL LOBULE (Medial Wall / Foot & Leg Representation - ACA territory) -->
-    <!-- Right Paracentral Lobule (Viewer Left) -->
-    <path d="M 350 160 L 320 165 C 315 200, 320 250, 350 260 Z" 
-          class="${getStructureClass('right_paracentral_lobule', selectedStructures, feedback)}" 
-          data-id="right_paracentral_lobule" 
-          data-name="Right Paracentral Lobule (Foot/Leg)" 
-          data-info="Primary somatosensory cortex: Foot & leg discriminative sensation (ACA territory)" />
+    <!-- 1. PARACENTRAL LOBULE (Medial Wall / Toes, Foot & Leg - ACA territory) -->
+    <path d="M 346 150 C 330 140, 314 142, 306 154 L 314 252 C 324 266, 336 272, 346 272 Z"
+          class="${getStructureClass('right_paracentral_lobule', selectedStructures, feedback, 'artery-zone-aca')}"
+          data-id="right_paracentral_lobule"
+          data-name="Right Paracentral Lobule (Foot/Leg)"
+          data-info="Primary somatosensory/motor cortex: Toes, foot & leg + micturition (Right ACA territory)" />
 
-    <!-- Left Paracentral Lobule (Viewer Right) -->
-    <path d="M 350 160 L 380 165 C 385 200, 380 250, 350 260 Z" 
-          class="${getStructureClass('left_paracentral_lobule', selectedStructures, feedback)}" 
-          data-id="left_paracentral_lobule" 
-          data-name="Left Paracentral Lobule (Foot/Leg)" 
-          data-info="Primary somatosensory cortex: Foot & leg discriminative sensation (ACA territory)" />
+    <path d="M 354 150 C 370 140, 386 142, 394 154 L 386 252 C 376 266, 364 272, 354 272 Z"
+          class="${getStructureClass('left_paracentral_lobule', selectedStructures, feedback, 'artery-zone-aca')}"
+          data-id="left_paracentral_lobule"
+          data-name="Left Paracentral Lobule (Foot/Leg)"
+          data-info="Primary somatosensory/motor cortex: Toes, foot & leg + micturition (Left ACA territory)" />
 
-    <!-- 2. SUPERIOR CONVEXITY: Trunk & Arm -->
-    <path d="M 320 165 C 270 175, 230 205, 205 240 L 225 255 C 245 225, 280 200, 315 190 Z" 
-          class="${getStructureClass('right_postcentral_arm_trunk', selectedStructures, feedback)}" 
-          data-id="right_postcentral_arm_trunk" 
-          data-name="Right Postcentral Gyrus (Trunk/Arm Area)" 
-          data-info="Primary somatosensory cortex: Trunk & upper extremity representation" />
+    <!-- 2. SUPERIOR CONVEXITY: Hip, Trunk & Arm (Watershed / Upper MCA) -->
+    <path d="M 306 154 C 272 142, 234 156, 206 184 L 222 214 C 246 190, 276 180, 310 188 Z"
+          class="${getStructureClass('right_postcentral_arm_trunk', selectedStructures, feedback, 'artery-zone-aca-mca')}"
+          data-id="right_postcentral_arm_trunk"
+          data-name="Right Postcentral Gyrus (Trunk/Arm Area)"
+          data-info="Primary somatosensory cortex: Hip, trunk & upper arm representation" />
 
-    <path d="M 380 165 C 430 175, 470 205, 495 240 L 475 255 C 455 225, 420 200, 385 190 Z" 
-          class="${getStructureClass('left_postcentral_arm_trunk', selectedStructures, feedback)}" 
-          data-id="left_postcentral_arm_trunk" 
-          data-name="Left Postcentral Gyrus (Trunk/Arm Area)" 
-          data-info="Primary somatosensory cortex: Trunk & upper extremity representation" />
+    <path d="M 394 154 C 428 142, 466 156, 494 184 L 478 214 C 454 190, 424 180, 390 188 Z"
+          class="${getStructureClass('left_postcentral_arm_trunk', selectedStructures, feedback, 'artery-zone-aca-mca')}"
+          data-id="left_postcentral_arm_trunk"
+          data-name="Left Postcentral Gyrus (Trunk/Arm Area)"
+          data-info="Primary somatosensory cortex: Hip, trunk & upper arm representation" />
 
-    <!-- 3. LATERAL CONVEXITY: Hand & Lower Face (MCA territory - Cases 4 & 10) -->
-    <!-- Right Hand & Face -->
-    <path d="M 205 240 C 160 280, 130 330, 115 375 L 140 385 C 155 340, 180 300, 220 260 Z" 
-          class="${getStructureClass('right_postcentral_hand_face', selectedStructures, feedback)}" 
-          data-id="right_postcentral_hand_face" 
-          data-name="Right Postcentral Gyrus (Hand & Face Area)" 
-          data-info="Primary somatosensory cortex: Hand astereognosis & lower face sensory loss (MCA territory)" />
+    <!-- 3. LATERAL CONVEXITY: Hand, Fingers, Face & Tongue (MCA territory) -->
+    <path d="M 206 184 C 162 218, 128 274, 118 336 L 152 344 C 162 290, 188 244, 222 214 Z"
+          class="${getStructureClass('right_postcentral_hand_face', selectedStructures, feedback, 'artery-zone-mca')}"
+          data-id="right_postcentral_hand_face"
+          data-name="Right Postcentral Gyrus (Hand & Face Area)"
+          data-info="Primary somatosensory cortex: Hand/fingers astereognosis & lower face/tongue sensory loss (Right MCA)" />
 
-    <!-- Left Hand & Face -->
-    <path d="M 495 240 C 540 280, 570 330, 585 375 L 560 385 C 545 340, 520 300, 480 260 Z" 
-          class="${getStructureClass('left_postcentral_hand_face', selectedStructures, feedback)}" 
-          data-id="left_postcentral_hand_face" 
-          data-name="Left Postcentral Gyrus (Hand & Face Area)" 
-          data-info="Primary somatosensory cortex: Hand astereognosis & lower face sensory loss (MCA territory)" />
+    <path d="M 494 184 C 538 218, 572 274, 582 336 L 548 344 C 538 290, 512 244, 478 214 Z"
+          class="${getStructureClass('left_postcentral_hand_face', selectedStructures, feedback, 'artery-zone-mca')}"
+          data-id="left_postcentral_hand_face"
+          data-name="Left Postcentral Gyrus (Hand & Face Area)"
+          data-info="Primary somatosensory cortex: Hand/fingers astereognosis & lower face/tongue sensory loss (Left MCA)" />
 
-    <!-- Posterior Parietal Association Cortex (Cases 28 & 29: Extinction & Gerstmann) -->
-    <circle cx="160" cy="300" r="24" 
-            class="${getStructureClass('right_parietal_association', selectedStructures, feedback)}" 
-            data-id="right_parietal_association" 
-            data-name="Right Posterior Parietal Cortex" 
-            data-info="Sensory extinction to double simultaneous stimulation & spatial neglect" />
+    <!-- 4. POSTERIOR PARIETAL ASSOCIATION CORTEX (Extinction / Neglect / Gerstmann) -->
+    <path d="M 164 290 C 176 266, 206 258, 226 276 C 238 296, 228 326, 202 334 C 176 338, 156 314, 164 290 Z"
+          class="${getStructureClass('right_parietal_association', selectedStructures, feedback, 'artery-zone-mca')}"
+          data-id="right_parietal_association"
+          data-name="Right Posterior Parietal Cortex"
+          data-info="Sensory extinction to double simultaneous stimulation & left spatial neglect (Right MCA)" />
 
-    <circle cx="540" cy="300" r="24" 
-            class="${getStructureClass('left_parietal_association', selectedStructures, feedback)}" 
-            data-id="left_parietal_association" 
-            data-name="Left Posterior Parietal Cortex (Angular Gyrus)" 
-            data-info="Gerstmann syndrome: finger agnosia, agraphia, acalculia, R-L confusion" />
+    <path d="M 536 290 C 524 266, 494 258, 474 276 C 462 296, 472 326, 498 334 C 524 338, 544 314, 536 290 Z"
+          class="${getStructureClass('left_parietal_association', selectedStructures, feedback, 'artery-zone-mca')}"
+          data-id="left_parietal_association"
+          data-name="Left Posterior Parietal Cortex (Angular Gyrus)"
+          data-info="Gerstmann syndrome: finger agnosia, agraphia, acalculia, R-L confusion (Left MCA)" />
 
     <!-- Labels -->
-    <text x="350" y="30" class="diagram-label label-cardinal">SUPERIOR / VERTEX</text>
-    <text x="50" y="250" class="diagram-label label-side">RIGHT</text>
-    <text x="650" y="250" class="diagram-label label-side">LEFT</text>
+    <text x="350" y="26" class="diagram-label label-cardinal">SUPERIOR / VERTEX</text>
+    <text x="45" y="275" class="diagram-label label-side">RIGHT</text>
+    <text x="655" y="275" class="diagram-label label-side">LEFT</text>
 
-    <text x="350" y="140" class="text-hint-center">Longitudinal Fissure</text>
-    <text x="305" y="200" class="text-hint">Paracentral (Leg/Foot)</text>
-    <text x="215" y="195" class="text-hint">Trunk/Arm</text>
-    <text x="110" y="270" class="text-hint">Hand & Face (MCA)</text>
+    <text x="350" y="100" class="text-hint-center">Longitudinal Fissure</text>
+    <text x="326" y="208" class="text-hint territory-label-xs">Toes/Leg</text>
+    <text x="374" y="208" class="text-hint territory-label-xs">Toes/Leg</text>
+    <text x="258" y="176" class="text-hint territory-label-xs">Trunk/Arm</text>
+    <text x="442" y="176" class="text-hint territory-label-xs">Trunk/Arm</text>
+    <text x="155" y="254" class="text-hint territory-label-xs">Hand/Face</text>
+    <text x="545" y="254" class="text-hint territory-label-xs">Hand/Face</text>
+    <text x="195" y="305" class="text-hint territory-label-xs">Neglect</text>
+    <text x="505" y="305" class="text-hint territory-label-xs">Angular</text>
+    <text x="350" y="304" class="text-hint territory-label-xs" style="fill:#94a3b8;">Corpus Callosum</text>
+    <text x="350" y="458" class="text-hint-center" style="fill:#94a3b8;">Somatotopic Homunculus: Medial (ACA Leg) → Lateral (MCA Hand &amp; Face)</text>
   </svg>`;
 }
 
 // -------------------------------------------------------------
 // 9. CEREBRAL CORTEX FUNCTIONAL REGIONS & ARTERIAL TERRITORIES
-// Based on Stroke Lecture Slide 11 (Lateral & Medial Views, Both Hemispheres)
-// Color-coded vascular territory backdrops: ACA (cyan), MCA (indigo), PCA (amber)
+// Anatomically contoured Lateral & Medial Hemispheres with ACA / MCA / PCA zones
+// Supports view zoom via options.corticalView: 'all' | 'lateral' | 'medial'
 // -------------------------------------------------------------
-function renderCorticalTerritoriesSVG(selectedStructures, feedback) {
+function renderCorticalTerritoriesSVG(selectedStructures, feedback, options = {}) {
+  const view = options.corticalView || 'all';
+  const showLateral = view === 'all' || view === 'lateral';
+  const showMedial = view === 'all' || view === 'medial';
+  const isZoomed = view !== 'all';
+
+  const svgHeight = isZoomed ? 330 : 560;
+  const latY = 48;
+  const medY = isZoomed ? 48 : 302;
+  const cardH = isZoomed ? 270 : 240;
+  const innerScale = isZoomed ? 'translate(14, 24) scale(1.12)' : 'translate(15, 18)';
+  const innerScaleRight = isZoomed ? 'translate(22, 24) scale(1.12)' : 'translate(25, 18)';
+
   return `
-  <svg viewBox="0 0 800 560" class="neuro-cross-section cortical-territories-svg" data-level="cortex_territories">
+  <svg viewBox="0 0 820 ${svgHeight}" class="neuro-cross-section cortical-territories-svg ${isZoomed ? 'cortical-zoomed' : ''}" data-level="cortex_territories">
     <!-- Top Vascular Territory Legend -->
     <g transform="translate(155, 8)">
-      <rect x="0" y="0" width="490" height="30" rx="15" fill="rgba(15,23,42,0.9)" stroke="rgba(148,163,184,0.28)" />
-      <circle cx="30" cy="15" r="6" fill="rgba(6,182,212,0.6)" stroke="#06b6d4" stroke-width="1.5" />
-      <text x="43" y="19" class="territory-legend-text" fill="#67e8f9">ACA (Medial / Leg)</text>
-      <circle cx="195" cy="15" r="6" fill="rgba(99,102,241,0.6)" stroke="#818cf8" stroke-width="1.5" />
-      <text x="208" y="19" class="territory-legend-text" fill="#a5b4fc">MCA (Lateral / Face-Arm)</text>
-      <circle cx="388" cy="15" r="6" fill="rgba(245,158,11,0.6)" stroke="#f59e0b" stroke-width="1.5" />
-      <text x="401" y="19" class="territory-legend-text" fill="#fcd34d">PCA (Visual)</text>
+      <rect x="0" y="0" width="510" height="30" rx="15" fill="rgba(15,23,42,0.92)" stroke="rgba(148,163,184,0.28)" />
+      <circle cx="28" cy="15" r="6" fill="rgba(6,182,212,0.65)" stroke="#22d3ee" stroke-width="1.5" />
+      <text x="41" y="19" class="territory-legend-text" fill="#67e8f9">ACA (Medial / Leg)</text>
+      <circle cx="198" cy="15" r="6" fill="rgba(99,102,241,0.65)" stroke="#818cf8" stroke-width="1.5" />
+      <text x="211" y="19" class="territory-legend-text" fill="#a5b4fc">MCA (Lateral / Face-Arm)</text>
+      <circle cx="395" cy="15" r="6" fill="rgba(245,158,11,0.65)" stroke="#fbbf24" stroke-width="1.5" />
+      <text x="408" y="19" class="territory-legend-text" fill="#fcd34d">PCA (Visual)</text>
     </g>
 
+    ${showLateral ? `
     <!-- ======================================================= -->
-    <!-- TOP LEFT: LEFT HEMISPHERE — LATERAL SURFACE (Anterior Left) -->
+    <!-- LEFT HEMISPHERE — LATERAL SURFACE (Anterior Left) -->
     <!-- ======================================================= -->
-    <g transform="translate(20, 48)">
-      <rect x="0" y="0" width="370" height="236" rx="14" class="quadrant-card" />
-      <text x="185" y="20" class="diagram-label" style="fill:#a5b4fc;">LEFT HEMISPHERE — LATERAL (MCA / PCA POLE)</text>
-      <g transform="translate(15, 16)">
-        <!-- Outer Brain Silhouette (Frontal on Left, Occipital on Right) -->
-        <path d="M 40 130 C 35 72, 90 30, 175 28 C 255 26, 315 62, 322 122 C 326 158, 302 184, 260 185 C 228 186, 200 182, 165 186 C 120 192, 92 178, 86 156 C 58 158, 42 150, 40 130 Z"
-              class="cortex-outline territory-mca-bg" />
-        <!-- Occipital Pole PCA Zone Backdrop -->
-        <path d="M 274 62 C 304 78, 322 102, 320 132 C 316 158, 298 178, 270 181 L 266 105 Z"
-              class="territory-pca-bg" />
-        <!-- Central Sulcus & Sylvian Fissure guides -->
-        <path d="M 186 30 Q 174 82, 162 124" stroke="#475569" stroke-width="2" stroke-dasharray="4 3" fill="none" />
-        <path d="M 118 140 Q 180 128, 238 118" stroke="#475569" stroke-width="2" stroke-dasharray="4 3" fill="none" />
+    <g transform="translate(18, ${latY})">
+      <rect x="0" y="0" width="382" height="${cardH}" rx="14" class="quadrant-card" />
+      <text x="191" y="20" class="diagram-label" style="fill:#a5b4fc;">LEFT HEMISPHERE — LATERAL (MCA / PCA POLE)</text>
+      <g transform="${innerScale}">
+        <!-- Subtle Cerebellum & Brainstem Reference Silhouette -->
+        <path d="M 228 168 C 242 196, 286 196, 304 170 C 284 166, 256 164, 228 168 Z" class="brainstem-ref-silhouette" />
+        <path d="M 190 166 L 198 198 L 222 198 L 228 168 Z" class="brainstem-ref-silhouette" />
 
-        <!-- Left Prefrontal / Executive -->
-        <path d="M 42 126 C 42 78, 82 42, 128 34 L 128 116 L 84 134 C 58 136, 44 135, 42 126 Z"
-              class="${getStructureClass('left_prefrontal', selectedStructures, feedback)}"
+        <!-- True Lateral Brain Silhouette with Frontal, Parietal, Occipital & Temporal Lobe -->
+        <path d="M 32 118
+                 C 28 66, 78 24, 168 22
+                 C 248 20, 306 54, 318 110
+                 C 322 142, 304 164, 266 168
+                 C 238 170, 218 164, 198 172
+                 C 172 182, 134 186, 114 170
+                 C 104 160, 108 144, 126 136
+                 C 110 134, 90 138, 66 138
+                 C 42 138, 34 130, 32 118 Z"
+              class="cortex-outline territory-mca-bg" />
+
+        <!-- Decorative Cortical Sulci (Superior Frontal, Central, Sylvian, Intraparietal, Sup. Temporal) -->
+        <path d="M 60 66 Q 108 60, 146 66" class="sulcus-guide-line" />
+        <path d="M 176 24 Q 166 78, 154 128" stroke="#64748b" stroke-width="2" stroke-dasharray="4 3" fill="none" pointer-events="none" />
+        <path d="M 114 136 Q 176 130, 232 112" stroke="#64748b" stroke-width="2.2" fill="none" pointer-events="none" />
+        <path d="M 206 72 Q 242 74, 272 86" class="sulcus-guide-line" />
+        <path d="M 136 158 Q 186 154, 240 144" class="sulcus-guide-line" />
+
+        <!-- 1. Left Prefrontal / Executive (ACA/MCA watershed) -->
+        <path d="M 34 116 C 34 70, 74 34, 124 27 L 122 114 C 98 124, 62 134, 34 116 Z"
+              class="${getStructureClass('left_prefrontal', selectedStructures, feedback, 'artery-zone-aca-mca')}"
               data-id="left_prefrontal"
               data-name="Left Prefrontal Cortex (Executive)"
               data-info="Executive functions, planning, working memory, motivation (ACA/MCA)" />
 
-        <!-- Left FEF -->
-        <ellipse cx="144" cy="70" rx="18" ry="14"
-                 class="${getStructureClass('left_fef', selectedStructures, feedback)}"
-                 data-id="left_fef"
-                 data-name="Left Frontal Eye Field (FEF)"
-                 data-info="Conjugate gaze to opposite side; lesion -> eyes deviate IPSILATERALLY (to left) (MCA)" />
+        <!-- 2. Left Frontal Eye Field (FEF) -->
+        <path d="M 125 46 C 142 42, 158 46, 164 58 L 160 88 C 144 90, 130 88, 124 78 Z"
+              class="${getStructureClass('left_fef', selectedStructures, feedback, 'artery-zone-mca')}"
+              data-id="left_fef"
+              data-name="Left Frontal Eye Field (FEF)"
+              data-info="Conjugate gaze to right; lesion -> eyes deviate IPSILATERALLY (to left) (Left MCA)" />
 
-        <!-- Left Broca's Area (Inferior Frontal Gyrus) -->
-        <ellipse cx="122" cy="116" rx="26" ry="18"
-                 class="${getStructureClass('left_broca', selectedStructures, feedback)}"
-                 data-id="left_broca"
-                 data-name="Left Broca's Area (Inferior Frontal Gyrus)"
-                 data-info="Non-fluent, hesitant expressive aphasia with intact comprehension (Left MCA Superior Div.)" />
+        <!-- 3. Left Broca's Area (Inferior Frontal Gyrus above Sylvian fissure) -->
+        <path d="M 102 92 C 122 86, 146 88, 158 98 L 152 128 C 132 134, 108 134, 96 124 Z"
+              class="${getStructureClass('left_broca', selectedStructures, feedback, 'artery-zone-mca')}"
+              data-id="left_broca"
+              data-name="Left Broca's Area (Inferior Frontal Gyrus)"
+              data-info="Non-fluent, hesitant expressive aphasia with intact comprehension (Left MCA Superior Div.)" />
 
-        <!-- Left Lateral Motor & Sensory Strip (Arm / Hand / Face) -->
-        <path d="M 164 34 L 204 34 L 190 124 L 154 124 Z"
-              class="${getStructureClass('left_postcentral_hand_face', selectedStructures, feedback)}"
+        <!-- 4. Left Lateral Motor & Sensory Strip (Arm / Hand / Face) -->
+        <path d="M 158 24 C 176 23, 192 25, 202 30 L 188 122 C 176 126, 164 128, 154 126 L 166 56 Z"
+              class="${getStructureClass('left_postcentral_hand_face', selectedStructures, feedback, 'artery-zone-mca')}"
               data-id="left_postcentral_hand_face"
-              data-name="Left Lateral Motor & Sensory Cortex (Face/Arm/Hand)"
-              data-info="Contralateral (right) face/arm/hand weakness & sensory loss, astereognosis (Left MCA)" />
+              data-name="Left Lateral Motor & Sensory Cortex (Arm/Hand/Face)"
+              data-info="Contralateral (right) arm/hand/face weakness & sensory loss, astereognosis (Left MCA)" />
 
-        <!-- Left Wernicke's Area (Posterior Superior Temporal Gyrus) -->
-        <ellipse cx="222" cy="144" rx="34" ry="20"
-                 class="${getStructureClass('left_wernicke', selectedStructures, feedback)}"
-                 data-id="left_wernicke"
-                 data-name="Left Wernicke's Area (Post. Sup. Temporal Gyrus)"
-                 data-info="Fluent, nonsensical speech with impaired comprehension & unawareness of errors (Left MCA Inferior Div.)" />
+        <!-- 5. Left Posterior Parietal / Angular & Supramarginal Gyri -->
+        <path d="M 203 32 C 238 38, 268 54, 282 78 L 268 122 C 244 124, 214 122, 192 118 Z"
+              class="${getStructureClass('left_parietal_association', selectedStructures, feedback, 'artery-zone-mca')}"
+              data-id="left_parietal_association"
+              data-name="Left Posterior Parietal Cortex (Angular Gyrus)"
+              data-info="Gerstmann syndrome (agraphia, acalculia, finger agnosia, R-L confusion) & agraphesthesia (Left MCA)" />
 
-        <!-- Left Posterior Parietal / Angular Gyrus -->
-        <ellipse cx="242" cy="86" rx="30" ry="26"
-                 class="${getStructureClass('left_parietal_association', selectedStructures, feedback)}"
-                 data-id="left_parietal_association"
-                 data-name="Left Posterior Parietal Cortex (Angular Gyrus)"
-                 data-info="Gerstmann syndrome (agraphia, acalculia, finger agnosia, R-L confusion) & agraphesthesia (Left MCA)" />
+        <!-- 6. Left Wernicke's Area (Posterior Superior Temporal Gyrus below Sylvian fissure) -->
+        <path d="M 154 138 C 186 132, 224 122, 256 124 L 254 162 C 216 170, 174 176, 142 164 Z"
+              class="${getStructureClass('left_wernicke', selectedStructures, feedback, 'artery-zone-mca')}"
+              data-id="left_wernicke"
+              data-name="Left Wernicke's Area (Post. Sup. Temporal Gyrus)"
+              data-info="Fluent, nonsensical speech with impaired comprehension & unawareness of errors (Left MCA Inferior Div.)" />
 
-        <!-- Left Lateral Occipital / Visual Pole -->
-        <path d="M 282 68 C 308 82, 322 104, 320 132 C 316 158, 298 176, 274 180 L 270 110 Z"
-              class="${getStructureClass('left_visual_cortex', selectedStructures, feedback)}"
+        <!-- 7. Left Lateral Occipital / Visual Pole (PCA) -->
+        <path d="M 282 76 C 306 88, 318 106, 316 130 C 312 152, 294 164, 264 166 L 266 120 Z"
+              class="${getStructureClass('left_visual_cortex', selectedStructures, feedback, 'artery-zone-pca')}"
               data-id="left_visual_cortex"
               data-name="Left Occipital / Visual Cortex (PCA)"
               data-info="Contralateral (right) homonymous hemianopia with macular sparing (Left PCA)" />
 
-        <text x="80" y="84" class="text-hint territory-label">Prefrontal</text>
-        <text x="144" y="73" class="text-hint territory-label-sm">FEF</text>
-        <text x="122" y="120" class="text-hint territory-label">Broca</text>
-        <text x="178" y="78" class="text-hint territory-label-sm">M1/S1</text>
-        <text x="176" y="90" class="text-hint territory-label-xs">Face/Arm</text>
-        <text x="242" y="83" class="text-hint territory-label-sm">Post.</text>
-        <text x="242" y="95" class="text-hint territory-label-sm">Parietal</text>
-        <text x="222" y="148" class="text-hint territory-label">Wernicke</text>
-        <text x="296" y="130" class="text-hint territory-label-sm">Visual</text>
-        <text x="48" y="206" class="text-hint territory-axis">ANT</text>
-        <text x="310" y="206" class="text-hint territory-axis">POST</text>
+        <!-- Somatotopic & Region Labels -->
+        <text x="78" y="82" class="text-hint territory-label">Prefrontal</text>
+        <text x="144" y="69" class="text-hint territory-label-xs">FEF</text>
+        <text x="128" y="114" class="text-hint territory-label-sm">Broca</text>
+        <text x="180" y="45" class="text-hint territory-label-xs">Arm</text>
+        <text x="176" y="76" class="text-hint territory-label-xs">Hand</text>
+        <text x="171" y="108" class="text-hint territory-label-xs">Face</text>
+        <text x="236" y="76" class="text-hint territory-label-sm">Post.</text>
+        <text x="236" y="88" class="text-hint territory-label-sm">Parietal</text>
+        <text x="204" y="150" class="text-hint territory-label-sm">Wernicke</text>
+        <text x="292" y="126" class="text-hint territory-label-sm">Visual</text>
+        <text x="42" y="198" class="text-hint territory-axis">ANT</text>
+        <text x="304" y="198" class="text-hint territory-axis">POST</text>
       </g>
     </g>
 
     <!-- ======================================================= -->
-    <!-- TOP RIGHT: RIGHT HEMISPHERE — LATERAL SURFACE (Anterior Right) -->
+    <!-- RIGHT HEMISPHERE — LATERAL SURFACE (Anterior Right) -->
     <!-- ======================================================= -->
-    <g transform="translate(410, 48)">
-      <rect x="0" y="0" width="370" height="236" rx="14" class="quadrant-card" />
-      <text x="185" y="20" class="diagram-label" style="fill:#a5b4fc;">RIGHT HEMISPHERE — LATERAL (MCA / PCA POLE)</text>
-      <g transform="translate(25, 16)">
-        <!-- Outer Brain Silhouette (Occipital on Left, Frontal on Right) -->
-        <path d="M 300 130 C 305 72, 250 30, 165 28 C 85 26, 25 62, 18 122 C 14 158, 38 184, 80 185 C 112 186, 140 182, 175 186 C 220 192, 248 178, 254 156 C 282 158, 298 150, 300 130 Z"
-              class="cortex-outline territory-mca-bg" />
-        <!-- Occipital Pole PCA Zone Backdrop -->
-        <path d="M 66 62 C 36 78, 18 102, 20 132 C 24 158, 42 178, 70 181 L 74 105 Z"
-              class="territory-pca-bg" />
-        <path d="M 154 30 Q 166 82, 178 124" stroke="#475569" stroke-width="2" stroke-dasharray="4 3" fill="none" />
-        <path d="M 222 140 Q 160 128, 102 118" stroke="#475569" stroke-width="2" stroke-dasharray="4 3" fill="none" />
+    <g transform="translate(420, ${latY})">
+      <rect x="0" y="0" width="382" height="${cardH}" rx="14" class="quadrant-card" />
+      <text x="191" y="20" class="diagram-label" style="fill:#a5b4fc;">RIGHT HEMISPHERE — LATERAL (MCA / PCA POLE)</text>
+      <g transform="${innerScaleRight}">
+        <!-- Subtle Cerebellum & Brainstem Reference Silhouette -->
+        <path d="M 106 168 C 92 196, 48 196, 30 170 C 50 166, 78 164, 106 168 Z" class="brainstem-ref-silhouette" />
+        <path d="M 144 166 L 136 198 L 112 198 L 106 168 Z" class="brainstem-ref-silhouette" />
 
-        <!-- Right Prefrontal / Executive -->
-        <path d="M 298 126 C 298 78, 258 42, 212 34 L 212 116 L 256 134 C 282 136, 296 135, 298 126 Z"
-              class="${getStructureClass('right_prefrontal', selectedStructures, feedback)}"
+        <!-- True Lateral Brain Silhouette (Mirrored: Occipital Left, Frontal Right) -->
+        <path d="M 302 118
+                 C 306 66, 256 24, 166 22
+                 C 86 20, 28 54, 16 110
+                 C 12 142, 30 164, 68 168
+                 C 96 170, 116 164, 136 172
+                 C 162 182, 200 186, 220 170
+                 C 230 160, 226 144, 208 136
+                 C 224 134, 244 138, 268 138
+                 C 292 138, 300 130, 302 118 Z"
+              class="cortex-outline territory-mca-bg" />
+
+        <!-- Decorative Cortical Sulci -->
+        <path d="M 274 66 Q 226 60, 188 66" class="sulcus-guide-line" />
+        <path d="M 158 24 Q 168 78, 180 128" stroke="#64748b" stroke-width="2" stroke-dasharray="4 3" fill="none" pointer-events="none" />
+        <path d="M 220 136 Q 158 130, 102 112" stroke="#64748b" stroke-width="2.2" fill="none" pointer-events="none" />
+        <path d="M 128 72 Q 92 74, 62 86" class="sulcus-guide-line" />
+        <path d="M 198 158 Q 148 154, 94 144" class="sulcus-guide-line" />
+
+        <!-- 1. Right Prefrontal / Executive -->
+        <path d="M 300 116 C 300 70, 260 34, 210 27 L 212 114 C 236 124, 272 134, 300 116 Z"
+              class="${getStructureClass('right_prefrontal', selectedStructures, feedback, 'artery-zone-aca-mca')}"
               data-id="right_prefrontal"
               data-name="Right Prefrontal Cortex (Executive)"
               data-info="Executive functions, attention, emotional prosody (ACA/MCA)" />
 
-        <!-- Right FEF -->
-        <ellipse cx="196" cy="70" rx="18" ry="14"
-                 class="${getStructureClass('right_fef', selectedStructures, feedback)}"
-                 data-id="right_fef"
-                 data-name="Right Frontal Eye Field (FEF)"
-                 data-info="Conjugate gaze to left; lesion -> eyes deviate IPSILATERALLY (to right) (MCA)" />
+        <!-- 2. Right FEF -->
+        <path d="M 209 46 C 192 42, 176 46, 170 58 L 174 88 C 190 90, 204 88, 210 78 Z"
+              class="${getStructureClass('right_fef', selectedStructures, feedback, 'artery-zone-mca')}"
+              data-id="right_fef"
+              data-name="Right Frontal Eye Field (FEF)"
+              data-info="Conjugate gaze to left; lesion -> eyes deviate IPSILATERALLY (to right) (Right MCA)" />
 
-        <!-- Right Inferior Frontal -->
-        <ellipse cx="218" cy="116" rx="26" ry="18"
-                 class="${getStructureClass('right_broca', selectedStructures, feedback)}"
-                 data-id="right_broca"
-                 data-name="Right Inferior Frontal Gyrus"
-                 data-info="Non-dominant homologue: affective prosody of speech (Right MCA)" />
+        <!-- 3. Right Inferior Frontal (Broca Homologue) -->
+        <path d="M 232 92 C 212 86, 188 88, 176 98 L 182 128 C 202 134, 226 134, 238 124 Z"
+              class="${getStructureClass('right_broca', selectedStructures, feedback, 'artery-zone-mca')}"
+              data-id="right_broca"
+              data-name="Right Inferior Frontal Gyrus"
+              data-info="Non-dominant homologue: affective prosody of speech (Right MCA)" />
 
-        <!-- Right Lateral Motor & Sensory Strip (Arm / Hand / Face) -->
-        <path d="M 176 34 L 136 34 L 150 124 L 186 124 Z"
-              class="${getStructureClass('right_postcentral_hand_face', selectedStructures, feedback)}"
+        <!-- 4. Right Lateral Motor & Sensory Strip (Arm / Hand / Face) -->
+        <path d="M 176 24 C 158 23, 142 25, 132 30 L 146 122 C 158 126, 170 128, 180 126 L 168 56 Z"
+              class="${getStructureClass('right_postcentral_hand_face', selectedStructures, feedback, 'artery-zone-mca')}"
               data-id="right_postcentral_hand_face"
-              data-name="Right Lateral Motor & Sensory Cortex (Face/Arm/Hand)"
-              data-info="Contralateral (left) face/arm/hand weakness & sensory loss, astereognosis (Right MCA)" />
+              data-name="Right Lateral Motor & Sensory Cortex (Arm/Hand/Face)"
+              data-info="Contralateral (left) arm/hand/face weakness & sensory loss, astereognosis (Right MCA)" />
 
-        <!-- Right Posterior Parietal (Hemineglect!) -->
-        <ellipse cx="98" cy="86" rx="32" ry="26"
-                 class="${getStructureClass('right_parietal_association', selectedStructures, feedback)}"
-                 data-id="right_parietal_association"
-                 data-name="Right Posterior Parietal Cortex (Neglect)"
-                 data-info="Left hemispatial neglect, anosognosia, sensory extinction on double simultaneous stim (Right MCA)" />
+        <!-- 5. Right Posterior Parietal (Hemineglect!) -->
+        <path d="M 131 32 C 96 38, 66 54, 52 78 L 66 122 C 90 124, 120 122, 142 118 Z"
+              class="${getStructureClass('right_parietal_association', selectedStructures, feedback, 'artery-zone-mca')}"
+              data-id="right_parietal_association"
+              data-name="Right Posterior Parietal Cortex (Neglect)"
+              data-info="Left hemispatial neglect, anosognosia, sensory extinction on double simultaneous stim (Right MCA)" />
 
-        <!-- Right Superior Temporal -->
-        <ellipse cx="118" cy="144" rx="34" ry="20"
-                 class="${getStructureClass('right_wernicke', selectedStructures, feedback)}"
-                 data-id="right_wernicke"
-                 data-name="Right Posterior Superior Temporal Gyrus"
-                 data-info="Non-dominant temporal cortex: receptive prosody / emotional tone (Right MCA)" />
+        <!-- 6. Right Superior Temporal -->
+        <path d="M 180 138 C 148 132, 110 122, 78 124 L 80 162 C 118 170, 160 176, 192 164 Z"
+              class="${getStructureClass('right_wernicke', selectedStructures, feedback, 'artery-zone-mca')}"
+              data-id="right_wernicke"
+              data-name="Right Posterior Superior Temporal Gyrus"
+              data-info="Non-dominant temporal cortex: receptive prosody / emotional tone (Right MCA)" />
 
-        <!-- Right Lateral Occipital / Visual Pole -->
-        <path d="M 58 68 C 32 82, 18 104, 20 132 C 24 158, 42 176, 66 180 L 70 110 Z"
-              class="${getStructureClass('right_visual_cortex', selectedStructures, feedback)}"
+        <!-- 7. Right Lateral Occipital / Visual Pole (PCA) -->
+        <path d="M 52 76 C 28 88, 16 106, 18 130 C 22 152, 40 164, 70 166 L 68 120 Z"
+              class="${getStructureClass('right_visual_cortex', selectedStructures, feedback, 'artery-zone-pca')}"
               data-id="right_visual_cortex"
               data-name="Right Occipital / Visual Cortex (PCA)"
               data-info="Contralateral (left) homonymous hemianopia with macular sparing (Right PCA)" />
 
-        <text x="260" y="84" class="text-hint territory-label">Prefrontal</text>
-        <text x="196" y="73" class="text-hint territory-label-sm">FEF</text>
-        <text x="218" y="120" class="text-hint territory-label-xs">Inf. Front.</text>
-        <text x="162" y="78" class="text-hint territory-label-sm">M1/S1</text>
-        <text x="164" y="90" class="text-hint territory-label-xs">Face/Arm</text>
-        <text x="98" y="83" class="text-hint territory-label-sm">Post. Parietal</text>
-        <text x="98" y="95" class="text-hint territory-label-xs">(Neglect)</text>
-        <text x="118" y="148" class="text-hint territory-label-sm">Sup. Temp</text>
-        <text x="44" y="130" class="text-hint territory-label-sm">Visual</text>
-        <text x="30" y="206" class="text-hint territory-axis">POST</text>
-        <text x="292" y="206" class="text-hint territory-axis">ANT</text>
+        <!-- Somatotopic & Region Labels -->
+        <text x="256" y="82" class="text-hint territory-label">Prefrontal</text>
+        <text x="190" y="69" class="text-hint territory-label-xs">FEF</text>
+        <text x="206" y="114" class="text-hint territory-label-xs">Inf. Front.</text>
+        <text x="154" y="45" class="text-hint territory-label-xs">Arm</text>
+        <text x="158" y="76" class="text-hint territory-label-xs">Hand</text>
+        <text x="163" y="108" class="text-hint territory-label-xs">Face</text>
+        <text x="98" y="76" class="text-hint territory-label-sm">Post. Parietal</text>
+        <text x="98" y="88" class="text-hint territory-label-xs">(Neglect)</text>
+        <text x="130" y="150" class="text-hint territory-label-sm">Sup. Temp</text>
+        <text x="42" y="126" class="text-hint territory-label-sm">Visual</text>
+        <text x="26" y="198" class="text-hint territory-axis">POST</text>
+        <text x="288" y="198" class="text-hint territory-axis">ANT</text>
       </g>
     </g>
+    ` : ''}
 
+    ${showMedial ? `
     <!-- ======================================================= -->
-    <!-- BOTTOM LEFT: LEFT HEMISPHERE — MEDIAL SURFACE (ACA & PCA) -->
+    <!-- LEFT HEMISPHERE — MEDIAL SURFACE (ACA & PCA) -->
     <!-- ======================================================= -->
-    <g transform="translate(20, 300)">
-      <rect x="0" y="0" width="370" height="240" rx="14" class="quadrant-card" />
-      <text x="185" y="20" class="diagram-label" style="fill:#67e8f9;">LEFT HEMISPHERE — MEDIAL (ACA &amp; PCA)</text>
-      <g transform="translate(15, 20)">
+    <g transform="translate(18, ${medY})">
+      <rect x="0" y="0" width="382" height="${cardH}" rx="14" class="quadrant-card" />
+      <text x="191" y="20" class="diagram-label" style="fill:#67e8f9;">LEFT HEMISPHERE — MEDIAL (ACA &amp; PCA)</text>
+      <g transform="${innerScale}">
+        <!-- Midline Thalamus / Brainstem Reference Silhouette -->
+        <ellipse cx="174" cy="134" rx="28" ry="16" class="brainstem-ref-silhouette" />
+        <path d="M 164 148 C 158 168, 168 188, 186 198 L 204 198 C 194 180, 192 164, 196 146 Z" class="brainstem-ref-silhouette" />
+
         <!-- Medial Brain Silhouette (Frontal Left, Occipital Right) -->
-        <path d="M 40 130 C 35 72, 90 30, 175 28 C 255 26, 315 62, 322 122 C 326 158, 295 182, 240 176 C 210 172, 185 150, 155 150 C 115 150, 50 156, 40 130 Z"
+        <path d="M 36 124 C 32 68, 86 26, 174 24 C 254 22, 314 58, 322 118 C 324 152, 294 176, 238 170 C 210 166, 192 146, 162 146 C 122 146, 48 152, 36 124 Z"
               class="cortex-outline territory-aca-bg" />
-        <!-- Occipital Medial PCA Zone Backdrop (Posterior to Parieto-occipital sulcus) -->
-        <path d="M 232 42 C 282 54, 318 82, 322 122 C 324 158, 295 182, 240 176 L 222 146 L 228 96 Z"
-              class="territory-pca-bg" />
-        <!-- Corpus Callosum landmark -->
-        <path d="M 110 118 C 125 90, 215 90, 232 118 C 222 126, 208 112, 170 110 C 135 110, 122 124, 110 118 Z"
-              fill="#0f172a" stroke="#475569" stroke-width="1.5" />
-        <!-- Calcarine Sulcus guide -->
-        <path d="M 244 134 L 316 122" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 2" fill="none" />
 
-        <!-- Left Medial Frontal / Emotional Control (ACA) -->
-        <path d="M 44 128 C 44 78, 86 42, 146 32 L 154 92 C 128 96, 112 108, 108 124 L 62 138 Z"
-              class="${getStructureClass('left_medial_frontal', selectedStructures, feedback)}"
+        <!-- Occipital Medial PCA Zone Backdrop (Posterior to Parieto-Occipital Sulcus) -->
+        <path d="M 230 38 C 280 50, 316 78, 320 118 C 322 152, 294 176, 238 170 L 222 142 L 226 92 Z"
+              class="territory-pca-bg" />
+
+        <!-- Anatomical Corpus Callosum (Genu, Body, Splenium) -->
+        <path d="M 102 116 C 102 92, 138 82, 178 82 C 214 82, 234 94, 232 116 C 228 126, 214 114, 198 106 C 170 100, 136 102, 120 116 C 110 124, 102 122, 102 116 Z"
+              fill="#0b1120" stroke="#475569" stroke-width="1.8" />
+
+        <!-- Cingulate Sulcus, Parieto-Occipital Sulcus & Calcarine Sulcus Guides -->
+        <path d="M 74 108 C 86 64, 146 56, 204 64 L 216 34" class="sulcus-guide-line" />
+        <path d="M 224 38 L 234 118" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3" fill="none" pointer-events="none" />
+        <path d="M 234 126 L 316 114" stroke="#f59e0b" stroke-width="2.2" stroke-dasharray="4 2" fill="none" pointer-events="none" />
+
+        <!-- 1. Left Medial Frontal / Emotional Control (ACA) -->
+        <path d="M 40 122 C 40 72, 82 36, 144 28 L 150 82 C 122 86, 102 98, 98 118 L 58 134 Z"
+              class="${getStructureClass('left_medial_frontal', selectedStructures, feedback, 'artery-zone-aca')}"
               data-id="left_medial_frontal"
               data-name="Left Medial Frontal Cortex (ACA)"
               data-info="Executive & emotional control, abulia / apathy (Left ACA)" />
 
-        <!-- Left Paracentral Lobule (Foot / Leg Motor & Sensory + Bladder - ACA) -->
-        <path d="M 150 32 C 175 28, 206 32, 224 40 L 210 94 C 190 90, 172 90, 156 92 Z"
-              class="${getStructureClass('left_paracentral_lobule', selectedStructures, feedback)}"
+        <!-- 2. Left Paracentral Lobule (Leg, Foot & Bladder - ACA) -->
+        <path d="M 148 28 C 174 24, 202 27, 222 36 L 208 84 C 188 80, 170 80, 152 82 Z"
+              class="${getStructureClass('left_paracentral_lobule', selectedStructures, feedback, 'artery-zone-aca')}"
               data-id="left_paracentral_lobule"
               data-name="Left Paracentral Lobule (Foot/Leg - ACA)"
               data-info="Contralateral (right) foot & leg weakness/sensory loss + urinary incontinence (Left ACA)" />
 
-        <!-- Left Cuneus (Upper Bank of Calcarine Sulcus -> Lower Visual Field - PCA) -->
-        <path d="M 240 50 C 284 62, 316 86, 320 120 L 246 132 L 232 96 Z"
-              class="${getStructureClass('left_cuneus', selectedStructures, feedback)}"
+        <!-- 3. Left Cuneus (Upper Bank of Calcarine Sulcus -> Lower Visual Field - PCA) -->
+        <path d="M 236 44 C 282 56, 314 82, 318 112 L 236 124 L 228 88 Z"
+              class="${getStructureClass('left_cuneus', selectedStructures, feedback, 'artery-zone-pca')}"
               data-id="left_cuneus"
               data-name="Left Cuneus (Upper Visual Cortex - PCA)"
               data-info="Upper bank of calcarine sulcus: contralateral RIGHT LOWER homonymous quadrantanopia (Left PCA)" />
 
-        <!-- Left Lingual Gyrus (Lower Bank of Calcarine Sulcus -> Upper Visual Field - PCA) -->
-        <path d="M 246 136 L 320 124 C 318 156, 294 176, 250 174 L 234 156 Z"
-              class="${getStructureClass('left_lingual_gyrus', selectedStructures, feedback)}"
+        <!-- 4. Left Lingual Gyrus (Lower Bank of Calcarine Sulcus -> Upper Visual Field - PCA) -->
+        <path d="M 236 128 L 318 116 C 316 148, 292 170, 246 168 L 228 148 Z"
+              class="${getStructureClass('left_lingual_gyrus', selectedStructures, feedback, 'artery-zone-pca')}"
               data-id="left_lingual_gyrus"
               data-name="Left Lingual Gyrus (Lower Visual Cortex - PCA)"
               data-info="Lower bank of calcarine sulcus: contralateral RIGHT UPPER homonymous quadrantanopia w/ macular sparing (Left PCA)" />
 
-        <text x="96" y="78" class="text-hint territory-label-sm">Med. Frontal</text>
-        <text x="96" y="90" class="text-hint territory-label-xs">(Emotion)</text>
-        <text x="186" y="58" class="text-hint territory-label-sm">Paracentral</text>
-        <text x="186" y="70" class="text-hint territory-label-xs">Leg/Foot (ACA)</text>
-        <text x="278" y="96" class="text-hint territory-label-sm">Cuneus</text>
-        <text x="278" y="156" class="text-hint territory-label-sm">Lingual</text>
-        <text x="170" y="106" class="text-hint territory-label-xs" style="fill:#64748b;">Corpus Callosum</text>
-        <text x="48" y="204" class="text-hint territory-axis">ANT</text>
-        <text x="310" y="204" class="text-hint territory-axis">POST</text>
+        <text x="92" y="72" class="text-hint territory-label-sm">Med. Frontal</text>
+        <text x="92" y="84" class="text-hint territory-label-xs">(Emotion)</text>
+        <text x="184" y="48" class="text-hint territory-label-sm">Paracentral</text>
+        <text x="184" y="60" class="text-hint territory-label-xs">Leg/Foot/Bladder</text>
+        <text x="276" y="88" class="text-hint territory-label-sm">Cuneus</text>
+        <text x="276" y="99" class="text-hint territory-label-xs">(Lower Field)</text>
+        <text x="274" y="146" class="text-hint territory-label-sm">Lingual</text>
+        <text x="274" y="157" class="text-hint territory-label-xs">(Upper Field)</text>
+        <text x="168" y="98" class="text-hint territory-label-xs" style="fill:#64748b;">Corpus Callosum</text>
+        <text x="42" y="198" class="text-hint territory-axis">ANT</text>
+        <text x="304" y="198" class="text-hint territory-axis">POST</text>
       </g>
     </g>
 
     <!-- ======================================================= -->
-    <!-- BOTTOM RIGHT: RIGHT HEMISPHERE — MEDIAL SURFACE (ACA & PCA) -->
+    <!-- RIGHT HEMISPHERE — MEDIAL SURFACE (ACA & PCA) -->
     <!-- ======================================================= -->
-    <g transform="translate(410, 300)">
-      <rect x="0" y="0" width="370" height="240" rx="14" class="quadrant-card" />
-      <text x="185" y="20" class="diagram-label" style="fill:#67e8f9;">RIGHT HEMISPHERE — MEDIAL (ACA &amp; PCA)</text>
-      <g transform="translate(25, 20)">
-        <!-- Medial Brain Silhouette (Occipital Left, Frontal Right) -->
-        <path d="M 300 130 C 305 72, 250 30, 165 28 C 85 26, 25 62, 18 122 C 14 158, 45 182, 100 176 C 130 172, 155 150, 185 150 C 225 150, 290 156, 300 130 Z"
-              class="cortex-outline territory-aca-bg" />
-        <!-- Occipital Medial PCA Zone Backdrop -->
-        <path d="M 108 42 C 58 54, 22 82, 18 122 C 16 158, 45 182, 100 176 L 118 146 L 112 96 Z"
-              class="territory-pca-bg" />
-        <!-- Corpus Callosum landmark -->
-        <path d="M 230 118 C 215 90, 125 90, 108 118 C 118 126, 132 112, 170 110 C 205 110, 218 124, 230 118 Z"
-              fill="#0f172a" stroke="#475569" stroke-width="1.5" />
-        <!-- Calcarine Sulcus guide -->
-        <path d="M 96 134 L 24 122" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 2" fill="none" />
+    <g transform="translate(420, ${medY})">
+      <rect x="0" y="0" width="382" height="${cardH}" rx="14" class="quadrant-card" />
+      <text x="191" y="20" class="diagram-label" style="fill:#67e8f9;">RIGHT HEMISPHERE — MEDIAL (ACA &amp; PCA)</text>
+      <g transform="${innerScaleRight}">
+        <!-- Midline Thalamus / Brainstem Reference Silhouette -->
+        <ellipse cx="160" cy="134" rx="28" ry="16" class="brainstem-ref-silhouette" />
+        <path d="M 170 148 C 176 168, 166 188, 148 198 L 130 198 C 140 180, 142 164, 138 146 Z" class="brainstem-ref-silhouette" />
 
-        <!-- Right Medial Frontal / Emotional Control (ACA) -->
-        <path d="M 296 128 C 296 78, 254 42, 194 32 L 186 92 C 212 96, 228 108, 232 124 L 278 138 Z"
-              class="${getStructureClass('right_medial_frontal', selectedStructures, feedback)}"
+        <!-- Medial Brain Silhouette (Occipital Left, Frontal Right) -->
+        <path d="M 298 124 C 302 68, 248 26, 160 24 C 80 22, 20 58, 12 118 C 10 152, 40 176, 96 170 C 124 166, 142 146, 172 146 C 212 146, 286 152, 298 124 Z"
+              class="cortex-outline territory-aca-bg" />
+
+        <!-- Occipital Medial PCA Zone Backdrop -->
+        <path d="M 104 38 C 54 50, 18 78, 14 118 C 12 152, 40 176, 96 170 L 112 142 L 108 92 Z"
+              class="territory-pca-bg" />
+
+        <!-- Anatomical Corpus Callosum -->
+        <path d="M 232 116 C 232 92, 196 82, 156 82 C 120 82, 100 94, 102 116 C 106 126, 120 114, 136 106 C 164 100, 198 102, 214 116 C 224 124, 232 122, 232 116 Z"
+              fill="#0b1120" stroke="#475569" stroke-width="1.8" />
+
+        <!-- Cingulate, Parieto-Occipital & Calcarine Sulci -->
+        <path d="M 260 108 C 248 64, 188 56, 130 64 L 118 34" class="sulcus-guide-line" />
+        <path d="M 110 38 L 100 118" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 3" fill="none" pointer-events="none" />
+        <path d="M 100 126 L 18 114" stroke="#f59e0b" stroke-width="2.2" stroke-dasharray="4 2" fill="none" pointer-events="none" />
+
+        <!-- 1. Right Medial Frontal / Emotional Control (ACA) -->
+        <path d="M 294 122 C 294 72, 252 36, 190 28 L 184 82 C 212 86, 232 98, 236 118 L 276 134 Z"
+              class="${getStructureClass('right_medial_frontal', selectedStructures, feedback, 'artery-zone-aca')}"
               data-id="right_medial_frontal"
               data-name="Right Medial Frontal Cortex (ACA)"
               data-info="Executive & emotional control, abulia / apathy (Right ACA)" />
 
-        <!-- Right Paracentral Lobule (Foot / Leg Motor & Sensory + Bladder - ACA) -->
-        <path d="M 190 32 C 165 28, 134 32, 116 40 L 130 94 C 150 90, 168 90, 184 92 Z"
-              class="${getStructureClass('right_paracentral_lobule', selectedStructures, feedback)}"
+        <!-- 2. Right Paracentral Lobule (Leg, Foot & Bladder - ACA) -->
+        <path d="M 186 28 C 160 24, 132 27, 112 36 L 126 84 C 146 80, 164 80, 182 82 Z"
+              class="${getStructureClass('right_paracentral_lobule', selectedStructures, feedback, 'artery-zone-aca')}"
               data-id="right_paracentral_lobule"
               data-name="Right Paracentral Lobule (Foot/Leg - ACA)"
               data-info="Contralateral (left) foot & leg weakness/sensory loss + urinary incontinence (Right ACA)" />
 
-        <!-- Right Cuneus (Upper Bank of Calcarine Sulcus -> Lower Visual Field - PCA) -->
-        <path d="M 100 50 C 56 62, 24 86, 20 120 L 94 132 L 108 96 Z"
-              class="${getStructureClass('right_cuneus', selectedStructures, feedback)}"
+        <!-- 3. Right Cuneus (Upper Bank of Calcarine Sulcus -> Lower Visual Field - PCA) -->
+        <path d="M 98 44 C 52 56, 20 82, 16 112 L 98 124 L 106 88 Z"
+              class="${getStructureClass('right_cuneus', selectedStructures, feedback, 'artery-zone-pca')}"
               data-id="right_cuneus"
               data-name="Right Cuneus (Upper Visual Cortex - PCA)"
               data-info="Upper bank of calcarine sulcus: contralateral LEFT LOWER homonymous quadrantanopia (Right PCA)" />
 
-        <!-- Right Lingual Gyrus (Lower Bank of Calcarine Sulcus -> Upper Visual Field - PCA) -->
-        <path d="M 94 136 L 20 124 C 22 156, 46 176, 90 174 L 106 156 Z"
-              class="${getStructureClass('right_lingual_gyrus', selectedStructures, feedback)}"
+        <!-- 4. Right Lingual Gyrus (Lower Bank of Calcarine Sulcus -> Upper Visual Field - PCA) -->
+        <path d="M 98 128 L 16 116 C 18 148, 42 170, 88 168 L 106 148 Z"
+              class="${getStructureClass('right_lingual_gyrus', selectedStructures, feedback, 'artery-zone-pca')}"
               data-id="right_lingual_gyrus"
               data-name="Right Lingual Gyrus (Lower Visual Cortex - PCA)"
               data-info="Lower bank of calcarine sulcus: contralateral LEFT UPPER homonymous quadrantanopia w/ macular sparing (Right PCA)" />
 
-        <text x="244" y="78" class="text-hint territory-label-sm">Med. Frontal</text>
-        <text x="244" y="90" class="text-hint territory-label-xs">(Emotion)</text>
-        <text x="154" y="58" class="text-hint territory-label-sm">Paracentral</text>
-        <text x="154" y="70" class="text-hint territory-label-xs">Leg/Foot (ACA)</text>
-        <text x="62" y="96" class="text-hint territory-label-sm">Cuneus</text>
-        <text x="62" y="156" class="text-hint territory-label-sm">Lingual</text>
-        <text x="170" y="106" class="text-hint territory-label-xs" style="fill:#64748b;">Corpus Callosum</text>
-        <text x="30" y="204" class="text-hint territory-axis">POST</text>
-        <text x="292" y="204" class="text-hint territory-axis">ANT</text>
+        <text x="242" y="72" class="text-hint territory-label-sm">Med. Frontal</text>
+        <text x="242" y="84" class="text-hint territory-label-xs">(Emotion)</text>
+        <text x="150" y="48" class="text-hint territory-label-sm">Paracentral</text>
+        <text x="150" y="60" class="text-hint territory-label-xs">Leg/Foot/Bladder</text>
+        <text x="58" y="88" class="text-hint territory-label-sm">Cuneus</text>
+        <text x="58" y="99" class="text-hint territory-label-xs">(Lower Field)</text>
+        <text x="60" y="146" class="text-hint territory-label-sm">Lingual</text>
+        <text x="60" y="157" class="text-hint territory-label-xs">(Upper Field)</text>
+        <text x="166" y="98" class="text-hint territory-label-xs" style="fill:#64748b;">Corpus Callosum</text>
+        <text x="26" y="198" class="text-hint territory-axis">POST</text>
+        <text x="288" y="198" class="text-hint territory-axis">ANT</text>
       </g>
     </g>
+    ` : ''}
   </svg>`;
 }

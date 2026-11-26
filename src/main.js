@@ -27,6 +27,7 @@ const state = {
   },
   solvedCases: new Set(JSON.parse(localStorage.getItem('neuro_solved_cases') || '[]')),
   hideDiagramHints: false,
+  corticalView: 'all',       // 'all' | 'lateral' | 'medial'
   showAtlasModal: false,
   activeAtlasTab: 'cohan',   // 'cohan' | 'stroke'
   activeAtlasSlide: 0,
@@ -369,7 +370,14 @@ function renderApp() {
               </span>
             </div>
             ${state.selectedLevel ? `
-              <div style="display:flex; align-items:center; gap:8px;">
+              <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+                ${state.selectedLevel === 'cortex_territories' ? `
+                  <div class="cortical-view-switcher" role="group" aria-label="Cortical View Zoom">
+                    <button class="cortical-view-btn ${state.corticalView === 'all' ? 'active' : ''}" data-cortical-view="all" title="Show all 4 cortical views">🗺️ All 4</button>
+                    <button class="cortical-view-btn ${state.corticalView === 'lateral' ? 'active' : ''}" data-cortical-view="lateral" title="Zoom into Left & Right Lateral views">🧠 Lateral 2×</button>
+                    <button class="cortical-view-btn ${state.corticalView === 'medial' ? 'active' : ''}" data-cortical-view="medial" title="Zoom into Left & Right Medial views">⚡ Medial 2×</button>
+                  </div>
+                ` : ''}
                 <button id="btn-toggle-hints" class="btn-toggle-hints ${state.hideDiagramHints ? 'active' : ''}" title="Toggle structure text labels on the diagram for blind self-testing">
                   ${state.hideDiagramHints ? '👁️ Show Labels' : '🙈 Hide Labels'}
                 </button>
@@ -382,7 +390,7 @@ function renderApp() {
 
           <div class="diagram-svg-container ${state.hideDiagramHints ? 'hide-svg-hints' : ''}" id="svg-container">
             ${state.selectedLevel ?
-              renderDiagramSVG(state.selectedLevel, diagramSelected, diagramFeedback) :
+              renderDiagramSVG(state.selectedLevel, diagramSelected, diagramFeedback, { corticalView: state.corticalView }) :
               renderEmptyLevelPrompt(isStrokeMode)
             }
           </div>
@@ -1057,6 +1065,14 @@ function attachEventHandlers() {
     elem.addEventListener('click', () => {
       const slideIdx = parseInt(elem.closest('[data-slide]').dataset.slide, 10);
       state.activeAtlasSlide = slideIdx;
+      renderApp();
+    });
+  });
+
+  // Cortical Territories View Zoom Switcher (All 4 / Lateral 2x / Medial 2x)
+  document.querySelectorAll('[data-cortical-view]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.corticalView = btn.dataset.corticalView;
       renderApp();
     });
   });

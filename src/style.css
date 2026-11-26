@@ -486,6 +486,7 @@ body {
   flex-direction: column;
   gap: 14px;
   height: 100%;
+  overflow-y: auto;
 }
 
 .level-tabs-container {
@@ -588,6 +589,11 @@ body {
   height: auto;
   max-height: 480px;
   filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.6));
+  transition: max-height 0.25s ease;
+}
+
+.diagram-stage-card.has-feedback-banner .neuro-cross-section {
+  max-height: 370px;
 }
 
 /* SVG STYLES */
@@ -676,6 +682,8 @@ body {
   stroke: #64748b;
   stroke-width: 2;
   cursor: pointer;
+  transform-box: fill-box;
+  transform-origin: center;
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -848,10 +856,24 @@ body {
   background: rgba(10, 15, 29, 0.6);
   padding: 10px 12px;
   border-radius: var(--radius-md);
+  border: 1px solid rgba(148, 163, 184, 0.1);
+  border-left: 3px solid rgba(148, 163, 184, 0.25);
   font-size: 12px;
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+.feedback-checklist .check-item:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+.check-item.passed {
+  border-left-color: var(--accent-emerald);
+}
+
+.check-item.failed {
+  border-left-color: var(--accent-rose);
 }
 
 .check-item-label {
@@ -1113,7 +1135,7 @@ body {
 
 .level-picker-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin-top: 8px;
 }
@@ -1753,4 +1775,173 @@ body {
   .stroke-ref-territory-grid {
     grid-template-columns: 1fr;
   }
+}
+
+
+/* ==========================================================
+   GUI POLISH: STEPPER, PROGRESS BAR, BLIND LABELS, PCA ZONE
+   ========================================================== */
+
+.btn-reset-stats {
+  background: rgba(30, 41, 59, 0.65);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.btn-reset-stats:hover {
+  color: #fff;
+  border-color: var(--accent-rose);
+  background: rgba(244, 63, 94, 0.2);
+}
+
+.workspace-progress-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 7px 12px;
+  flex-wrap: wrap;
+}
+
+.mode-progress-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mode-progress-text {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.mode-progress-text strong {
+  color: var(--accent-emerald);
+}
+
+.mode-progress-track {
+  width: 64px;
+  height: 6px;
+  background: rgba(30, 41, 59, 0.9);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.mode-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-emerald));
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.step-flow-stepper {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+
+.stepper-node {
+  padding: 2px 7px;
+  border-radius: 999px;
+  color: var(--text-dim);
+  background: rgba(30, 41, 59, 0.5);
+  border: 1px solid transparent;
+  font-weight: 600;
+}
+
+.stepper-node.active {
+  color: #67e8f9;
+  background: rgba(6, 182, 212, 0.14);
+  border-color: rgba(6, 182, 212, 0.35);
+}
+
+.stepper-node.done {
+  color: #6ee7b7;
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.35);
+}
+
+.stepper-sep {
+  color: var(--text-dim);
+  font-size: 10px;
+}
+
+.btn-toggle-hints {
+  background: rgba(30, 41, 59, 0.75);
+  border: 1px solid var(--border-subtle);
+  color: #cbd5e1;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-xl);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-toggle-hints:hover {
+  border-color: var(--accent-cyan);
+  color: #fff;
+}
+
+.btn-toggle-hints.active {
+  background: rgba(245, 158, 11, 0.18);
+  border-color: rgba(245, 158, 11, 0.45);
+  color: #fde68a;
+}
+
+.hide-svg-hints .text-hint,
+.hide-svg-hints .text-hint-center {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.quadrant-card {
+  fill: rgba(15, 23, 42, 0.52);
+  stroke: rgba(148, 163, 184, 0.18);
+  stroke-width: 1.5;
+}
+
+.territory-pca-bg {
+  fill: rgba(245, 158, 11, 0.11);
+  stroke: rgba(251, 191, 36, 0.42);
+  stroke-width: 1.5;
+}
+
+.territory-label {
+  font-size: 9.5px;
+  font-weight: 600;
+  fill: #e2e8f0;
+}
+
+.territory-label-sm {
+  font-size: 8.8px;
+  font-weight: 600;
+  fill: #e2e8f0;
+}
+
+.territory-label-xs {
+  font-size: 8px;
+  fill: #cbd5e1;
+}
+
+.territory-axis {
+  font-size: 9px;
+  font-family: var(--font-mono);
+  fill: #64748b;
 }

@@ -25,6 +25,8 @@ const state = {
     streak: parseInt(localStorage.getItem('neuro_streak') || '0', 10),
     bestStreak: parseInt(localStorage.getItem('neuro_best_streak') || '0', 10)
   },
+  solvedCases: new Set(JSON.parse(localStorage.getItem('neuro_solved_cases') || '[]')),
+  hideDiagramHints: false,
   showAtlasModal: false,
   activeAtlasTab: 'cohan',   // 'cohan' | 'stroke'
   activeAtlasSlide: 0,
@@ -117,6 +119,14 @@ function renderApp() {
     ? (state.selectedArtery !== null && state.selectedWhyIndex !== null)
     : (state.selectedWhyIndex !== null);
 
+  const modeCases = isStrokeMode ? state.strokeCases : state.cases;
+  const solvedInMode = modeCases.filter(c => state.solvedCases.has(c.id)).length;
+  const solvedPct = modeCases.length > 0 ? Math.round((solvedInMode / modeCases.length) * 100) : 0;
+
+  const step1Done = Boolean(state.selectedLevel);
+  const step2Done = Boolean(state.step2Checked);
+  const step3Done = Boolean(state.step3Checked);
+
   app.innerHTML = `
     <!-- Top Header -->
     <header class="app-header">
@@ -152,6 +162,7 @@ function renderApp() {
             <span>🎯 Accuracy:</span>
             <strong>${accuracy}% (${state.stats.correct}/${state.stats.attempted})</strong>
           </div>
+          <button id="btn-reset-stats" class="btn-reset-stats" title="Reset accuracy, streak, and solved progress">↺</button>
         </div>
 
         <button id="btn-open-atlas" class="btn-icon" title="View Drawing Guide & Stroke Reference">
@@ -165,6 +176,23 @@ function renderApp() {
       <!-- LEFT PANEL: Case Presentation, Step 1 (Level) & Step 3 (Artery + Why) -->
       <section class="left-panel">
         <div class="case-control-bar">
+          <!-- Mode Progress & Stepper Bar -->
+          <div class="workspace-progress-bar">
+            <div class="mode-progress-pill" title="${solvedInMode} of ${modeCases.length} cases solved in this mode">
+              <span class="mode-progress-text">✓ Solved: <strong>${solvedInMode}/${modeCases.length}</strong></span>
+              <div class="mode-progress-track">
+                <div class="mode-progress-fill" style="width:${solvedPct}%;"></div>
+              </div>
+            </div>
+            <div class="step-flow-stepper" aria-label="3-Step Diagnostic Flow">
+              <span class="stepper-node ${step1Done ? 'done' : 'active'}">1. Level</span>
+              <span class="stepper-sep">→</span>
+              <span class="stepper-node ${step2Done ? 'done' : step1Done ? 'active' : ''}">2. Pinpoint</span>
+              <span class="stepper-sep">→</span>
+              <span class="stepper-node ${step3Done ? 'done' : step2Done ? 'active' : ''}">3. ${isStrokeMode ? 'Artery/Why' : 'Why'}</span>
+            </div>
+          </div>
+
           <!-- Filter Cohorts (No level spoilers) -->
           <div class="filter-pills-row">
             ${isStrokeMode ? `
@@ -182,17 +210,17 @@ function renderApp() {
 
           <!-- Case Pagination Dropdown -->
           <div class="case-pagination-row">
-            <button id="btn-prev-case" class="btn-icon" title="Previous Case" ${state.currentCaseIndex === 0 ? 'disabled style="opacity:0.4"' : ''}>
+            <button id="btn-prev-case" class="btn-icon" title="Previous Case (← arrow)" ${state.currentCaseIndex === 0 ? 'disabled style="opacity:0.4"' : ''}>
               <span>◀ Prev</span>
             </button>
             <select id="case-select-dropdown" class="case-select-dropdown">
               ${filtered.map((c, i) => `
                 <option value="${i}" ${i === state.currentCaseIndex ? 'selected' : ''}>
-                  ${isStrokeMode ? `Stroke #${i + 1}` : `Case ${c.id}`}: ${c.title}
+                  ${state.solvedCases.has(c.id) ? '✓ ' : ''}${isStrokeMode ? `Stroke #${i + 1}` : `Case ${c.id}`}: ${c.title}
                 </option>
               `).join('')}
             </select>
-            <button id="btn-next-case-nav" class="btn-icon" title="Next Case" ${state.currentCaseIndex === filtered.length - 1 ? 'disabled style="opacity:0.4"' : ''}>
+            <button id="btn-next-case-nav" class="btn-icon" title="Next Case (→ arrow)" ${state.currentCaseIndex === filtered.length - 1 ? 'disabled style="opacity:0.4"' : ''}>
               <span>Next ▶</span>
             </button>
           </div>
@@ -330,7 +358,7 @@ function renderApp() {
 
       <!-- RIGHT PANEL: STEP 2 (Interactive SVG Cross-Section Stage & Location Verification) -->
       <section class="right-panel">
-        <div class="diagram-stage-card">
+        <div class="diagram-stage-card ${state.step2Checked ? 'has-feedback-banner' : ''}">
           <div class="diagram-header-info">
             <div style="display:flex; align-items:center; gap:8px;">
               <span class="step-badge step-2">Step 2</span>
@@ -341,13 +369,18 @@ function renderApp() {
               </span>
             </div>
             ${state.selectedLevel ? `
-              <span class="diagram-instructions-badge">
-                👆 Click where you expect the lesion to be
-              </span>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <button id="btn-toggle-hints" class="btn-toggle-hints ${state.hideDiagramHints ? 'active' : ''}" title="Toggle structure text labels on the diagram for blind self-testing">
+                  ${state.hideDiagramHints ? '👁️ Show Labels' : '🙈 Hide Labels'}
+                </button>
+                <span class="diagram-instructions-badge">
+                  👆 Click target structure(s)
+                </span>
+              </div>
             ` : ''}
           </div>
 
-          <div class="diagram-svg-container" id="svg-container">
+          <div class="diagram-svg-container ${state.hideDiagramHints ? 'hide-svg-hints' : ''}" id="svg-container">
             ${state.selectedLevel ?
               renderDiagramSVG(state.selectedLevel, diagramSelected, diagramFeedback) :
               renderEmptyLevelPrompt(isStrokeMode)
@@ -1028,6 +1061,31 @@ function attachEventHandlers() {
     });
   });
 
+  // Toggle Blind Diagram Labels
+  const toggleHintsBtn = document.getElementById('btn-toggle-hints');
+  if (toggleHintsBtn) {
+    toggleHintsBtn.addEventListener('click', () => {
+      state.hideDiagramHints = !state.hideDiagramHints;
+      renderApp();
+    });
+  }
+
+  // Reset Stats & Solved Progress
+  const resetStatsBtn = document.getElementById('btn-reset-stats');
+  if (resetStatsBtn) {
+    resetStatsBtn.addEventListener('click', () => {
+      if (!confirm('Reset your accuracy, streak, and solved case checkmarks?')) return;
+      state.stats = { attempted: 0, correct: 0, streak: 0, bestStreak: 0 };
+      state.solvedCases = new Set();
+      localStorage.removeItem('neuro_attempted');
+      localStorage.removeItem('neuro_correct');
+      localStorage.removeItem('neuro_streak');
+      localStorage.removeItem('neuro_best_streak');
+      localStorage.removeItem('neuro_solved_cases');
+      renderApp();
+    });
+  }
+
   // Drawing Tip Modal
   const viewDrawTipBtn = document.getElementById('btn-view-drawing-tip');
   if (viewDrawTipBtn) {
@@ -1176,6 +1234,8 @@ function evaluateStep3Mechanism() {
     if (state.stats.streak > state.stats.bestStreak) {
       state.stats.bestStreak = state.stats.streak;
     }
+    state.solvedCases.add(currentCase.id);
+    localStorage.setItem('neuro_solved_cases', JSON.stringify([...state.solvedCases]));
   } else {
     state.stats.streak = 0;
   }
@@ -1201,6 +1261,24 @@ window.addEventListener('keydown', (e) => {
     state.showAtlasModal = false;
     state.showDrawingTipModal = false;
     renderApp();
+    return;
+  }
+
+  if (state.showAtlasModal || state.showDrawingTipModal) return;
+  const tag = document.activeElement?.tagName;
+  if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+
+  if (e.key === 'ArrowLeft' && state.currentCaseIndex > 0) {
+    state.currentCaseIndex--;
+    resetCaseInputs();
+    renderApp();
+  } else if (e.key === 'ArrowRight') {
+    const filtered = getFilteredCases();
+    if (state.currentCaseIndex < filtered.length - 1) {
+      state.currentCaseIndex++;
+      resetCaseInputs();
+      renderApp();
+    }
   }
 });
 

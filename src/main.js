@@ -524,6 +524,17 @@ function renderApp() {
       </section>
     </main>
 
+    <!-- Attribution Footer -->
+    <footer class="app-footer">
+      <div class="app-footer-inner">
+        <span>Created by <strong>Mark Youssef</strong> (Medical Student, JSMBS)</span>
+        <span class="footer-dot" aria-hidden="true">•</span>
+        <span>Adapted from the lecture of <strong>Dr. David Freedman</strong></span>
+        <span class="footer-dot" aria-hidden="true">•</span>
+        <span>Inspired by <strong>Dr. Chris Cohan's</strong> materials</span>
+      </div>
+    </footer>
+
     <!-- Slide & Stroke Reference Atlas Modal -->
     ${state.showAtlasModal ? renderAtlasModal() : ''}
 
@@ -657,7 +668,7 @@ function renderAtlasModal() {
         <div class="modal-header">
           <div>
             <h2>${isStrokeTab ? '🩸 Stroke Vascular Territories & Brainstem Reference' : "🎨 Dr. Chris Cohan's CNS Drawing Atlas"}</h2>
-            <p style="font-size:11px; color:#94a3b8;">Jacobs School of Medicine • IMC 535 Neuroanatomy</p>
+            <p style="font-size:11px; color:#94a3b8;">Jacobs School of Medicine (JSMBS) • IMC 535 Neuroanatomy • Created by Mark Youssef • Adapted from Dr. David Freedman's lecture &amp; inspired by Dr. Chris Cohan's materials</p>
           </div>
           <div style="display:flex; align-items:center; gap:8px;">
             <div class="atlas-tab-group">

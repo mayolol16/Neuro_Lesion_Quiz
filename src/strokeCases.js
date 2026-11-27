@@ -743,6 +743,13 @@ export const STROKE_CASES = [
         structures: ["left_oculomotor_nucleus", "left_medial_lemniscus", "left_vtt", "left_red_nucleus"],
         structureNames: "Left CN III, ML, VTT & Left Red Nucleus",
         note: "Also accepted for Benedikt tegmental syndrome."
+      },
+      {
+        level: "midbrain",
+        levelLabel: "Left Midbrain Tegmentum (CN III + ML + VTT + SCP + Red Nucleus)",
+        structures: ["left_oculomotor_nucleus", "left_medial_lemniscus", "left_vtt", "left_scp", "left_red_nucleus"],
+        structureNames: "Left CN III, ML, VTT, SCP & Red Nucleus",
+        note: "Also accepted when selecting both the Red Nucleus and SCP."
       }
     ],
     correctArteries: ["pca"],
@@ -791,6 +798,13 @@ export const STROKE_CASES = [
         structures: ["right_oculomotor_nucleus", "right_red_nucleus", "right_substantia_nigra"],
         structureNames: "Right CN III, Right Red Nucleus & Right Substantia Nigra",
         note: "Also valid if selecting Red Nucleus for the cerebellar/ataxia component."
+      },
+      {
+        level: "midbrain",
+        levelLabel: "Right Midbrain (CN III + SCP + Red Nucleus + Substantia Nigra)",
+        structures: ["right_oculomotor_nucleus", "right_scp", "right_red_nucleus", "right_substantia_nigra"],
+        structureNames: "Right CN III, Right SCP, Red Nucleus & Substantia Nigra",
+        note: "Also valid when selecting both SCP and Red Nucleus."
       }
     ],
     correctArteries: ["pca"],
@@ -1092,6 +1106,20 @@ export const STROKE_CASES = [
         structures: ["left_icp", "left_nucleus_ambiguus", "left_spinal_v", "left_als"],
         structureNames: "Left ICP, Nucleus Ambiguus, Spinal V & ALS",
         note: "Core lateral medullary quartet (plus vestibular & sympathetic fibers)."
+      },
+      {
+        level: "rostral_medulla",
+        levelLabel: "Left Lateral Medulla (5-Struct: ICP + Nuc Amb + Spinal V + ALS + Symp)",
+        structures: ["left_icp", "left_nucleus_ambiguus", "left_spinal_v", "left_als", "left_sympathetic"],
+        structureNames: "Left ICP, Nucleus Ambiguus, Spinal V, ALS & Sympathetic",
+        note: "Also accepted when selecting the 5 classic Wallenberg structures without Vestibular."
+      },
+      {
+        level: "rostral_medulla",
+        levelLabel: "Left Lateral Medulla (5-Struct: ICP + Vestib + Nuc Amb + Spinal V + ALS)",
+        structures: ["left_icp", "left_vestibular_nuclei", "left_nucleus_ambiguus", "left_spinal_v", "left_als"],
+        structureNames: "Left ICP, Vestibular, Nucleus Ambiguus, Spinal V & ALS",
+        note: "Also accepted when selecting the 5 lateral structures without Sympathetic."
       }
     ],
     correctArteries: ["pica"],

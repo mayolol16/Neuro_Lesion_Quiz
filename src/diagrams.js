@@ -2,57 +2,57 @@
 // plus Thalamus and Cortex levels
 
 export const DIAGRAM_LEVELS = [
-  { id: "spinal_cord", name: "Spinal Cord", subtitle: "Large Oval & Butterfly Gray", mnemonic: "Slide 2 & 9" },
-  { id: "caudal_medulla", name: "Caudal Medulla", subtitle: "Circle & 3 Dorsal Neighbors", mnemonic: "Slide 3 & 10" },
-  { id: "rostral_medulla", name: "Rostral Medulla", subtitle: "Olives, Pyramids & 4th Ventricle", mnemonic: "Slide 4 & 11" },
-  { id: "caudal_mid_pons", name: "Caudal / Mid Pons", subtitle: "Square Tegmentum & Basilar Pons", mnemonic: "Slide 5 & 12" },
-  { id: "rostral_pons", name: "Rostral Pons", subtitle: "'The Snowman!'", mnemonic: "Slide 6 & 13" },
-  { id: "midbrain", name: "Midbrain", subtitle: "'The Pig (from the rear)!'", mnemonic: "Slide 7 & 14" },
-  { id: "thalamus", name: "Diencephalon / Thalamus", subtitle: "VPL, VPM, STN & Internal Capsule", mnemonic: "Subcortical / Lacunar" },
-  { id: "cortex", name: "Cortex (Homunculus)", subtitle: "Coronal Sensory & Motor Strip", mnemonic: "Coronal Cut" },
-  { id: "cortex_territories", name: "Cortical Territories", subtitle: "Lateral & Medial Brain (ACA / MCA / PCA)", mnemonic: "Stroke Lecture Slide 11" }
+      { id: "spinal_cord", name: "Spinal Cord", subtitle: "Large Oval & Butterfly Gray", mnemonic: "Slide 2 & 9" },
+      { id: "caudal_medulla", name: "Caudal Medulla", subtitle: "Circle & 3 Dorsal Neighbors", mnemonic: "Slide 3 & 10" },
+      { id: "rostral_medulla", name: "Rostral Medulla", subtitle: "Olives, Pyramids & 4th Ventricle", mnemonic: "Slide 4 & 11" },
+      { id: "caudal_mid_pons", name: "Caudal / Mid Pons", subtitle: "Square Tegmentum & Basilar Pons", mnemonic: "Slide 5 & 12" },
+      { id: "rostral_pons", name: "Rostral Pons", subtitle: "'The Snowman!'", mnemonic: "Slide 6 & 13" },
+      { id: "midbrain", name: "Midbrain", subtitle: "'The Pig (from the rear)!'", mnemonic: "Slide 7 & 14" },
+      { id: "thalamus", name: "Diencephalon / Thalamus", subtitle: "VPL, VPM, STN & Internal Capsule", mnemonic: "Subcortical / Lacunar" },
+      { id: "cortex", name: "Cortex (Homunculus)", subtitle: "Coronal Sensory & Motor Strip", mnemonic: "Coronal Cut" },
+      { id: "cortex_territories", name: "Cortical Territories", subtitle: "Lateral & Medial Brain (ACA / MCA / PCA)", mnemonic: "Stroke Lecture Slide 11" }
 ];
 
 export function renderDiagramSVG(levelId, selectedStructures = [], feedback = null, options = {}) {
-  switch (levelId) {
-    case "spinal_cord":
-      return renderSpinalCordSVG(selectedStructures, feedback);
-    case "caudal_medulla":
-      return renderCaudalMedullaSVG(selectedStructures, feedback);
-    case "rostral_medulla":
-      return renderRostralMedullaSVG(selectedStructures, feedback);
-    case "caudal_mid_pons":
-      return renderCaudalMidPonsSVG(selectedStructures, feedback);
-    case "rostral_pons":
-      return renderRostralPonsSVG(selectedStructures, feedback);
-    case "midbrain":
-      return renderMidbrainSVG(selectedStructures, feedback);
-    case "thalamus":
-      return renderThalamusSVG(selectedStructures, feedback);
-    case "cortex":
-      return renderCortexSVG(selectedStructures, feedback);
-    case "cortex_territories":
-      return renderCorticalTerritoriesSVG(selectedStructures, feedback, options);
-    default:
-      return renderSpinalCordSVG(selectedStructures, feedback);
-  }
+      switch (levelId) {
+            case "spinal_cord":
+                  return renderSpinalCordSVG(selectedStructures, feedback);
+            case "caudal_medulla":
+                  return renderCaudalMedullaSVG(selectedStructures, feedback);
+            case "rostral_medulla":
+                  return renderRostralMedullaSVG(selectedStructures, feedback);
+            case "caudal_mid_pons":
+                  return renderCaudalMidPonsSVG(selectedStructures, feedback);
+            case "rostral_pons":
+                  return renderRostralPonsSVG(selectedStructures, feedback);
+            case "midbrain":
+                  return renderMidbrainSVG(selectedStructures, feedback);
+            case "thalamus":
+                  return renderThalamusSVG(selectedStructures, feedback);
+            case "cortex":
+                  return renderCortexSVG(selectedStructures, feedback);
+            case "cortex_territories":
+                  return renderCorticalTerritoriesSVG(selectedStructures, feedback, options);
+            default:
+                  return renderSpinalCordSVG(selectedStructures, feedback);
+      }
 }
 
 function getStructureClass(structId, selectedStructures, feedback, extraClass = "") {
-  const isSelected = selectedStructures.includes(structId);
-  const suffix = extraClass ? ` ${extraClass}` : "";
-  if (!feedback) {
-    return (isSelected ? "interactive-struct selected" : "interactive-struct") + suffix;
-  }
-  const isCorrect = feedback.correctStructures.includes(structId);
-  if (isSelected && isCorrect) return "interactive-struct state-correct" + suffix;
-  if (isSelected && !isCorrect) return "interactive-struct state-incorrect" + suffix;
-  if (!isSelected && isCorrect) return "interactive-struct state-missed" + suffix;
-  return "interactive-struct" + suffix;
+      const isSelected = selectedStructures.includes(structId);
+      const suffix = extraClass ? ` ${extraClass}` : "";
+      if (!feedback) {
+            return (isSelected ? "interactive-struct selected" : "interactive-struct") + suffix;
+      }
+      const isCorrect = feedback.correctStructures.includes(structId);
+      if (isSelected && isCorrect) return "interactive-struct state-correct" + suffix;
+      if (isSelected && !isCorrect) return "interactive-struct state-incorrect" + suffix;
+      if (!isSelected && isCorrect) return "interactive-struct state-missed" + suffix;
+      return "interactive-struct" + suffix;
 }
 
 function renderSharedSVGDefs() {
-  return `
+      return `
     <defs>
       <radialGradient id="bg-parenchyma" cx="50%" cy="45%" r="60%">
         <stop offset="0%" stop-color="#1e2b45" />
@@ -87,7 +87,7 @@ function renderSharedSVGDefs() {
 // Large oval, central gray butterfly, dorsal/ventral rootlets, Lissauer's tract & somatotopy
 // -------------------------------------------------------------
 function renderSpinalCordSVG(selectedStructures, feedback) {
-  return `
+      return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="spinal_cord">
     ${renderSharedSVGDefs()}
 
@@ -235,7 +235,7 @@ function renderSpinalCordSVG(selectedStructures, feedback) {
 // Big circle, central canal 1/3 from top, internal arcuate fibers, pyramidal decussation
 // -------------------------------------------------------------
 function renderCaudalMedullaSVG(selectedStructures, feedback) {
-  return `
+      return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="caudal_medulla">
     ${renderSharedSVGDefs()}
 
@@ -347,7 +347,7 @@ function renderCaudalMedullaSVG(selectedStructures, feedback) {
 // Crinkled Inferior Olives, exiting CN XII & CN IX/X rootlets, ASA vs PICA territories
 // -------------------------------------------------------------
 function renderRostralMedullaSVG(selectedStructures, feedback) {
-  return `
+      return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="rostral_medulla">
     ${renderSharedSVGDefs()}
 
@@ -547,7 +547,7 @@ function renderRostralMedullaSVG(selectedStructures, feedback) {
 // Facial colliculus + internal genu of CN VII, pontocerebellar striations, Basilar vs AICA
 // -------------------------------------------------------------
 function renderCaudalMidPonsSVG(selectedStructures, feedback) {
-  return `
+      return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="caudal_mid_pons">
     ${renderSharedSVGDefs()}
 
@@ -749,7 +749,7 @@ function renderCaudalMidPonsSVG(selectedStructures, feedback) {
 // "The Snowman!" - 2 intersecting ovals + symmetric Basilar Pons + MLF + Sensory Trio
 // -------------------------------------------------------------
 function renderRostralPonsSVG(selectedStructures, feedback) {
-  return `
+      return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="rostral_pons">
     ${renderSharedSVGDefs()}
 
@@ -862,12 +862,16 @@ function renderRostralPonsSVG(selectedStructures, feedback) {
 // "The Pig (from the rear)!" - Exiting CN III rootlets, Crus somatotopy, PCA supply
 // -------------------------------------------------------------
 function renderMidbrainSVG(selectedStructures, feedback) {
-  return `
+      return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="midbrain">
     ${renderSharedSVGDefs()}
 
-    <!-- 2 Bumps at top: Colliculi -->
-    <path d="M 280 88 C 290 54, 330 50, 350 70 C 370 50, 410 54, 420 88 Z" fill="url(#bg-parenchyma)" stroke="#475569" stroke-width="2.5" />
+    <!-- 2 Bumps at top: Colliculi / Dorsal Tectum (Interactive for Parinaud Syndrome) -->
+    <path d="M 280 88 C 290 54, 330 50, 350 70 C 370 50, 410 54, 420 88 Z"
+          class="${getStructureClass('dorsal_tectum', selectedStructures, feedback, 'tract-cn')}"
+          data-id="dorsal_tectum"
+          data-name="Dorsal Midbrain Tectum (Superior Colliculi & Pretectum)"
+          data-info="Vertical gaze center (riMLF / posterior commissure) & pupillary light reflex (Parinaud syndrome)" />
 
     <!-- Main Oval Body ("The Pig") -->
     <path d="M 210 120 
@@ -1029,7 +1033,7 @@ function renderMidbrainSVG(selectedStructures, feedback) {
 // Caudate Head, Lentiform Nucleus (Putamen/GP), V-shaped Internal Capsule, VPL, VPM, STN
 // -------------------------------------------------------------
 function renderThalamusSVG(selectedStructures, feedback) {
-  return `
+      return `
   <svg viewBox="0 0 700 500" class="neuro-cross-section" data-level="thalamus">
     ${renderSharedSVGDefs()}
 
@@ -1141,7 +1145,7 @@ function renderThalamusSVG(selectedStructures, feedback) {
 // Coronal view: Paracentral Lobule (Leg/Foot) to Lateral Postcentral Gyrus (Hand/Face)
 // -------------------------------------------------------------
 function renderCortexSVG(selectedStructures, feedback) {
-  return `
+      return `
   <svg viewBox="0 0 700 520" class="neuro-cross-section" data-level="cortex">
     ${renderSharedSVGDefs()}
     <!-- Vascular Territory Header Badges -->
@@ -1275,19 +1279,19 @@ function renderCortexSVG(selectedStructures, feedback) {
 // Supports view zoom via options.corticalView: 'all' | 'lateral' | 'medial'
 // -------------------------------------------------------------
 function renderCorticalTerritoriesSVG(selectedStructures, feedback, options = {}) {
-  const view = options.corticalView || 'all';
-  const showLateral = view === 'all' || view === 'lateral';
-  const showMedial = view === 'all' || view === 'medial';
-  const isZoomed = view !== 'all';
+      const view = options.corticalView || 'all';
+      const showLateral = view === 'all' || view === 'lateral';
+      const showMedial = view === 'all' || view === 'medial';
+      const isZoomed = view !== 'all';
 
-  const svgHeight = isZoomed ? 330 : 560;
-  const latY = 48;
-  const medY = isZoomed ? 48 : 302;
-  const cardH = isZoomed ? 270 : 240;
-  const innerScale = isZoomed ? 'translate(14, 24) scale(1.12)' : 'translate(15, 18)';
-  const innerScaleRight = isZoomed ? 'translate(22, 24) scale(1.12)' : 'translate(25, 18)';
+      const svgHeight = isZoomed ? 330 : 560;
+      const latY = 48;
+      const medY = isZoomed ? 48 : 302;
+      const cardH = isZoomed ? 270 : 240;
+      const innerScale = isZoomed ? 'translate(14, 24) scale(1.12)' : 'translate(15, 18)';
+      const innerScaleRight = isZoomed ? 'translate(22, 24) scale(1.12)' : 'translate(25, 18)';
 
-  return `
+      return `
   <svg viewBox="0 0 820 ${svgHeight}" class="neuro-cross-section cortical-territories-svg ${isZoomed ? 'cortical-zoomed' : ''}" data-level="cortex_territories">
     ${renderSharedSVGDefs()}
     <!-- Top Vascular Territory Legend -->

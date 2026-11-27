@@ -85,7 +85,7 @@ export const CLINICAL_CASES = [
     correctSide: "left",
     correctStructures: ["left_spinal_v", "left_als"],
     correctStructureNames: "Left Spinal Trigeminal Tract/Nucleus & Left Spinothalamic Tract (ALS)",
-    validLocations: [{"level": "rostral_medulla", "levelLabel": "Rostral Medulla (Lateral)", "structures": ["left_spinal_v", "left_als"], "structureNames": "Left Spinal V & Left ALS", "note": "Primary level: Lateral medullary (Wallenberg) territory with Spinal V + ALS."}, {"level": "caudal_medulla", "levelLabel": "Caudal Medulla (Lateral)", "structures": ["left_spinal_v", "left_als"], "structureNames": "Left Spinal V & Left ALS", "note": "Also valid: Spinal V and ALS are already adjacent in the lateral caudal medulla."}],
+    validLocations: [{"level": "rostral_medulla", "levelLabel": "Rostral Medulla (Lateral)", "structures": ["left_spinal_v", "left_als"], "structureNames": "Left Spinal V & Left ALS", "note": "Primary level: Lateral medullary (Wallenberg) territory with Spinal V + ALS."}, {"level": "caudal_medulla", "levelLabel": "Caudal Medulla (Lateral)", "structures": ["left_spinal_v", "left_als"], "structureNames": "Left Spinal V & Left ALS", "note": "Also valid: Spinal V and ALS are already adjacent in the lateral caudal medulla."}, {"level": "caudal_mid_pons", "levelLabel": "Caudal Pons — Left Spinal V & Left ALS", "structures": ["left_spinal_v", "left_als"], "structureNames": "Left Spinal V & Left ALS", "note": "Also anatomically valid in lateral caudal pons (Spinal V is still uncrossed alongside crossed ALS; no CN VII/VIII signs)."}],
     clinicalSyndrome: "Lateral Medullary Syndrome (Wallenberg Syndrome)",
     whyOptions: [
       "Medial lemniscus fibers carry ipsilateral facial touch and contralateral pain.",
@@ -206,6 +206,10 @@ export const CLINICAL_CASES = [
     correctSide: "bilateral",
     correctStructures: ["left_fasciculus_gracilis", "right_fasciculus_gracilis"],
     correctStructureNames: "Bilateral Fasciculus Gracilis (Dorsal Columns $\\le$ T6)",
+    validLocations: [
+      { level: "spinal_cord", levelLabel: "Spinal Cord — Bilateral Fasciculus Gracilis", structures: ["left_fasciculus_gracilis", "right_fasciculus_gracilis"], structureNames: "Bilateral Fasciculus Gracilis", note: "Classic primary localization for B12 subacute combined degeneration / dorsal column loss." },
+      { level: "caudal_medulla", levelLabel: "Caudal Medulla — Bilateral Nucleus Gracilis", structures: ["left_nucleus_gracilis", "right_nucleus_gracilis"], structureNames: "Bilateral Nucleus Gracilis", note: "Also anatomically valid: bilateral nucleus gracilis produces isolated bilateral leg vibration/proprioception loss." }
+    ],
     clinicalSyndrome: "Subacute Combined Degeneration (B12 Deficiency)",
     whyOptions: [
       "Spinocerebellar tract fibers decussate in caudal pons to mediate Romberg balance.",
@@ -235,6 +239,11 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_vpl", "right_vpm"],
     correctStructureNames: "Right Thalamus (VPL for body + VPM for face)",
+    validLocations: [
+      { level: "thalamus", levelLabel: "Right Thalamus — VPL & VPM", structures: ["right_vpl", "right_vpm"], structureNames: "Right VPL & Right VPM Nuclei", note: "Primary Exam 1 localization: thalamic relay of all contralateral face & body modalities." },
+      { level: "midbrain", levelLabel: "Right Midbrain — ML, VTT & ALS", structures: ["right_medial_lemniscus", "right_vtt", "right_als"], structureNames: "Right Medial Lemniscus, VTT & ALS", note: "Also valid in midbrain tegmentum where ML, VTT, and ALS form one contiguous contralateral sensory ribbon." },
+      { level: "rostral_pons", levelLabel: "Rostral Pons ('The Snowman') — Right ML, VTT & ALS", structures: ["right_medial_lemniscus", "right_vtt", "right_als"], structureNames: "Right Medial Lemniscus, VTT & ALS", note: "Also valid in rostral pons where the sensory trio (ALS-VTT-ML) runs together on the right." }
+    ],
     clinicalSyndrome: "Pure Sensory Stroke (Thalamic Lacunar Infarct)",
     whyOptions: [
       "Primary somatosensory cortex processes all somatic modalities without subnuclei.",
@@ -264,6 +273,12 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_medial_lemniscus"],
     correctStructureNames: "Right Medial Lemniscus (Rostral Medulla)",
+    validLocations: [
+      { level: "rostral_medulla", levelLabel: "Rostral Medulla — Right Medial Lemniscus", structures: ["right_medial_lemniscus"], structureNames: "Right Medial Lemniscus", note: "Primary Exam 1 level: isolated ML after internal arcuate decussation." },
+      { level: "caudal_mid_pons", levelLabel: "Caudal / Mid Pons — Right Medial Lemniscus", structures: ["right_medial_lemniscus"], structureNames: "Right Medial Lemniscus ('Slanting Now')", note: "Equally valid: isolated right ML in caudal/mid pons produces identical pure left body touch/vib/prop loss." },
+      { level: "rostral_pons", levelLabel: "Rostral Pons ('The Snowman') — Right Medial Lemniscus", structures: ["right_medial_lemniscus"], structureNames: "Right Medial Lemniscus", note: "Equally valid: isolated right ML at base of rostral pontine tegmentum." },
+      { level: "midbrain", levelLabel: "Midbrain ('The Pig') — Right Medial Lemniscus", structures: ["right_medial_lemniscus"], structureNames: "Right Medial Lemniscus", note: "Equally valid: isolated right ML in lateral midbrain tegmentum." }
+    ],
     clinicalSyndrome: "Medial Medullary Syndrome Variant (Selective ML Lesion)",
     whyOptions: [
       "Right medial lemniscus carries crossed left body touch; face and ALS run separate.",
@@ -324,7 +339,7 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_als", "right_vtt"],
     correctStructureNames: "Right ALS + Right Ventral Trigeminothalamic Tract (VTT)",
-    validLocations: [{"level": "rostral_pons", "levelLabel": "Rostral Pons ('The Snowman')", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Primary level: ALS and VTT are lateral neighbors in the upper oval."}, {"level": "midbrain", "levelLabel": "Midbrain ('The Pig')", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Also valid: ALS and VTT remain side-by-side at the lateral edge of the midbrain sensory ribbon."}],
+    validLocations: [{"level": "rostral_pons", "levelLabel": "Rostral Pons ('The Snowman')", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Primary level: ALS and VTT are lateral neighbors in the upper oval."}, {"level": "midbrain", "levelLabel": "Midbrain ('The Pig')", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Also valid: ALS and VTT remain side-by-side at the lateral edge of the midbrain sensory ribbon."}, {"level": "caudal_mid_pons", "levelLabel": "Caudal / Mid Pons — Right ALS & Right VTT", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Also valid in caudal pons: VTT has already crossed for facial pain/temp and sits right beside ALS (and below mid-pons spares facial touch)."}],
     clinicalSyndrome: "Rostral Brainstem Tegmental Lesion (ALS + VTT)",
     whyOptions: [
       "Primary facial pain fibers cross in medulla before entering spinal trigeminal nuc.",
@@ -402,7 +417,7 @@ export const CLINICAL_CASES = [
   {
     id: 14,
     source: "Clinical Case 14",
-    title: "Right Ptosis with Mydriasis & Contralateral Left Hemiparesis",
+    title: "Left Ptosis with Mydriasis & Contralateral Right Hemiparesis",
     category: "Midbrain",
     vignette: "A 72-year-old man presents with sudden double vision and weakness. Exam reveals:\n1. Ptosis of the left upper eyelid, a dilated non-reactive left pupil, and the left eye is deviated 'down and out' at rest.\n2. Flaccid paralysis of the right lower face and right arm and leg (contralateral hemiplegia).\n3. Babinski sign is present on the right.",
     findings: [
@@ -442,8 +457,12 @@ export const CLINICAL_CASES = [
     correctLevel: "caudal_mid_pons",
     correctLevelDetail: "Right Mid-Pons (Tegmentum)",
     correctSide: "right",
-    correctStructures: ["right_spinal_v"],
+    correctStructures: ["right_spinal_v", "right_trigeminal_motor"],
     correctStructureNames: "Right Principal (Chief) Sensory Nucleus & Motor Nucleus of V",
+    validLocations: [
+      { level: "caudal_mid_pons", levelLabel: "Right Mid-Pons — Principal V & Trigeminal Motor (Vm)", structures: ["right_spinal_v", "right_trigeminal_motor"], structureNames: "Right Principal Sensory V & Right Trigeminal Motor (Vm)", note: "Complete mid-pontine localization: Principal V (right face touch) + Vm (right jaw deviation)." },
+      { level: "caudal_mid_pons", levelLabel: "Right Mid-Pons — Trigeminal Sensory Complex (V)", structures: ["right_spinal_v"], structureNames: "Right Trigeminal Sensory Complex (Chief/Spinal V)", note: "Also accepted when selecting the trigeminal complex alone." }
+    ],
     clinicalSyndrome: "Mid-Pontine Trigeminal Syndrome",
     whyOptions: [
       "Spinal V nucleus mediates mastication while chief sensory nucleus mediates pain.",
@@ -472,6 +491,10 @@ export const CLINICAL_CASES = [
     correctSide: "bilateral",
     correctStructures: ["left_als", "right_als", "left_lateral_corticospinal", "right_lateral_corticospinal"],
     correctStructureNames: "Bilateral ALS & Bilateral Lateral Corticospinal Tracts (Dorsal Columns Spared)",
+    validLocations: [
+      { level: "spinal_cord", levelLabel: "Spinal Cord — Bilateral ALS & Lateral CST", structures: ["left_als", "right_als", "left_lateral_corticospinal", "right_lateral_corticospinal"], structureNames: "Bilateral ALS & Bilateral Lateral Corticospinal Tracts", note: "Core anterior 2/3 tracts (dorsal columns spared)." },
+      { level: "spinal_cord", levelLabel: "Spinal Cord — Anterior 2/3 (+ Bilateral Ventral Horns)", structures: ["left_als", "right_als", "left_lateral_corticospinal", "right_lateral_corticospinal", "left_ventral_horn", "right_ventral_horn"], structureNames: "Bilateral ALS, Lateral CST & Ventral Horns", note: "Also accepted: ASA supplies bilateral ventral horns as well." }
+    ],
     clinicalSyndrome: "Anterior Spinal Artery Syndrome (Beck's Syndrome)",
     whyOptions: [
       "Posterior spinal arteries supply anterior horns and lateral white cord funiculi.",
@@ -560,8 +583,12 @@ export const CLINICAL_CASES = [
     correctLevel: "caudal_mid_pons",
     correctLevelDetail: "Right Caudal/Lateral Pons",
     correctSide: "right",
-    correctStructures: ["right_spinal_v", "right_als", "right_facial_nucleus"],
-    correctStructureNames: "Right Spinal Trigeminal Complex, Right ALS, Right CN VII/VIII",
+    correctStructures: ["right_spinal_v", "right_als", "right_facial_nucleus", "right_mcp"],
+    correctStructureNames: "Right Spinal V, Right ALS, Right CN VII & Right MCP",
+    validLocations: [
+      { level: "caudal_mid_pons", levelLabel: "Right Caudal Pons — Spinal V, ALS, CN VII & MCP", structures: ["right_spinal_v", "right_als", "right_facial_nucleus", "right_mcp"], structureNames: "Right Spinal V, ALS, CN VII & MCP", note: "Complete AICA territory including MCP (explaining ipsilateral right limb ataxia)." },
+      { level: "caudal_mid_pons", levelLabel: "Right Caudal Pons — Core Trio (Spinal V, ALS & CN VII)", structures: ["right_spinal_v", "right_als", "right_facial_nucleus"], structureNames: "Right Spinal V, Right ALS & Right CN VII", note: "Also accepted for the core lateral caudal pontine trio." }
+    ],
     clinicalSyndrome: "Lateral Pontine Syndrome (AICA Infarct)",
     whyOptions: [
       "PICA supplies the lateral caudal pons and cochlear nuclei causing ear deafness.",
@@ -621,6 +648,10 @@ export const CLINICAL_CASES = [
     correctSide: "bilateral",
     correctStructures: ["ventral_white_commissure", "left_ventral_horn", "right_ventral_horn"],
     correctStructureNames: "Central Cervical Cord: Ventral White Commissure, Medial Corticospinal & Ventral Horns",
+    validLocations: [
+      { level: "spinal_cord", levelLabel: "Cervical Cord — Ventral White Commissure & Ventral Horns", structures: ["ventral_white_commissure", "left_ventral_horn", "right_ventral_horn"], structureNames: "Ventral White Commissure & Bilateral Ventral Horns", note: "Core central gray & crossing pain fibers." },
+      { level: "spinal_cord", levelLabel: "Cervical Cord — Central Cord (+ Medial Lateral CST)", structures: ["ventral_white_commissure", "left_ventral_horn", "right_ventral_horn", "left_lateral_corticospinal", "right_lateral_corticospinal"], structureNames: "Ventral White Commissure, Ventral Horns & Lateral CST", note: "Also accepted when including the medial cervical fibers of both lateral corticospinal tracts." }
+    ],
     clinicalSyndrome: "Central Cord Syndrome",
     whyOptions: [
       "Central cord edema damages crossing pain fibers and medial arm motor pathways.",
@@ -680,6 +711,12 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_crus_cerebri", "right_red_nucleus", "right_medial_lemniscus", "right_oculomotor_nucleus"],
     correctStructureNames: "Right Crus Cerebri, Red Nucleus, Medial Lemniscus, & CN III",
+    validLocations: [
+      { level: "midbrain", levelLabel: "Right Midbrain — Crus, Red Nucleus, ML & CN III", structures: ["right_crus_cerebri", "right_red_nucleus", "right_medial_lemniscus", "right_oculomotor_nucleus"], structureNames: "Right Crus Cerebri, Red Nucleus, ML & CN III", note: "Classic 4-structure Benedikt localization." },
+      { level: "midbrain", levelLabel: "Right Midbrain — Crus, SCP, ML & CN III", structures: ["right_crus_cerebri", "right_scp", "right_medial_lemniscus", "right_oculomotor_nucleus"], structureNames: "Right Crus Cerebri, SCP, ML & CN III", note: "Also valid using post-decussation SCP fibers for contralateral tremor/ataxia." },
+      { level: "midbrain", levelLabel: "Right Midbrain — Crus, Red Nuc, SCP, ML & CN III", structures: ["right_crus_cerebri", "right_red_nucleus", "right_scp", "right_medial_lemniscus", "right_oculomotor_nucleus"], structureNames: "Right Crus Cerebri, Red Nucleus, SCP, ML & CN III", note: "Also valid when selecting both Red Nucleus and SCP." },
+      { level: "midbrain", levelLabel: "Right Midbrain — Crus, Red Nuc, Substantia Nigra, ML & CN III", structures: ["right_crus_cerebri", "right_red_nucleus", "right_substantia_nigra", "right_medial_lemniscus", "right_oculomotor_nucleus"], structureNames: "Right Crus Cerebri, Red Nucleus, Substantia Nigra, ML & CN III", note: "Also valid when including Substantia Nigra for choreoathetosis and resting tremor." }
+    ],
     clinicalSyndrome: "Benedikt Syndrome (Paramedian Midbrain Syndrome)",
     whyOptions: [
       "AICA stroke damages oculomotor nucleus in medulla causing ptosis and hemiparesis.",
@@ -707,7 +744,7 @@ export const CLINICAL_CASES = [
     correctLevel: "midbrain",
     correctLevelDetail: "Dorsal Midbrain (Pretectal Area & Superior Colliculi)",
     correctSide: "midline",
-    correctStructures: ["left_als"], // representing dorsal tectum
+    correctStructures: ["dorsal_tectum"],
     correctStructureNames: "Dorsal Midbrain Tectum / Pretectal Area & Posterior Commissure",
     clinicalSyndrome: "Parinaud Syndrome (Dorsal Midbrain / Pretectal Syndrome)",
     whyOptions: [
@@ -767,6 +804,11 @@ export const CLINICAL_CASES = [
     correctSide: "left",
     correctStructures: ["left_internal_capsule_posterior_limb"],
     correctStructureNames: "Left Posterior Limb of Internal Capsule (Corticospinal Tract)",
+    validLocations: [
+      { level: "thalamus", levelLabel: "Left Internal Capsule — Posterior Limb", structures: ["left_internal_capsule_posterior_limb"], structureNames: "Left Posterior Limb of Internal Capsule", note: "Classic primary lacunar site (lenticulostriate arteries)." },
+      { level: "caudal_mid_pons", levelLabel: "Left Basilar Pons (Caudal/Mid Pons)", structures: ["left_basilar_pons"], structureNames: "Left Basilar Pons (CST/CBT)", note: "Also valid: a pure motor lacunar infarct in the ventral basis pontis produces identical proportional contralateral hemiparesis." },
+      { level: "rostral_pons", levelLabel: "Left Basilar Pons (Rostral Pons)", structures: ["left_basilar_pons"], structureNames: "Left Basilar Pons (CST/CBT)", note: "Also valid on the Rostral Pons diagram." }
+    ],
     clinicalSyndrome: "Pure Motor Hemiparesis (Lacunar Stroke)",
     whyOptions: [
       "Thalamic VPL nucleus is infarcted, interrupting ascending sensory-motor loops.",
@@ -887,6 +929,10 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_nucleus_cuneatus"],
     correctStructureNames: "Right Nucleus Cuneatus (Caudal Medulla)",
+    validLocations: [
+      { level: "caudal_medulla", levelLabel: "Caudal Medulla — Right Nucleus Cuneatus", structures: ["right_nucleus_cuneatus"], structureNames: "Right Nucleus Cuneatus", note: "Primary Exam 1 localization: upper extremity dorsal column relay." },
+      { level: "spinal_cord", levelLabel: "Cervical Spinal Cord — Right Fasciculus Cuneatus", structures: ["right_fasciculus_cuneatus"], structureNames: "Right Fasciculus Cuneatus", note: "Equally valid above T6: isolated right fasciculus cuneatus impairs right arm/hand touch & proprioception while sparing the legs." }
+    ],
     clinicalSyndrome: "Isolated Nucleus Cuneatus Infarction",
     whyOptions: [
       "Medial lemniscus fibers decussate in thoracic cord causing isolated arm ataxia.",
@@ -916,7 +962,7 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_als", "right_vtt"],
     correctStructureNames: "Right Spinothalamic Tract (ALS) & Right VTT",
-    validLocations: [{"level": "rostral_pons", "levelLabel": "Rostral Pons \u2014 Right ALS & VTT", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Primary level: lateral tegmentum of rostral pons."}, {"level": "midbrain", "levelLabel": "Midbrain \u2014 Right ALS & VTT", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Also valid: ALS and VTT remain adjacent in the lateral midbrain tegmentum."}],
+    validLocations: [{"level": "rostral_pons", "levelLabel": "Rostral Pons \u2014 Right ALS & VTT", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Primary level: lateral tegmentum of rostral pons."}, {"level": "midbrain", "levelLabel": "Midbrain \u2014 Right ALS & VTT", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Also valid: ALS and VTT remain adjacent in the lateral midbrain tegmentum."}, {"level": "caudal_mid_pons", "levelLabel": "Caudal / Mid Pons — Right ALS & Right VTT", "structures": ["right_als", "right_vtt"], "structureNames": "Right ALS & Right VTT", "note": "Also valid in caudal pons where crossed VTT (facial pain/temp) runs adjacent to crossed ALS (body pain/temp)."}],
     clinicalSyndrome: "Rostral Pontine Tegmental Infarct (Snowman Level)",
     whyOptions: [
       "Medial lemniscus merges with anterolateral system in rostral pons to carry pain.",
@@ -946,6 +992,11 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_medial_lemniscus", "right_vtt", "right_als"],
     correctStructureNames: "Right Sensory Crescent (Medial Lemniscus, VTT, and ALS)",
+    validLocations: [
+      { level: "midbrain", levelLabel: "Right Midbrain — ML, VTT & ALS", structures: ["right_medial_lemniscus", "right_vtt", "right_als"], structureNames: "Right Medial Lemniscus, VTT & ALS", note: "Primary localization: lateral midbrain tegmentum sensory ribbon." },
+      { level: "rostral_pons", levelLabel: "Rostral Pons ('The Snowman') — Right ML, VTT & ALS", structures: ["right_medial_lemniscus", "right_vtt", "right_als"], structureNames: "Right Medial Lemniscus, VTT & ALS", note: "Equally valid in rostral pons where ML, VTT, and ALS form the exact same contiguous sensory trio." },
+      { level: "thalamus", levelLabel: "Right Thalamus — VPL & VPM", structures: ["right_vpl", "right_vpm"], structureNames: "Right VPL & Right VPM Nuclei", note: "Also clinically equivalent: pure hemisensory thalamic lesion knocking out all left face & body modalities." }
+    ],
     clinicalSyndrome: "Lateral Midbrain Tegmental Syndrome",
     whyOptions: [
       "Crus cerebri carries all somatosensory fibers from contralateral body and face.",
@@ -1062,6 +1113,11 @@ export const CLINICAL_CASES = [
     correctSide: "right",
     correctStructures: ["right_spinal_v"],
     correctStructureNames: "Right Spinal Trigeminal Tract & Nucleus (V1 Subnucleus)",
+    validLocations: [
+      { level: "caudal_medulla", levelLabel: "Caudal Medulla — Right Spinal V", structures: ["right_spinal_v"], structureNames: "Right Spinal Trigeminal Tract & Nucleus (V1)", note: "Primary localization: ventral-most V1 fibers in spinal V." },
+      { level: "rostral_medulla", levelLabel: "Rostral Medulla — Right Spinal V", structures: ["right_spinal_v"], structureNames: "Right Spinal Trigeminal Tract & Nucleus", note: "Also valid: descending V1 afferents traverse spinal V throughout the rostral medulla." },
+      { level: "caudal_mid_pons", levelLabel: "Caudal / Mid Pons — Right Trigeminal Sensory Complex (V)", structures: ["right_spinal_v"], structureNames: "Right Principal / Spinal V Complex", note: "Also valid: V1 afferents enter mid-pons (explaining both touch & corneal reflex loss)." }
+    ],
     clinicalSyndrome: "Herpes Zoster Ophthalmicus / Post-Herpetic Neuralgia",
     whyOptions: [
       "Spinal V nucleus provides motor innervation to orbicularis oculi via facial nerve.",
@@ -1077,7 +1133,7 @@ export const CLINICAL_CASES = [
   {
     id: 37,
     source: "Clinical Case 37",
-    title: "Right Hemiplegia, Right Hemianesthesia, and Right Homonymous Hemianopia",
+    title: "Left Hemiplegia, Left Hemianesthesia, and Left Homonymous Hemianopia",
     category: "Thalamus",
     vignette: "A 58-year-old woman presents with stroke. Exam shows:\n1. Dense hemiplegia of the left face, left arm, and left leg (0/5 power throughout).\n2. Complete loss of all sensory modalities (touch, vibration, pain, temperature) over the entire left face and body.\n3. Left homonymous hemianopia on visual field testing.\n4. Normal speech, cognitive function, and comprehension.",
     findings: [
@@ -1121,6 +1177,10 @@ export const CLINICAL_CASES = [
     correctSide: "bilateral",
     correctStructures: ["left_fasciculus_gracilis", "right_fasciculus_gracilis"],
     correctStructureNames: "Bilateral Fasciculus Gracilis (Thoracic Cord T8)",
+    validLocations: [
+      { level: "spinal_cord", levelLabel: "Spinal Cord — Bilateral Fasciculus Gracilis", structures: ["left_fasciculus_gracilis", "right_fasciculus_gracilis"], structureNames: "Bilateral Fasciculus Gracilis", note: "Primary spinal dorsal column localization." },
+      { level: "caudal_medulla", levelLabel: "Caudal Medulla — Bilateral Nucleus Gracilis", structures: ["left_nucleus_gracilis", "right_nucleus_gracilis"], structureNames: "Bilateral Nucleus Gracilis", note: "Also anatomically valid for isolated bilateral leg vibration/proprioception loss." }
+    ],
     clinicalSyndrome: "Posterior Cord Syndrome",
     whyOptions: [
       "Spinocerebellar tract fibers decussate in posterior columns causing sensory ataxia.",

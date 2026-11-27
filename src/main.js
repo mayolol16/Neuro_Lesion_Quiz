@@ -3,10 +3,12 @@ import { STROKE_CASES, STROKE_ARTERIES, STROKE_QUICK_REFERENCE } from './strokeC
 import { DIAGRAM_LEVELS, renderDiagramSVG } from './diagrams.js';
 import { DR_COHAN_SLIDES } from './atlas.js';
 
+const BRAINSTEM_STROKE_CASES = STROKE_CASES.filter(c => c.source.includes('Brainstem Stroke'));
+
 // Application State
 const state = {
-  activeMode: 'lesion',      // 'lesion' (Exam 1: 40 cases) | 'stroke' (Exam 3: 29 cases)
-  cases: [...CLINICAL_CASES],
+  activeMode: 'lesion',      // 'lesion' (53 cases) | 'stroke' (Exam 3: 29 cases)
+  cases: [...CLINICAL_CASES, ...BRAINSTEM_STROKE_CASES],
   strokeCases: [...STROKE_CASES],
   currentCaseIndex: 0,
   activeFilter: 'all',
@@ -77,6 +79,9 @@ function getFilteredCases() {
   if (state.activeFilter === 'part4') {
     return state.cases.filter(c => c.id >= 27 && c.id <= 40);
   }
+  if (state.activeFilter === 'brainstem_strokes') {
+    return state.cases.filter(c => c.source.includes('Brainstem Stroke'));
+  }
   return state.cases;
 }
 
@@ -136,8 +141,8 @@ function renderApp() {
         <div class="brand-text">
           <h1>Neuroanatomy Lesion Studio</h1>
           <p>${isStrokeMode
-            ? 'Stroke Localization Mode • 29 Cortical, Subcortical & Brainstem Stroke Cases'
-            : '40 Clinical Cases • Interactive 3-Step Guided Lesion Localization'}</p>
+            ? `Stroke Localization Mode • ${state.strokeCases.length} Cortical, Subcortical & Brainstem Stroke Cases`
+            : `${state.cases.length} Clinical Cases • Interactive 3-Step Guided Lesion Localization`}</p>
         </div>
       </div>
 
@@ -145,11 +150,11 @@ function renderApp() {
       <div class="mode-switcher" role="tablist" aria-label="Study Mode">
         <button class="mode-btn ${!isStrokeMode ? 'active' : ''}" data-mode="lesion">
           <span>🧠 Lesion Quiz</span>
-          <span class="mode-count">40</span>
+          <span class="mode-count">${state.cases.length}</span>
         </button>
         <button class="mode-btn stroke-mode-btn ${isStrokeMode ? 'active' : ''}" data-mode="stroke">
           <span>🩸 Stroke Localization</span>
-          <span class="mode-count">29</span>
+          <span class="mode-count">${state.strokeCases.length}</span>
         </button>
       </div>
 
@@ -201,11 +206,12 @@ function renderApp() {
               <button class="filter-pill ${state.activeFilter === 'exam3_official' ? 'active' : ''}" data-filter="exam3_official">Exam 3 Official (16)</button>
               <button class="filter-pill ${state.activeFilter === 'brainstem_freedman' ? 'active' : ''}" data-filter="brainstem_freedman">Brainstem &amp; Lacunar (13)</button>
             ` : `
-              <button class="filter-pill ${state.activeFilter === 'all' ? 'active' : ''}" data-filter="all">All 40 Cases</button>
-              <button class="filter-pill ${state.activeFilter === 'exam1' ? 'active' : ''}" data-filter="exam1">Exam 1 (Cases 1-6)</button>
-              <button class="filter-pill ${state.activeFilter === 'exam1_cont' ? 'active' : ''}" data-filter="exam1_cont">Exam 1 Cont. (7-12)</button>
-              <button class="filter-pill ${state.activeFilter === 'part3' ? 'active' : ''}" data-filter="part3">Practice (13-26)</button>
-              <button class="filter-pill ${state.activeFilter === 'part4' ? 'active' : ''}" data-filter="part4">Mastery (27-40)</button>
+              <button class="filter-pill ${state.activeFilter === 'all' ? 'active' : ''}" data-filter="all">All ${state.cases.length} Cases</button>
+              <button class="filter-pill ${state.activeFilter === 'exam1' ? 'active' : ''}" data-filter="exam1">Exam 1 (1–6)</button>
+              <button class="filter-pill ${state.activeFilter === 'exam1_cont' ? 'active' : ''}" data-filter="exam1_cont">Exam 1 Cont. (7–12)</button>
+              <button class="filter-pill ${state.activeFilter === 'part3' ? 'active' : ''}" data-filter="part3">Practice (13–26)</button>
+              <button class="filter-pill ${state.activeFilter === 'part4' ? 'active' : ''}" data-filter="part4">Mastery (27–40)</button>
+              <button class="filter-pill ${state.activeFilter === 'brainstem_strokes' ? 'active' : ''}" data-filter="brainstem_strokes">Brainstem Strokes (13)</button>
             `}
           </div>
 
@@ -215,11 +221,16 @@ function renderApp() {
               <span>◀ Prev</span>
             </button>
             <select id="case-select-dropdown" class="case-select-dropdown">
-              ${filtered.map((c, i) => `
+              ${filtered.map((c, i) => {
+                const casePrefix = isStrokeMode
+                  ? `Stroke #${i + 1}`
+                  : (c.source.includes('Brainstem Stroke') ? c.source.replace('Brainstem Stroke - ', 'BS ') : `Case ${c.id}`);
+                return `
                 <option value="${i}" ${i === state.currentCaseIndex ? 'selected' : ''}>
-                  ${state.solvedCases.has(c.id) ? '✓ ' : ''}${isStrokeMode ? `Stroke #${i + 1}` : `Case ${c.id}`}: ${c.title}
+                  ${state.solvedCases.has(c.id) ? '✓ ' : ''}${casePrefix}: ${c.title}
                 </option>
-              `).join('')}
+              `;
+              }).join('')}
             </select>
             <button id="btn-next-case-nav" class="btn-icon" title="Next Case (→ arrow)" ${state.currentCaseIndex === filtered.length - 1 ? 'disabled style="opacity:0.4"' : ''}>
               <span>Next ▶</span>
